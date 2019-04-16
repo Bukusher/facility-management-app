@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button id="BTsignup" defaultButton="true" layoutX="100.0" layoutY="208.0" mnemonicParsing="false" text="Sign up" />
+      <Label layoutX="100.0" layoutY="106.0" text="Confirm your password" />
+      <Label layoutX="100.0" layoutY="158.0" text="Pin code from your confirmation mail" />
+      <Button id="BThelp" layoutX="24.0" layoutY="14.0" mnemonicParsing="false" text="Help" />
+      <PasswordField id="TFconfirmpassword" layoutX="100.0" layoutY="123.0" prefHeight="25.0" prefWidth="218.0" />
+      <TextField id="TFpin" layoutX="100.0" layoutY="175.0" prefHeight="25.0" prefWidth="218.0" />
+      <Button id="BTback" layoutX="74.0" layoutY="14.0" mnemonicParsing="false" text="Back" />
+   </children>
+</Pane>
