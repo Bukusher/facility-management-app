@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button id="BThelp" fx:id="BThelp" layoutX="34.0" layoutY="24.0" mnemonicParsing="false" text="Help" />
+      <Button id="BTback" fx:id="BTdashboard" layoutX="83.0" layoutY="24.0" mnemonicParsing="false" text="Back to Dashboard" />
+      <Button id="BTlogout" fx:id="BTlogout" layoutX="519.0" layoutY="16.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="54.0" text="Logout" />
+      <Label fx:id="labelHistory" layoutX="56.0" layoutY="73.0" prefHeight="283.0" prefWidth="483.0" style="-fx-background-color: grey;" />
+   </children>
+</AnchorPane>
