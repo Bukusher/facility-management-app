@@ -32,6 +32,8 @@ public class Login {
     TextField TFpin;
 
     Alert alert = new Alert(Alert.AlertType.ERROR);
+    SecureRandom rand = new SecureRandom();
+
 
 
     public void createAccount(ActionEvent event) throws IOException {
@@ -41,19 +43,27 @@ public class Login {
         String password1 = TFpasswordSignUp.getText();
         String password2 = TFpasswordconfirm.getText();
         String pinConfirm = TFpin.getText();
-        String pin = "123abc";
-        if (pin.equals(pinConfirm)) {
+        int pin = rand.nextInt(999999);
+        String pinString = String.format("%06d", pin);
+        if (pinString.equals(pinConfirm)) {
             if (password1.equals(password2)) {
                 new Employee(name, surname, mail, password1);
+                Parent homePageParent = FXMLLoader.load(getClass().getResource("Scene1Login.fxml"));
+                Scene homePageScene = new Scene(homePageParent);
+                Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                appStage.setScene(homePageScene);
+                appStage.show();
             } else {
                 alert.setTitle("Error");
                 alert.setHeaderText("Passwords does not match!");
                 alert.setContentText("Please retype your password.");
+                alert.showAndWait();
             }
         } else {
             alert.setTitle("Error");
             alert.setHeaderText("Pin does not match!");
-            alert.setContentText("Please retype the ping you received or press send pin for a new pin.");
+            alert.setContentText("Please retype the pin you received or press 'send pin' for a new pin.");
+            alert.showAndWait();
         }
 
     }
