@@ -1,23 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ef3c6ce0-c36f-483b-8dad-981161dbcbed" name="Default Changelist" comment="Added basic DB connector">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="ef3c6ce0-c36f-483b-8dad-981161dbcbed" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java_8_0_15.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/facility-management-app/sample/Controller.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/facility-management-app/sample/Scene1Login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/facility-management-app/sample/Scene1Login.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/facility-management-app/sample/Scene2Dashboard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/facility-management-app/sample/Scene2Dashboard.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/facility-management-app/sample/Scene3,1editroom.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/facility-management-app/sample/Scene3,1editroom.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/facility-management-app/sample/Scene3,2addroom.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/facility-management-app/sample/Scene3,2addroom.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/facility-management-app/sample/Scene3,3deleteroom.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/facility-management-app/sample/Scene3,3deleteroom.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/facility-management-app/sample/Scene3roomdashboard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/facility-management-app/sample/Scene3roomdashboard.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/facility-management-app/sample/Scene4settings.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/facility-management-app/sample/Scene4settings.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/facility-management-app/sample/Scene5UserAdmin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/facility-management-app/sample/Scene5UserAdmin.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/facility-management-app/sample/Scene6BookRoom.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/facility-management-app/sample/Scene6BookRoom.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/facility-management-app/sample/Scene7BookingHistory.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/facility-management-app/sample/Scene7BookingHistory.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/facility-management-app/sample/Scene8AdminSearch.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/facility-management-app/sample/Scene8AdminSearch.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/facility-management-app/sample/Scene9Logs.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/facility-management-app/sample/Scene9Logs.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/ChangeScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/ChangeScene.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -71,7 +57,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/sample/ChangeScene.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1173">
+            <state relative-caret-position="1530">
               <caret line="98" column="93" selection-start-line="98" selection-start-column="93" selection-end-line="98" selection-end-column="93" />
             </state>
           </provider>
@@ -266,7 +252,14 @@
       <option name="project" value="LOCAL" />
       <updated>1556140562184</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Fixed some scene transitions">
+      <created>1557222616504</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1557222616504</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -274,7 +267,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49945828" visible="true" weight="0.2602118" />
       <window_info id="Structure" order="1" sideWeight="0.5005417" side_tool="true" weight="0.25266525" />
@@ -286,13 +278,13 @@
       <window_info id="Favorites" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3282313" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3282313" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.32993197" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Terminal" order="10" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" weight="0.32936078" />
@@ -313,7 +305,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added basic DB connector" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added basic DB connector" />
+    <MESSAGE value="Fixed some scene transitions" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed some scene transitions" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/.idea/misc.xml">
@@ -415,7 +408,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/ChangeScene.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1173">
+        <state relative-caret-position="1530">
           <caret line="98" column="93" selection-start-line="98" selection-start-column="93" selection-end-line="98" selection-end-column="93" />
         </state>
       </provider>
