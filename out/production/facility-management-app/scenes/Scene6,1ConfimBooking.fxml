@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Scene61ConfimBooking">
+   <children>
+      <Button id="BThelp" fx:id="BThelp" layoutX="54.0" layoutY="44.0" mnemonicParsing="false" text="Help" />
+      <Text layoutX="234.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Do you wish to book this room?" />
+      <Button fx:id="BTyes" layoutX="225.0" layoutY="220.0" mnemonicParsing="false" text="Yes" />
+      <Button fx:id="BTcancel" layoutX="363.0" layoutY="220.0" mnemonicParsing="false" text="Cancel" />
+   </children>
+</AnchorPane>
