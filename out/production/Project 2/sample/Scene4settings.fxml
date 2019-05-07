@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ChangeScene">
+   <children>
+      <Button id="BThelp" layoutX="24.0" layoutY="14.0" mnemonicParsing="false" text="Help" />
+      <Button id="BTback" layoutX="73.0" layoutY="14.0" mnemonicParsing="false" onAction="#login" text="Back to Dashboard" />
+      <Button id="BTlogout" layoutX="509.0" layoutY="6.0" mnemonicParsing="false" onAction="#logout" prefHeight="42.0" prefWidth="54.0" text="Logout" />
+      <Label layoutX="24.0" layoutY="74.0" text="Change your mail adress" />
+      <Label layoutX="24.0" layoutY="149.0" text="Change your password" />
+      <Label layoutX="24.0" layoutY="235.0" text="Dark Theme" />
+      <Slider id="SLIDERdarktheme" layoutX="23.0" layoutY="261.0" max="1.0" prefHeight="14.0" prefWidth="30.0" />
+      <TextField id="TFchangemail" layoutX="23.0" layoutY="99.0" />
+      <PasswordField id="TFchangepassword" layoutX="24.0" layoutY="175.0" />
+      <Button id="BTchangemail" layoutX="189.0" layoutY="99.0" mnemonicParsing="false" text="Change Mail" />
+      <Button id="BTchangepassword" layoutX="189.0" layoutY="175.0" mnemonicParsing="false" text="Change password" />
+      <Button id="BTdeleteaccount" layoutX="460.0" layoutY="361.0" mnemonicParsing="false" text="Delete Account" />
+   </children>
+</Pane>
