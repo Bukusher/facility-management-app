@@ -1,59 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c2e95d09-1f07-4832-b6c4-bfb11240d778" name="Default Changelist" comment="refactored scenes into another package">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/facility-management-app/sample/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/facility-management-app/sample/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/facility-management-app/sample/Scene1,1Signuppopup.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/facility-management-app/sample/Scene1,2forgotpasswordpopup.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/facility-management-app/sample/Scene1Login.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/facility-management-app/sample/Scene2Dashboard.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/facility-management-app/sample/Scene3,1editroom.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/facility-management-app/sample/Scene3,2addroom.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/facility-management-app/sample/Scene3,3,1deleteroomconfirmpopup.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/facility-management-app/sample/Scene3,3deleteroom.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/facility-management-app/sample/Scene3roomdashboard.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/facility-management-app/sample/Scene4,1passowrdpopup.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/facility-management-app/sample/Scene4,2mailpopup.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/facility-management-app/sample/Scene4,3deleteaccountpopup.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/facility-management-app/sample/Scene4settings.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/facility-management-app/sample/Scene5,1ConfirmDelete.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/facility-management-app/sample/Scene5UserAdmin.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/facility-management-app/sample/Scene6,1ConfimBooking.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/facility-management-app/sample/Scene6BookRoom.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/facility-management-app/sample/Scene7,1ConfirmDelete.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/facility-management-app/sample/Scene7BookingHistory.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/facility-management-app/sample/Scene8,1ConfirmDelete.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/facility-management-app/sample/Scene8AdminSearch.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/facility-management-app/sample/Scene9Logs.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/facility-management-app/sample/sample.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/ChangeScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/scenes/ChangeScene.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/DB_Connector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/DB_Connector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Scene1,1Signuppopup.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/scenes/Scene1,1Signuppopup.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Scene1,2forgotpasswordpopup.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/scenes/Scene1,2forgotpasswordpopup.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Scene1Login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/scenes/Scene1Login.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Scene2Dashboard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/scenes/Scene2Dashboard.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Scene3,1editroom.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/scenes/Scene3,1editroom.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Scene3,2addroom.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/scenes/Scene3,2addroom.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Scene3,3,1deleteroomconfirmpopup.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/scenes/Scene3,3,1deleteroomconfirmpopup.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Scene3,3deleteroom.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/scenes/Scene3,3deleteroom.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Scene3roomdashboard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/scenes/Scene3roomdashboard.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Scene4,1passowrdpopup.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/scenes/Scene4,1passowrdpopup.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Scene4,2mailpopup.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/scenes/Scene4,2mailpopup.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Scene4,3deleteaccountpopup.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/scenes/Scene4,3deleteaccountpopup.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Scene4settings.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/scenes/Scene4settings.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Scene5,1ConfirmDelete.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/scenes/Scene5,1ConfirmDelete.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Scene5UserAdmin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/scenes/Scene5UserAdmin.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Scene6,1ConfimBooking.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/scenes/Scene6,1ConfimBooking.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Scene6BookRoom.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/scenes/Scene6BookRoom.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Scene7,1ConfirmDelete.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/scenes/Scene7,1ConfirmDelete.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Scene7BookingHistory.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/scenes/Scene7BookingHistory.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Scene8,1ConfirmDelete.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/scenes/Scene8,1ConfirmDelete.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Scene8AdminSearch.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/scenes/Scene8AdminSearch.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Scene9Logs.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/scenes/Scene9Logs.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/sample.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/scenes/sample.fxml" afterDir="false" />
-    </list>
+    <list default="true" id="c2e95d09-1f07-4832-b6c4-bfb11240d778" name="Default Changelist" comment="refactored scenes into another package" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -65,74 +13,13 @@
     <option name="isMigrated" value="true" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="21" column="31" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="31" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/sample/Account.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="28" column="5" lean-forward="true" selection-start-line="28" selection-start-column="5" selection-end-line="28" selection-end-column="5" />
-              <folding>
-                <element signature="e#923#924#0" expanded="true" />
-                <element signature="e#957#958#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/sample/Employee.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" column="68" lean-forward="true" selection-start-line="6" selection-start-column="68" selection-end-line="6" selection-end-column="68" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/scenes/sample.fxml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="42" selection-start-line="5" selection-start-column="32" selection-end-line="5" selection-end-column="42" />
-            </state>
-          </provider>
-          <provider editor-type-id="JavaFX-Scene-Builder" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/scenes/Scene3,1editroom.fxml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="111">
-              <caret line="15" column="89" selection-start-line="15" selection-start-column="89" selection-end-line="15" selection-end-column="89" />
-            </state>
-          </provider>
-          <provider editor-type-id="JavaFX-Scene-Builder" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/sample/DB_Connector.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="db-testing" />
       </map>
     </option>
   </component>
@@ -178,6 +65,12 @@
             <path>
               <item name="facility-management-app" type="b2602c69:ProjectViewProjectNode" />
               <item name="facility-management-app" type="462c0819:PsiDirectoryNode" />
+              <item name=".idea" type="462c0819:PsiDirectoryNode" />
+              <item name="libraries" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="facility-management-app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="facility-management-app" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -185,12 +78,6 @@
               <item name="facility-management-app" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="sample" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="facility-management-app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="facility-management-app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="scenes" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -205,14 +92,14 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1556184220615" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Libraries/mysql-connector-java-8.0.16/mysql-connector-java-8.0.16.jar!/" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/mysql-connector-java-8.0.16.jar!/" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Libraries" />
-    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
@@ -263,6 +150,8 @@
       <list>
         <item itemvalue="Application.Main (1)" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.Main (1)" />
+        <item itemvalue="Application.Main" />
         <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
@@ -287,17 +176,23 @@
       <option name="project" value="LOCAL" />
       <updated>1556798208204</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Initial commit">
+      <created>1557226778758</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1557226778758</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8733000" />
+    <option name="totallyTimeSpent" value="8749000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-4" y="0" width="1374" height="736" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49945828" visible="true" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49945828" visible="true" weight="0.25" />
       <window_info id="Structure" order="1" sideWeight="0.5005417" side_tool="true" weight="0.25266525" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -335,7 +230,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added basic DB connector" />
     <MESSAGE value="refactored scenes into another package" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactored scenes into another package" />
+    <MESSAGE value="Initial commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Initial commit" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/.idea/misc.xml">
@@ -355,13 +251,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" column="22" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/Employee.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="68" selection-start-line="6" selection-start-column="68" selection-end-line="6" selection-end-column="68" />
         </state>
       </provider>
     </entry>
@@ -498,12 +387,10 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>facility-management-app</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
                 <option value="0.2" />
-                <option value="0.6" />
               </list>
             </option>
           </splitter-proportions>

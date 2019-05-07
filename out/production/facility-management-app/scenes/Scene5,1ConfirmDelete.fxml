@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Scene51ConfirmDelete">
+   <children>
+      <Label layoutX="205.0" layoutY="119.0" text="Please type in the user email again&#10;and press confirm" textAlignment="CENTER" />
+      <TextField id="TFconfirmdeleteroom" layoutX="226.0" layoutY="180.0" />
+      <Button id="BTconfirmdeleteroom" layoutX="246.0" layoutY="239.0" mnemonicParsing="false" text="Delete forever&#10;(a very long time)" textAlignment="CENTER" />
+   </children>
+</AnchorPane>
