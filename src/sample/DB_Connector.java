@@ -10,14 +10,35 @@ public class DB_Connector {
     Statement statement;
     ResultSet resultSet;
 
-    public void connect() {
+    void connect() {
         try {
             connection = DriverManager.getConnection(url);
-        }catch (SQLException ex) {
+        } catch (SQLException ex) {
             System.err.print("Connection could not be established");
         }
 
     }
+
+    public void update(String table, String column, String value) {
+        try {
+            statement = connection.createStatement();
+            statement.executeUpdate("'UPDATE " + table + " SET " + column + " = " + value + "'");
+
+        } catch (SQLException ex) {
+            System.err.print("Update failed");
+        }
+    }
+
+    public void updateWhere(String table, String column, String value, String condition) {
+        try {
+            statement = connection.createStatement();
+            statement.executeUpdate("'UPDATE " + table + " SET " + column + " = " + value + " WHERE " + condition + "'");
+
+        } catch (SQLException ex) {
+            System.err.print("Update failed");
+        }
+    }
+
 
 }
 
