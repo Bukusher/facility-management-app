@@ -6,11 +6,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ChangeScene">
    <children>
       <Button id="BThelp" fx:id="BThelp" layoutX="34.0" layoutY="24.0" mnemonicParsing="false" text="Help" />
-      <Button id="BTback" fx:id="BTdashboard" layoutX="83.0" layoutY="24.0" mnemonicParsing="false" text="Back to Dashboard" />
-      <Button id="BTlogout" fx:id="BTlogout" layoutX="519.0" layoutY="16.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="54.0" text="Logout" />
+      <Button id="BTback" fx:id="BTdashboard" layoutX="83.0" layoutY="24.0" mnemonicParsing="false" onAction="#login" text="Back to Dashboard" />
+      <Button id="BTlogout" fx:id="BTlogout" layoutX="519.0" layoutY="16.0" mnemonicParsing="false" onAction="#logout" prefHeight="42.0" prefWidth="54.0" text="Logout" />
       <Text layoutX="32.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search by name:" />
       <TextField fx:id="TFname" layoutX="126.0" layoutY="82.0" prefHeight="25.0" prefWidth="104.0" />
       <Button fx:id="BTsearchName" layoutX="233.0" layoutY="82.0" mnemonicParsing="false" text="Search" />
