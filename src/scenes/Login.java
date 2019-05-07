@@ -6,11 +6,57 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import sample.Employee;
+
+import java.security.SecureRandom;
 
 import java.io.IOException;
 
 public class Login {
+
+    @FXML
+    TextField TFname;
+    @FXML
+    TextField TFsurname;
+    @FXML
+    TextField TFmailSighUp;
+    @FXML
+    PasswordField TFpasswordSignUp;
+    @FXML
+    PasswordField TFpasswordconfirm;
+    @FXML
+    TextField TFpin;
+
+    Alert alert = new Alert(Alert.AlertType.ERROR);
+
+
+    public void createAccount(ActionEvent event) throws IOException {
+        String name = TFname.getText();
+        String surname = TFsurname.getText();
+        String mail = TFmailSighUp.getText();
+        String password1 = TFpasswordSignUp.getText();
+        String password2 = TFpasswordconfirm.getText();
+        String pinConfirm = TFpin.getText();
+        String pin = "123abc";
+        if (pin.equals(pinConfirm)) {
+            if (password1.equals(password2)) {
+                new Employee(name, surname, mail, password1);
+            } else {
+                alert.setTitle("Error");
+                alert.setHeaderText("Passwords does not match!");
+                alert.setContentText("Please retype your password.");
+            }
+        } else {
+            alert.setTitle("Error");
+            alert.setHeaderText("Pin does not match!");
+            alert.setContentText("Please retype the ping you received or press send pin for a new pin.");
+        }
+
+    }
 
     @FXML
     private void login(ActionEvent event) throws IOException {
