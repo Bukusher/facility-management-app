@@ -33,6 +33,7 @@ public class DB_Connector {
         try {
             statement = connection.createStatement();
             statement.executeUpdate("'UPDATE " + table + " SET " + column + " = " + value + " WHERE " + condition + "'");
+            resultSet = statement.getResultSet();
 
         } catch (SQLException ex) {
             System.err.print("Update failed");
