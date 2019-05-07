@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -34,8 +35,11 @@
       <DatePicker id="DPto" fx:id="DPto" layoutX="170.0" layoutY="244.0" />
       <Label layoutX="169.0" layoutY="153.0" text="Book room from" />
       <Label layoutX="170.0" layoutY="225.0" text="to" />
-      <Label layoutX="370.0" layoutY="87.0" prefHeight="302.0" prefWidth="218.0" style="-fx-background-color: Grey;" />
-      <Text layoutX="370.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Available rooms" />
+      <Text layoutX="357.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Available rooms" />
       <Button id="BTsearchroom" fx:id="BTsearchroom" layoutX="144.0" layoutY="322.0" mnemonicParsing="false" text="Search" />
+      <TextArea id="TArooms" fx:id="TArooms" layoutX="357.0" layoutY="76.0" prefHeight="251.0" prefWidth="232.0" text=" 1 - entry 1&#10; 2 - entry 2&#10; 3 - entry 3&#10; 4 - entry 4&#10; 5 - entry 5&#10; 6 - entry 6&#10; 7 - entry 7&#10; 8 - entry 8&#10; 9 - entry 9&#10;10 - entry 10&#10;11 - entry 11" />
+      <TextField id="TFroombookentry" fx:id="TFroombookentry" layoutX="357.0" layoutY="366.0" prefHeight="25.0" prefWidth="35.0" />
+      <Label layoutX="357.0" layoutY="330.0" text="Which of the above listed entries would you&#10;like to book? (If empty, entry1 is chosen)" />
+      <Button id="BTbookroom" fx:id="BTbookroom" layoutX="400.0" layoutY="366.0" mnemonicParsing="false" text="Book" />
    </children>
 </AnchorPane>
