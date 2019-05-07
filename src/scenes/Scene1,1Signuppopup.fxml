@@ -19,7 +19,7 @@
       <Label layoutX="204.0" layoutY="133.0" text="Mail Adress" />
       <PasswordField id="TFconfirmpassword" fx:id="TFpasswordSignUp" layoutX="204.0" layoutY="202.0" prefHeight="25.0" prefWidth="218.0" />
       <TextField id="TFpin" fx:id="TFmailSighUp" layoutX="204.0" layoutY="150.0" prefHeight="25.0" prefWidth="218.0" />
-      <Button layoutX="203.0" layoutY="336.0" mnemonicParsing="false" text="Send Pin" />
+      <Button layoutX="203.0" layoutY="336.0" mnemonicParsing="false" onAction="#randomizePin" text="Send Pin" />
       <Label layoutX="204.0" layoutY="78.0" text="Surname" />
       <TextField id="TFpin" fx:id="TFsurname" layoutX="204.0" layoutY="95.0" prefHeight="25.0" prefWidth="218.0" />
       <Label layoutX="204.0" layoutY="27.0" text="First Name" />
