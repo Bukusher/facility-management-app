@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Scene51ConfirmDelete">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1"  fx:controller="scenes.ChangeScene">
    <children>
       <Label layoutX="205.0" layoutY="119.0" text="Please type in the user email again&#10;and press confirm" textAlignment="CENTER" />
       <TextField id="TFconfirmdeleteroom" layoutX="226.0" layoutY="180.0" />

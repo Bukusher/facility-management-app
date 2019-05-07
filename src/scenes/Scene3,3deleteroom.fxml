@@ -16,7 +16,7 @@
       <Button id="BTlogout" layoutX="509.0" layoutY="6.0" mnemonicParsing="false" onAction="#logout" prefHeight="42.0" prefWidth="54.0" text="Logout" />
       <Button id="BTsearchroom" layoutX="179.0" layoutY="72.0" mnemonicParsing="false" text="Search" />
       <Button id="BTcancel" layoutX="274.0" layoutY="337.0" mnemonicParsing="false" text="Cancel" />
-      <Button id="BTdeleteroom" layoutX="341.0" layoutY="337.0" mnemonicParsing="false" text="Delete Room" />
+      <Button id="BTdeleteroom" layoutX="341.0" layoutY="337.0" mnemonicParsing="false" onAction="#DeleteRoomConfirmation" text="Delete Room" />
       <Label layoutX="24.0" layoutY="76.0" text="Search room" />
       <TextField id="TFsearchroom" layoutX="101.0" layoutY="72.0" prefHeight="25.0" prefWidth="67.0" />
       <TextArea id="TAroominfo" layoutX="24.0" layoutY="102.0" prefHeight="225.0" prefWidth="400.0" />

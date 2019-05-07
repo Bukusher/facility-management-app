@@ -10,8 +10,8 @@
    <children>
       <TextField id="TFmail" layoutX="100.0" layoutY="123.0" prefHeight="25.0" prefWidth="218.0" />
       <Button id="BTlogin" defaultButton="true" layoutX="100.0" layoutY="208.0" mnemonicParsing="false" onAction="#login" text="Login" />
-      <Button id="BTforgotpassword" layoutX="150.0" layoutY="208.0" mnemonicParsing="false" text="Forgot Password" />
-      <Button id="BTsignup" layoutX="261.0" layoutY="208.0" mnemonicParsing="false" text="Sign Up" />
+      <Button id="BTforgotpassword" layoutX="150.0" layoutY="208.0" mnemonicParsing="false" onAction="#ForgotPassword" text="Forgot Password" />
+      <Button id="BTsignup" layoutX="261.0" layoutY="208.0" mnemonicParsing="false" onAction="#SignUp" text="Sign Up" />
       <Label layoutX="100.0" layoutY="106.0" text="Mail Adress" />
       <Label layoutX="100.0" layoutY="158.0" text="Password" />
       <PasswordField id="TFmail" layoutX="100.0" layoutY="175.0" prefHeight="25.0" prefWidth="218.0" />

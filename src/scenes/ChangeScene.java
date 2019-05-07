@@ -122,7 +122,65 @@ public class ChangeScene {
         appStage.show();
     }
 
+    @FXML
+    private void SignUp(ActionEvent event) throws IOException {
+        Parent homePageParent = FXMLLoader.load(getClass().getResource("Scene1,1Signuppopup.fxml"));
+        Scene homePageScene = new Scene(homePageParent);
+        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        appStage.setScene(homePageScene);
+        appStage.show();
+    }
 
+    @FXML
+    private void ForgotPassword(ActionEvent event) throws IOException {
+        Parent homePageParent = FXMLLoader.load(getClass().getResource("Scene1,2forgotpasswordpopup.fxml"));
+        Scene homePageScene = new Scene(homePageParent);
+        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        appStage.setScene(homePageScene);
+        appStage.show();
+    }
 
+    @FXML
+    private void DeleteRoomConfirmation(ActionEvent event) throws IOException {
+        Parent homePageParent = FXMLLoader.load(getClass().getResource("Scene3,3,1deleteroomconfirmpoppup.fxml"));
+        Scene homePageScene = new Scene(homePageParent);
+        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        appStage.setScene(homePageScene);
+        appStage.show();
+    }
+    @FXML
+    private void ConfirmDeleteAccount(ActionEvent event) throws IOException {
+        Parent homePageParent = FXMLLoader.load(getClass().getResource("Scene4,3deleteaccountpopup.fxml"));
+        Scene homePageScene = new Scene(homePageParent);
+        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        appStage.setScene(homePageScene);
+        appStage.show();
+    }
 
+    @FXML
+    private void ConfirmChangeMail(ActionEvent event) throws IOException {
+        Parent homePageParent = FXMLLoader.load(getClass().getResource("Scene4,2mailpopup.fxml"));
+        Scene homePageScene = new Scene(homePageParent);
+        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        appStage.setScene(homePageScene);
+        appStage.show();
+    }
+
+    @FXML
+    private void ConfirmNewPassword(ActionEvent event) throws IOException {
+        Parent homePageParent = FXMLLoader.load(getClass().getResource("Scene4,1passowrdpopup.fxml"));
+        Scene homePageScene = new Scene(homePageParent);
+        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        appStage.setScene(homePageScene);
+        appStage.show();
+    }
+
+    @FXML
+    private void BackToLogin(ActionEvent event) throws IOException {
+        Parent homePageParent = FXMLLoader.load(getClass().getResource("Scene1Login.fxml"));
+        Scene homePageScene = new Scene(homePageParent);
+        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        appStage.setScene(homePageScene);
+        appStage.show();
+    }
 }

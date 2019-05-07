@@ -18,8 +18,8 @@
       <Slider id="SLIDERdarktheme" layoutX="23.0" layoutY="261.0" max="1.0" prefHeight="14.0" prefWidth="30.0" />
       <TextField id="TFchangemail" layoutX="23.0" layoutY="99.0" />
       <PasswordField id="TFchangepassword" layoutX="24.0" layoutY="175.0" />
-      <Button id="BTchangemail" layoutX="189.0" layoutY="99.0" mnemonicParsing="false" text="Change Mail" />
-      <Button id="BTchangepassword" layoutX="189.0" layoutY="175.0" mnemonicParsing="false" text="Change password" />
-      <Button id="BTdeleteaccount" layoutX="460.0" layoutY="361.0" mnemonicParsing="false" text="Delete Account" />
+      <Button id="BTchangemail" layoutX="189.0" layoutY="99.0" mnemonicParsing="false" onAction="#ConfirmChangeMail" text="Change Mail" />
+      <Button id="BTchangepassword" layoutX="189.0" layoutY="175.0" mnemonicParsing="false" onAction="#ConfirmNewPassword" text="Change password" />
+      <Button id="BTdeleteaccount" layoutX="460.0" layoutY="361.0" mnemonicParsing="false" onAction="#ConfirmDeleteAccount" text="Delete Account" />
    </children>
 </Pane>
