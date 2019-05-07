@@ -115,7 +115,7 @@ public class ChangeScene {
 
     @FXML
     private void DeleteRoom(ActionEvent event) throws IOException {
-        Parent homePageParent = FXMLLoader.load(getClass().getResource("Scene3,3addroom.fxml"));
+        Parent homePageParent = FXMLLoader.load(getClass().getResource("Scene3,3deleteroom.fxml"));
         Scene homePageScene = new Scene(homePageParent);
         Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         appStage.setScene(homePageScene);
