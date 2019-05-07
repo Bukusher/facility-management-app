@@ -65,12 +65,6 @@
             <path>
               <item name="facility-management-app" type="b2602c69:ProjectViewProjectNode" />
               <item name="facility-management-app" type="462c0819:PsiDirectoryNode" />
-              <item name=".idea" type="462c0819:PsiDirectoryNode" />
-              <item name="libraries" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="facility-management-app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="facility-management-app" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -187,7 +181,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8749000" />
+    <option name="totallyTimeSpent" value="9455000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-4" y="0" width="1374" height="736" extended-state="6" />
