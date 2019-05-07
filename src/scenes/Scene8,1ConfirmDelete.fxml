@@ -10,6 +10,6 @@
       <Button id="BThelp" fx:id="BThelp" layoutX="34.0" layoutY="24.0" mnemonicParsing="false" text="Help" />
       <Text layoutX="205.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Do you wish to delete this booking?" />
       <Button fx:id="BTyes" layoutX="205.0" layoutY="200.0" mnemonicParsing="false" text="Yes" />
-      <Button fx:id="BTcancel" layoutX="343.0" layoutY="200.0" mnemonicParsing="false" text="Cancel" />
+      <Button fx:id="BTcancel" layoutX="343.0" layoutY="200.0" mnemonicParsing="false" onAction="#AdminSearch" text="Cancel" />
    </children>
 </AnchorPane>

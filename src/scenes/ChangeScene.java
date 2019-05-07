@@ -124,8 +124,12 @@ public class ChangeScene {
 
     @FXML
     private void SignUp(ActionEvent event) throws IOException {
+
+        //This scene is for now as a test set to automatically have the dark theme!
+
         Parent homePageParent = FXMLLoader.load(getClass().getResource("Scene1,1Signuppopup.fxml"));
         Scene homePageScene = new Scene(homePageParent);
+        homePageScene.getStylesheets().add("/scenes/DarkTheme.css");
         Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         appStage.setScene(homePageScene);
         appStage.show();

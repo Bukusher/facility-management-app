@@ -6,10 +6,12 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="199.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.ChangeScene">
    <children>
-      <Label layoutX="25.0" layoutY="14.0" text="Confirm your new mail adress" textAlignment="CENTER" />
-      <TextField id="TFconfirmnewmail" layoutX="25.0" layoutY="39.0" />
-      <Button id="BTconfirmchangemail" layoutX="44.0" layoutY="150.0" mnemonicParsing="false" onAction="#Setting" text="Change mailadress" textAlignment="CENTER" />
-      <Label layoutX="25.0" layoutY="73.0" text="Please type the pin,&#10;that you have gotten as a mail" />
-      <TextField id="TFpinchangemail" layoutX="25.0" layoutY="115.0" />
+      <Label layoutX="25.0" layoutY="34.0" text="Confirm your new mail adress" textAlignment="CENTER" />
+      <TextField id="TFconfirmnewmail" fx:id="TFconfirmnewmail" layoutX="25.0" layoutY="52.0" />
+      <Button id="BTconfirmchangemail" fx:id="BTconfirmchangemail" layoutX="44.0" layoutY="150.0" mnemonicParsing="false" onAction="#Setting" text="Change mailadress" textAlignment="CENTER" />
+      <Label layoutX="25.0" layoutY="78.0" text="Please type the pin,&#10;that you have gotten as a mail" />
+      <TextField id="TFpinchangemail" fx:id="TFpinchangemail" layoutX="25.0" layoutY="115.0" />
+      <Button id="BTback" fx:id="BTback" layoutX="63.0" layoutY="10.0" mnemonicParsing="false" onAction="#Setting" text="Back" />
+      <Button id="BThelp" fx:id="BThelp" layoutX="14.0" layoutY="10.0" mnemonicParsing="false" text="Help" />
    </children>
 </Pane>
