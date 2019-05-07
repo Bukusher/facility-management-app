@@ -96,7 +96,7 @@ public class ChangeScene {
 
     @FXML
     private void EditRoom(ActionEvent event) throws IOException {
-        Parent homePageParent = FXMLLoader.load(getClass().getResource("Scene3,1editoom.fxml"));
+        Parent homePageParent = FXMLLoader.load(getClass().getResource("Scene3,1editroom.fxml"));
         Scene homePageScene = new Scene(homePageParent);
         Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         appStage.setScene(homePageScene);
