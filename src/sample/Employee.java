@@ -6,4 +6,6 @@ public class Employee extends Account {
 
         super(name, surname, email, password, AccountType.EMPLOYEE);
     }
+
+
 }

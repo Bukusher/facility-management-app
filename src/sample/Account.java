@@ -40,8 +40,8 @@ public abstract class Account {
         this.email = email;
     }
 
-    public AccountType getAccountType() {
-        return accountType;
+    public String getAccountType() {
+        return accountType.name();
     }
 
     public void setAccountType(AccountType accountType) {
@@ -55,4 +55,6 @@ public abstract class Account {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
 }
