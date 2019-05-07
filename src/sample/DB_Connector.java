@@ -57,16 +57,25 @@ public class DB_Connector {
     public void executeSQL(String query) {
         try {
             statement = connection.createStatement();
-            boolean working = statement.execute(query);
-            if (working) {
-                System.out.println("Inserted successfully");
-            } else System.err.print("Error in insert statement");
+            statement.execute(query);
 
         } catch (SQLException ex) {
             System.err.print("Execution of query failed");
         } catch (NullPointerException ex) {
             System.err.print("bruh moment");
         }
+    }
+
+    public ResultSet select(String query) {
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(query);
+        } catch (SQLException ex) {
+            System.err.print("Execution of query failed");
+        } catch (NullPointerException ex) {
+            System.err.print("bruh moment");
+        }
+        return resultSet;
     }
 
 

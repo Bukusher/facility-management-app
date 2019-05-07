@@ -16,9 +16,14 @@ import sample.Employee;
 import java.security.SecureRandom;
 
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Login {
-
+    @FXML
+    TextField TFemail;
+    @FXML
+    PasswordField TFpassword;
     @FXML
     TextField TFname;
     @FXML
@@ -41,11 +46,28 @@ public class Login {
 
     @FXML
     private void login(ActionEvent event) throws IOException {
-        Parent homePageParent = FXMLLoader.load(getClass().getResource("Scene2Dashboard.fxml"));
-        Scene homePageScene = new Scene(homePageParent);
-        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        appStage.setScene(homePageScene);
-        appStage.show();
+
+        String email = TFemail.getText();
+        String password = TFpassword.getText();
+
+        ResultSet resultSet = connector.select("SELECT password FROM user WHERE (email = " + email + ")");
+
+        try {
+            if (resultSet.getString("password").equals(password)){
+                Parent homePageParent = FXMLLoader.load(getClass().getResource("Scene2Dashboard.fxml"));
+                Scene homePageScene = new Scene(homePageParent);
+                Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                appStage.setScene(homePageScene);
+                appStage.show();
+            } else {
+                alert.setTitle("Error");
+                alert.setHeaderText("Wrong email or password");
+                alert.setContentText("Please try again");
+                alert.showAndWait();
+            }
+        } catch (SQLException ex) {
+            System.err.print("ResultSet unavailable");
+        }
     }
 
     @FXML
@@ -87,19 +109,9 @@ public class Login {
                 new Employee(name, surname, mail, password1);
                 //String values = "'" + mail + "', '" + name + "', '" + surname + "', '" + password1 + "', 'employee'";
                 //System.out.println(values);
-                connector.executeSQL("INSERT INTO `pc2fma2`.`user`\n" +
-                        "(`email`,\n" +
-                        "`name`,\n" +
-                        "`surname`,\n" +
-                        "`password`,\n" +
-                        "`account-type`)\n" +
-                        "VALUES\n" +
-                        "('"+mail+"',\n" +
-                        "'"+name+"',\n" +
-                        "'"+surname+"',\n" +
-                        "'"+password1+"',\n" +
-                        "'employee');\n" +
-                        ";\n");
+                connector.executeSQL("INSERT INTO `pc2fma2`.`user` " +
+                        "(`email`,`name`,`surname`,`password`,`account-type`) " +
+                        "VALUES ('" + mail + "','" + name + "','" + surname + "','" + password1 + "','employee');");
                 Parent homePageParent = FXMLLoader.load(getClass().getResource("Scene1Login.fxml"));
                 Scene homePageScene = new Scene(homePageParent);
                 Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
