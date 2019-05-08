@@ -4,12 +4,14 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="199.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="199.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.ChangeScene">
    <children>
-      <Label layoutX="25.0" layoutY="14.0" text="Password" textAlignment="CENTER" />
-      <Button id="BTconfirmchangemail" layoutX="31.0" layoutY="144.0" mnemonicParsing="false" text="Delete account forever&#10;(a very long time)" textAlignment="CENTER" />
-      <Label layoutX="25.0" layoutY="73.0" text="Please type the pin,&#10;that you have gotten as a mail" />
-      <TextField id="TFpindeleteaccount" layoutX="25.0" layoutY="115.0" />
-      <PasswordField id="TFpassworddeleteaccount" layoutX="25.0" layoutY="38.0" />
+      <Label layoutX="25.0" layoutY="38.0" text="Password" textAlignment="CENTER" />
+      <Button id="BTconfirmdeleteaccount" fx:id="BTconfirmdeleteaccount" layoutX="31.0" layoutY="152.0" mnemonicParsing="false" onAction="#BackToLogin" text="Delete account forever&#10;(a very long time)" textAlignment="CENTER" />
+      <Label layoutX="25.0" layoutY="84.0" text="Please type the pin,&#10;that you have gotten as a mail" />
+      <TextField id="TFpindeleteaccount" fx:id="TFpindeleteaccount" layoutX="25.0" layoutY="121.0" />
+      <PasswordField id="TFpassworddeleteaccount" fx:id="TFpassworddeleteaccount" layoutX="25.0" layoutY="56.0" />
+      <Button id="BTback" fx:id="BTback" layoutX="63.0" layoutY="10.0" mnemonicParsing="false" onAction="#Setting" text="Back" />
+      <Button id="BThelp" fx:id="BThelp" layoutX="14.0" layoutY="10.0" mnemonicParsing="false" text="Help" />
    </children>
 </Pane>
