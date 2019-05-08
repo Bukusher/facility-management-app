@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.ChangeScene">
+   <children>
+      <Button id="BThelp" layoutX="24.0" layoutY="14.0" mnemonicParsing="false" text="Help" />
+      <Button id="BTback" layoutX="73.0" layoutY="14.0" mnemonicParsing="false" onAction="#RoomAdmin" text="Back to Room Dashboard" />
+      <Button id="BTlogout" layoutX="509.0" layoutY="6.0" mnemonicParsing="false" onAction="#logout" prefHeight="42.0" prefWidth="54.0" text="Logout" />
+      <Button id="BTcancel" layoutX="274.0" layoutY="337.0" mnemonicParsing="false" text="Cancel" />
+      <Button id="BTaddroom" layoutX="341.0" layoutY="337.0" mnemonicParsing="false" text="Add room" />
+      <Label layoutX="24.0" layoutY="116.0" text="Room name" />
+      <Label layoutX="103.0" layoutY="116.0" text="amount of chairs" />
+      <Label layoutX="205.0" layoutY="116.0" text="Size (sqm)" />
+      <TextField id="TFnewroomname" layoutX="24.0" layoutY="143.0" prefHeight="25.0" prefWidth="67.0" />
+      <TextField id="TFnewchairamount" layoutX="113.0" layoutY="143.0" prefHeight="25.0" prefWidth="67.0" />
+      <TextField id="TFnewroomsize" layoutX="203.0" layoutY="143.0" prefHeight="25.0" prefWidth="67.0" />
+      <CheckBox id="CBtv" layoutX="24.0" layoutY="187.0" mnemonicParsing="false" text="TV" />
+      <CheckBox id="CBprojector" layoutX="24.0" layoutY="209.0" mnemonicParsing="false" text="Projector" />
+      <CheckBox id="CBwhiteboard" layoutX="24.0" layoutY="231.0" mnemonicParsing="false" text="Whiteboard" />
+      <CheckBox id="CBsink" layoutX="24.0" layoutY="254.0" mnemonicParsing="false" text="Sink" />
+      <CheckBox id="CBmicrophone" layoutX="24.0" layoutY="277.0" mnemonicParsing="false" text="Microphone" />
+      <CheckBox id="CBspeakers" layoutX="24.0" layoutY="300.0" mnemonicParsing="false" text="Speakers" />
+      <CheckBox id="CBoverheadprojector" layoutX="24.0" layoutY="323.0" mnemonicParsing="false" text="Overheadprojector" />
+      <DatePicker layoutX="210.0" layoutY="220.0" />
+      <DatePicker layoutX="210.0" layoutY="274.0" />
+      <Label layoutX="210.0" layoutY="200.0" text="Block room from" />
+      <Label layoutX="210.0" layoutY="250.0" text="to" />
+      <Label layoutX="210.0" layoutY="309.0" text="Leave empty if room should not be blocked" />
+   </children>
+</Pane>
