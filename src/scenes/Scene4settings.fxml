@@ -17,6 +17,28 @@
       <Button id="BTback" fx:id="BTSettingsBack" layoutX="67.0" layoutY="66.0" mnemonicParsing="false"  text="Back to Dashboard" />
       <Button id="BTlogout" fx:id="BTSettingsLogout" layoutX="503.0" layoutY="58.0" mnemonicParsing="false"  prefHeight="42.0" prefWidth="54.0" text="Logout" />
       <Label layoutX="18.0" layoutY="126.0" text="Change your mail adress" />
+bash: cd: usr: No such file or directory
+bukusher@Bukusher-Latitude-5480:~$ cd home
+bash: cd: home: No such file or directory
+bukusher@Bukusher-Latitude-5480:~$ cd /home/bukusher/Java/Projects/facility-management-app/
+bukusher@Bukusher-Latitude-5480:~/Java/Projects/facility-management-app$ git push
+Username for 'https://github.com': Aleuchi42069$$$
+Password for 'https://Aleuchi42069$$$@github.com':
+[1]+  Stopped                 git push
+bukusher@Bukusher-Latitude-5480:~/Java/Projects/facility-management-app$ git push origin settings
+Username for 'https://github.com': Bukusher
+Password for 'https://Bukusher@github.com':
+To https://github.com/Bukusher/facility-management-app.git
+ ! [rejected]        settings -> settings (non-fast-forward)
+error: failed to push some refs to 'https://github.com/Bukusher/facility-management-app.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Integrate the remote changes (e.g.
+hint: 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+bukusher@Bukusher-Latitude-5480:~/Java/Projects/facility-management-app$ git rm workspace.xml
+fatal: pathspec 'workspace.xml' did not match any files
+bukusher@Bukusher-Latitude-5480:~/Java/Projects/facility-management-app$ git rm .idea/workspace.xml
+
       <Label layoutX="18.0" layoutY="201.0" text="Change your password" />
       <Label layoutX="18.0" layoutY="287.0" text="Dark Theme" />
       <TextField id="TFchangemail" fx:id="TFSettingsChangemail" layoutX="17.0" layoutY="151.0" />
