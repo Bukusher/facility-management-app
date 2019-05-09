@@ -47,6 +47,7 @@ public class Login {
     private Alert alert = new Alert(Alert.AlertType.ERROR);
     private SecureRandom rand = new SecureRandom();
     private DB_Connector connector = new DB_Connector();
+    private SceneChanger sceneChanger = new SceneChanger();
 
     EmployeeHashMap users = new EmployeeHashMap();
 
@@ -64,11 +65,7 @@ public class Login {
             String password = users.getEmployee(email).getPassword();
 
             if (inputPassword.equals(password)) {
-                Parent homePageParent = FXMLLoader.load(getClass().getResource("Scene2Dashboard.fxml"));
-                Scene homePageScene = new Scene(homePageParent);
-                Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                appStage.setScene(homePageScene);
-                appStage.show();
+                sceneChanger.SceneChange(event, "Scene2Dashboard.fxml");
             } else {
                 alert.setTitle("Error");
                 alert.setHeaderText("Wrong email or password");
@@ -84,26 +81,17 @@ public class Login {
         }
 
 
-
-
     }
 
     @FXML
     private void sighUp(ActionEvent event) throws IOException {
-        Parent homePageParent = FXMLLoader.load(getClass().getResource("Scene1,1Signuppopup.fxml"));
-        Scene homePageScene = new Scene(homePageParent);
-        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        appStage.setScene(homePageScene);
-        appStage.show();
+        sceneChanger.SceneChange(event, "Scene1,1Signuppopup.fxml");
+
     }
 
     @FXML
     private void back(ActionEvent event) throws IOException {
-        Parent homePageParent = FXMLLoader.load(getClass().getResource("Scene1Login.fxml"));
-        Scene homePageScene = new Scene(homePageParent);
-        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        appStage.setScene(homePageScene);
-        appStage.show();
+        sceneChanger.SceneChange(event, "Scene1Login.fxml");
     }
 
     @FXML
@@ -134,11 +122,7 @@ public class Login {
                 */
                 //Employee employee = new Employee(name, surname, mail, password1);
                 users.putEmployee(email, employee);
-                Parent homePageParent = FXMLLoader.load(getClass().getResource("Scene1Login.fxml"));
-                Scene homePageScene = new Scene(homePageParent);
-                Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                appStage.setScene(homePageScene);
-                appStage.show();
+                sceneChanger.SceneChange(event, "Scene1Login.fxml");
             } else {
                 alert.setTitle("Error");
                 alert.setHeaderText("Passwords does not match!");
