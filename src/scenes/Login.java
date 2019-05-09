@@ -10,14 +10,19 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import sample.Account;
+import sample.Administrator;
 import sample.DB_Connector;
 import sample.Employee;
 
+import java.lang.reflect.InvocationTargetException;
 import java.security.SecureRandom;
 
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+
 
 public class Login {
     @FXML
@@ -39,21 +44,26 @@ public class Login {
 
     private int pin;
 
-    Alert alert = new Alert(Alert.AlertType.ERROR);
-    SecureRandom rand = new SecureRandom();
-    DB_Connector connector = new DB_Connector();
+    private Alert alert = new Alert(Alert.AlertType.ERROR);
+    private SecureRandom rand = new SecureRandom();
+    private DB_Connector connector = new DB_Connector();
 
+    EmployeeHashMap users = new EmployeeHashMap();
 
     @FXML
-    private void login(ActionEvent event) throws IOException {
+    private void login(ActionEvent event) {
 
-        String email = TFemail.getText();
-        String password = TFpassword.getText();
+        Administrator admin = new Administrator("Admin", "Admin", "Admin", "Admin");
+        users.putEmployee("Admin", admin);
 
-        ResultSet resultSet = connector.select("SELECT password FROM user WHERE (email = " + email + ")");
+        //ResultSet resultSet = connector.select("SELECT password FROM user WHERE (email = " + email + ")");
 
         try {
-            if (resultSet.getString("password").equals(password)){
+            String email = TFemail.getText();
+            String inputPassword = TFpassword.getText();
+            String password = users.getEmployee(email).getPassword();
+
+            if (inputPassword.equals(password)) {
                 Parent homePageParent = FXMLLoader.load(getClass().getResource("Scene2Dashboard.fxml"));
                 Scene homePageScene = new Scene(homePageParent);
                 Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -65,9 +75,17 @@ public class Login {
                 alert.setContentText("Please try again");
                 alert.showAndWait();
             }
-        } catch (SQLException ex) {
-            System.err.print("ResultSet unavailable");
+        } catch (Exception bruh) {
+            alert.setTitle("Error");
+            alert.setHeaderText("Wrong email or password");
+            alert.setContentText("Please try again");
+            alert.showAndWait();
+            System.err.println("Username not registered");
         }
+
+
+
+
     }
 
     @FXML
@@ -99,19 +117,23 @@ public class Login {
     public void createAccount(ActionEvent event) throws IOException {
         String name = TFname.getText();
         String surname = TFsurname.getText();
-        String mail = TFmailSighUp.getText();
+        String email = TFmailSighUp.getText();
         String password1 = TFpasswordSignUp.getText();
         String password2 = TFpasswordconfirm.getText();
         String pinConfirm = TFpin.getText();
         String pinString = String.format("%06d", pin);
         if (pinString.equals(pinConfirm)) {
             if (password1.equals(password2)) {
-                new Employee(name, surname, mail, password1);
-                //String values = "'" + mail + "', '" + name + "', '" + surname + "', '" + password1 + "', 'employee'";
-                //System.out.println(values);
+                Employee employee = new Employee(name, surname, email, password1);
+                /*
+                String values = "'" + mail + "', '" + name + "', '" + surname + "', '" + password1 + "', 'employee'";
+                System.out.println(values);
                 connector.executeSQL("INSERT INTO `pc2fma2`.`user` " +
                         "(`email`,`name`,`surname`,`password`,`account-type`) " +
                         "VALUES ('" + mail + "','" + name + "','" + surname + "','" + password1 + "','employee');");
+                */
+                //Employee employee = new Employee(name, surname, mail, password1);
+                users.putEmployee(email, employee);
                 Parent homePageParent = FXMLLoader.load(getClass().getResource("Scene1Login.fxml"));
                 Scene homePageScene = new Scene(homePageParent);
                 Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
