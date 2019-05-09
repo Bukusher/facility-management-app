@@ -3,6 +3,9 @@ package scenes;
 import javafx.css.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.*;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.*;
 
@@ -14,43 +17,54 @@ public class Settings {
 
 
     @FXML
-    private Button BThelp;
+    private Button BTSettingsHelp;
 
     @FXML
-    private Button BTback;
+    private Button BTSettingsBack;
 
     @FXML
-    private Button BTlogout;
+    private Button BTSettingsLogout;
 
     @FXML
-    private TextField TFchangemail;
+    private TextField TFSettingsChangemail;
 
     @FXML
-    private TextField TFChangepassword;
+    private TextField TFSettingsChangepassword;
 
     @FXML
-    private Button BTchangemail;
+    private Button BTSettingsChangemail;
 
     @FXML
-    private Button BTchangepassword;
+    private Button BTSettingsChangepassword;
 
     @FXML
-    private Button BTdeleteaccount;
+    private Button BTSettingsDeleteaccount;
 
     @FXML
-    private ToggleSwitch TSdarktheme;
+    private CheckMenuItem CMISettingsDarkTheme;
 
 
 
-    public void darktheme(ActionEvent actionEvent) throws IOException {
+    public void darktheme(ActionEvent event) throws IOException {
 
-        if (TSdarktheme.isPressed()){
+        if (CMISettingsDarkTheme.isSelected()){
             darkTheme = true;
         } else darkTheme = false;
 
         if (darkTheme) {
-
-
+            Parent Psettings = FXMLLoader.load(getClass().getResource("Scene4settings.fxml"));
+            Scene Ssettings = new Scene(Psettings);
+            Ssettings.getStylesheets().add("DarkTheme.css");
+            Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            appStage.setScene(Ssettings);
+            appStage.show();
+        } else {
+            Parent Psettings = FXMLLoader.load(getClass().getResource("Scene4settings.fxml"));
+            Scene Ssettings = new Scene(Psettings);
+            Ssettings.getStylesheets().remove("DarkTheme.css");
+            Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            appStage.setScene(Ssettings);
+            appStage.show();
         }
     }
 

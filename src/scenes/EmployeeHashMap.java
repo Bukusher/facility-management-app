@@ -1,19 +1,18 @@
 package scenes;
 
-import sample.Account;
-import sample.Employee;
+import sample.*;
 
 import java.util.HashMap;
 
-public class EmployeeHashMap {
+class EmployeeHashMap {
 
-    private HashMap <String, Account> employeeHashMap = new HashMap<>(5);
+    private HashMap <String, Account> employeeHashMap = new HashMap<>();
 
-    public Account getEmployee(String key){
+    Account getEmployee(String key){
         return employeeHashMap.get(key);
     }
 
-    public void putEmployee (String key, Account employee){
+    void putEmployee (String key, Account employee){
         employeeHashMap.put(key, employee);
     }
 

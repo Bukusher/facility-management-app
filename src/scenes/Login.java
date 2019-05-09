@@ -10,17 +10,13 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import sample.Account;
-import sample.Administrator;
-import sample.DB_Connector;
-import sample.Employee;
+import sample.*;
 
 import java.lang.reflect.InvocationTargetException;
 import java.security.SecureRandom;
 
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.HashMap;
 
 
