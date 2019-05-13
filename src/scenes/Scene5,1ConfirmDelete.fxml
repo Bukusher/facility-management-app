@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1"  fx:controller="scenes.Dashboard">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1"  fx:controller="scenes.ChangeScene">
    <children>
       <Button id="BTback" fx:id="BTback" layoutX="63.0" layoutY="10.0" mnemonicParsing="false" onAction="#UserAdmin" text="Back" />
       <Button id="BThelp" fx:id="BThelp" layoutX="14.0" layoutY="10.0" mnemonicParsing="false" text="Help" />

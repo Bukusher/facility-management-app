@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class Dashboard {
+public class ChangeScene {
 
     SceneChanger sceneChange = new SceneChanger();
 

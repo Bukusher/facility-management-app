@@ -52,8 +52,7 @@ public class Login {
     EmployeeHashMap users = new EmployeeHashMap();
 
     @FXML
-    private void login(ActionEvent event) {
-
+    private void login(ActionEvent event) throws IOException {
         Administrator admin = new Administrator("Admin", "Admin", "Admin", "Admin");
         users.putEmployee("Admin", admin);
 
@@ -79,7 +78,6 @@ public class Login {
             alert.showAndWait();
             System.err.println("Username not registered");
         }
-
 
     }
 
