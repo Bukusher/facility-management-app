@@ -3,10 +3,7 @@ package scenes;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+
 
 import java.io.IOException;
 
@@ -108,7 +105,7 @@ public class ChangeScene {
         sceneChange.SceneChange(event, "Scene1Login.fxml");
     }
 
-    @FXML
+ /*   @FXML
     private void SignUp(ActionEvent event) throws IOException {
 
         //This scene is for now as a test set to automatically have the dark theme!
@@ -120,4 +117,5 @@ public class ChangeScene {
         appStage.setScene(homePageScene);
         appStage.show();
     }
+    */
 }

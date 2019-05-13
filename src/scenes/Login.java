@@ -2,26 +2,16 @@ package scenes;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-import sample.Account;
 import sample.Administrator;
 import sample.DB_Connector;
 import sample.Employee;
 
-import java.lang.reflect.InvocationTargetException;
 import java.security.SecureRandom;
 
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.HashMap;
 
 
 public class Login {
