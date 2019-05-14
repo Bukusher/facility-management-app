@@ -39,7 +39,7 @@ public class Login {
     private DB_Connector connector = new DB_Connector();
     private SceneChanger sceneChanger = new SceneChanger();
 
-    EmployeeHashMap users = new EmployeeHashMap();
+    public EmployeeHashMap users = new EmployeeHashMap();
 
     @FXML
     private void login(ActionEvent event) throws IOException {

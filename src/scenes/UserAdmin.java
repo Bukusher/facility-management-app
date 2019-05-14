@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import sample.DB_Connector;
 
 import java.io.IOException;
+import java.sql.ResultSet;
 
 public class UserAdmin {
 
@@ -37,6 +38,9 @@ public class UserAdmin {
     }
     @FXML
     public void fetchUser(ActionEvent event) throws IOException {
+        String searchMail = TFsearchMail.getText();
+        ResultSet resultSet = connector.select("SELECT password FROM user WHERE (email = " + searchMail + ")");
+
 
     }
 
@@ -48,16 +52,19 @@ public class UserAdmin {
         String surname = TFsurname.getText();
         String role = String.valueOf(roleBox.getValue());
 
-        String columns = "'email', 'name', 'surname', 'password', 'account-type'";
+        String columns = "email, name, surname, password, account-type";
         String values = "'" + newMail + "', '" + firstName + "', '" + surname + "', '" + newPassword + "', '" + role +"'";
         connector.insert("user", columns, values);
         TFfirstName.setText("");
         TFsurname.setText("");
         TFnewMail.setText("");
+        TFnewPassword.setText("");
+        roleBox.setValue("");
 
     }
 
     public void EditUser(ActionEvent event) throws IOException {
+        String searchMail = TFsearchMail.getText();
         String newMail = TFnewMail.getText();
         String newPassword = TFnewPassword.getText();
         String firstName = TFfirstName.getText();
@@ -66,7 +73,7 @@ public class UserAdmin {
 
         String columns = "'email', 'name', 'surname', 'password', 'account-type'";
         String values = "'" + newMail + "', '" + firstName + "', '" + surname + "', '" + newPassword + "', '" + role +"'";
-        connector.update("user", columns, values);
+        connector.updateWhere("user", columns, values, searchMail);
     }
 
     @FXML
