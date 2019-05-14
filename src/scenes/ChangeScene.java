@@ -58,21 +58,6 @@ public class ChangeScene {
     }
 
 
-    @FXML
-    private void EditRoom(ActionEvent event) throws IOException {
-        sceneChange.SceneChange(event, "Scene3,1editroom.fxml");
-    }
-
-
-    @FXML
-    private void AddRoom(ActionEvent event) throws IOException {
-        sceneChange.SceneChange(event, "Scene3,2addroom.fxml");
-    }
-
-    @FXML
-    private void DeleteRoom(ActionEvent event) throws IOException {
-        sceneChange.SceneChange(event, "Scene3,3deleteroom.fxml");
-    }
 
 
     @FXML
