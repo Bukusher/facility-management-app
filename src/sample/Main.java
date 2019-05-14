@@ -12,10 +12,10 @@ import javafx.stage.Stage;
 import java.awt.*;
 
 public class Main extends Application {
-
+DB_Connector db_connector = new DB_Connector();
     @Override
     public void start(Stage primaryStage) throws Exception {
-      //  Parent root = FXMLLoader.load(getClass().getResource("../scenes/Scene1Login.fxml"));
+        //  Parent root = FXMLLoader.load(getClass().getResource("../scenes/Scene1Login.fxml"));
         Parent root = FXMLLoader.load(getClass().getResource("../scenes/Scene2Dashboard.fxml"));
         primaryStage.setTitle("Facility Management Application");
         primaryStage.setScene(new Scene(root, 600, 400));

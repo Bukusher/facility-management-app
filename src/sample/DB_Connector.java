@@ -39,7 +39,7 @@ public class DB_Connector {
         }
     }
 
- /*   public void insert(String table, String columns, String values) {
+    /*public void insert(String table, String columns, String values) {
         try {
             statement = connection.createStatement();
             boolean working = statement.execute("INSERT INTO " + table + " (" + columns + ") VALUES (" + values + ")");
@@ -52,12 +52,12 @@ public class DB_Connector {
         } catch (NullPointerException ex) {
             System.err.print("bruh");
         }
-    }  Previus method  */
+    } Previus method */
     public void insert(String table, String columns, String values) {
         try {
             String sql = " insert into " + table + " (" + columns + ") values (" + values + ")";
             PreparedStatement pstmt = connection.prepareStatement(sql);
-            pstmt.execute();
+            pstmt.executeUpdate();
             System.out.println("Inserted successfully");
 
         } catch (SQLException ex) {
@@ -66,9 +66,6 @@ public class DB_Connector {
             System.err.print("bruh");
         }
     }
-
-
-
 
 
     public void executeSQL(String query) {

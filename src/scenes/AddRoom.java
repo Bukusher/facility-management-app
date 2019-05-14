@@ -5,18 +5,23 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
+import sample.DB_Connector;
 
 import java.io.IOException;
 
 public class AddRoom {
     SceneChanger sceneChange = new SceneChanger();
-
+    private DB_Connector Connector;
+    @FXML
+    TextField TFBuildingIdAdd;
     @FXML
     TextField TFnewNameAdd;
     @FXML
     TextField TFnewChairAdd;
     @FXML
     TextField TFnewSizeAdd;
+   @FXML
+   TextField TFTFBuildingIdAdd;
     @FXML
     CheckBox CBtv;
     @FXML
@@ -37,42 +42,29 @@ public class AddRoom {
         sceneChange.SceneChange(event, "Scene2Dashboard.fxml");
     }
 
-@FXML
-    private void AddRoom(ActionEvent event) throws IOException{
-      byte tv;
-      byte projector;
-      byte whiteboard;
-      byte sink;
-      byte microphone;
-      byte speakers;
-      byte overheadprojector;
-     String nameadd = TFnewNameAdd.getText();
-     String chairadd=TFnewChairAdd.getText();
-     String size=TFnewSizeAdd.getText();
-        if (CBtv.isSelected()){
-         tv=1;
-      }else tv=0;
-    if (CBprojector.isSelected()){
-        projector=1;
-    }else projector=0;
-    if (CBwhiteboard.isSelected()){
-        whiteboard=1;
-    }else whiteboard=0;
-    if (CBsink.isSelected()){
-        sink=1;
-    }else sink=0;
-    if (CBmicrophone.isSelected()){
-        microphone=1;
-    }else microphone=0;
-    if (CBspeakers.isSelected()){
-        speakers=1;
-    }else speakers=0;
-    if (CBoverheadprojector.isSelected()){
-        overheadprojector=1;
-    }else overheadprojector=0;
-    //Putting all vaules in variables
+    @FXML
+    private void AddRoom(ActionEvent event) throws IOException {
+        boolean inTv = CBtv.isSelected();
+        byte outTv = (byte)(inTv?1:0);
+        boolean inprojector = CBprojector.isSelected();
+        byte outprojector=(byte)(inprojector?1:0);
+        boolean inwhiteboard = CBwhiteboard.isSelected();
+        byte outwhiteboard=(byte)(inwhiteboard?1:0);
+        boolean insink = CBsink.isSelected();
+        byte outsink=(byte)(insink?1:0);
+        boolean inmicrophone = CBmicrophone.isSelected();
+        byte outmicrophone=(byte)(inmicrophone?1:0);
+        boolean instero = CBspeakers.isSelected();
+        byte outstero=(byte)(instero?1:0);
+        boolean inoverheadprojector = CBoverheadprojector.isSelected();
+        byte outoverheadprojector=(byte)(inoverheadprojector?1:0);
+        String nameadd = TFnewNameAdd.getText();
+        String chairadd = TFnewChairAdd.getText();
+        String size = TFnewSizeAdd.getText();
+        String buildingid=TFTFBuildingIdAdd.getText();
+        //Putting all vaules in variables
+        Connector.insert("room", "'room_id','room_availability','chairssize','tv','prejector','whiteboard','sink','microphones','stereo','overhead_projector','room_building_id' ", "'"+nameadd+"',"+"'1','"+chairadd+"','"+outTv+"','"+outprojector+"','"+outwhiteboard+"','"+outsink+"','"+outmicrophone+"','"+outstero+"','"+outoverheadprojector+"','"+buildingid+"'");
     }
-
 
 
 }

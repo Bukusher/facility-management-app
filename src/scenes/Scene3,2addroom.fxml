@@ -32,5 +32,7 @@
       <Label layoutX="210.0" layoutY="200.0" text="Block room from" />
       <Label layoutX="210.0" layoutY="250.0" text="to" />
       <Label layoutX="210.0" layoutY="309.0" text="Leave empty if room should not be blocked" />
+      <TextField id="TFnewroomsize" fx:id="TFBuildingIdAdd" layoutX="292.0" layoutY="143.0" prefHeight="25.0" prefWidth="67.0" />
+      <Label layoutX="292.0" layoutY="116.0" onDragDetected="#Dashboard" text="Building ID" />
    </children>
 </Pane>
