@@ -17,9 +17,9 @@
       <Label layoutX="24.0" layoutY="116.0" onDragDetected="#Dashboard" text="Room name" />
       <Label layoutX="103.0" layoutY="116.0" onDragDetected="#Dashboard" text="amount of chairs" />
       <Label layoutX="205.0" layoutY="116.0" onDragDetected="#Dashboard" text="Size (sqm)" />
-      <TextField id="TFnewroomname" fx:id="TFnewroomname2" layoutX="24.0" layoutY="143.0" prefHeight="25.0" prefWidth="67.0" />
-      <TextField id="TFnewchairamount" fx:id="TFnewchairamount2" layoutX="113.0" layoutY="143.0" prefHeight="25.0" prefWidth="67.0" />
-      <TextField id="TFnewroomsize" fx:id="TFnewroomsize2" layoutX="203.0" layoutY="143.0" prefHeight="25.0" prefWidth="67.0" />
+      <TextField id="TFnewroomname" fx:id="TFnewNameAdd" layoutX="24.0" layoutY="143.0" prefHeight="25.0" prefWidth="67.0" />
+      <TextField id="TFnewchairamount" fx:id="TFnewChairAdd" layoutX="113.0" layoutY="143.0" prefHeight="25.0" prefWidth="67.0" />
+      <TextField id="TFnewroomsize" fx:id="TFnewSizeAdd" layoutX="203.0" layoutY="143.0" prefHeight="25.0" prefWidth="67.0" />
       <CheckBox id="CBtv" fx:id="CBtv" layoutX="24.0" layoutY="187.0" mnemonicParsing="false" text="TV" />
       <CheckBox id="CBprojector" fx:id="CBprojector" layoutX="24.0" layoutY="209.0" mnemonicParsing="false" text="Projector" />
       <CheckBox id="CBwhiteboard" fx:id="CBwhiteboard" layoutX="24.0" layoutY="231.0" mnemonicParsing="false" text="Whiteboard" />
