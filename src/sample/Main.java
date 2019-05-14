@@ -12,7 +12,6 @@ import javafx.stage.Stage;
 import java.awt.*;
 
 public class Main extends Application {
-DB_Connector db_connector = new DB_Connector();
 
 @Override
     public void start(Stage primaryStage) throws Exception {
