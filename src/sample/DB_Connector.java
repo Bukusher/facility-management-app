@@ -38,7 +38,7 @@ public class DB_Connector {
             System.err.print("Update failed");
         }
     }
-
+/*
     public void insert(String table, String columns, String values) {
         try {
             statement = connection.createStatement();
@@ -53,11 +53,24 @@ public class DB_Connector {
             System.err.print("bruh");
         }
     }
+*/
+public void insert(String table, String columns, String values) {
+    try {
+        String sql = " insert into " + table + " (" + columns + ") values (" + values + ")";
+        PreparedStatement pstmt = connection.prepareStatement(sql);
+        pstmt.executeUpdate();
+        System.out.println("Inserted successfully");
 
+    } catch (SQLException ex) {
+        System.err.print("Update failed");
+    } catch (NullPointerException ex) {
+        System.err.print("bruh");
+    }
+}
     public void executeSQL(String query) {
         try {
             statement = connection.createStatement();
-            statement.execute(query);
+            statement.executeQuery(query);
 
         } catch (SQLException ex) {
             System.err.print("Execution of query failed");
