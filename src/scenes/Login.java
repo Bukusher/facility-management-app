@@ -12,6 +12,8 @@ import sample.Employee;
 import java.security.SecureRandom;
 
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 
 public class Login {
@@ -43,18 +45,19 @@ public class Login {
 
     @FXML
     private void login(ActionEvent event) throws IOException {
-        Administrator admin = new Administrator("Admin", "Admin", "Admin", "Admin");
-        users.putEmployee("Admin", admin);
-
-        //ResultSet resultSet = connector.select("SELECT password FROM user WHERE (email = " + email + ")");
-
+        String email = TFemail.getText();
+        String inputPassword = TFpassword.getText();
+        String password = null;
+        Statement stmt = null;
+        String logInQuery = "SELECT password FROM account WHERE email = '" + email + "'";
+        System.out.println(logInQuery);
         try {
-            String email = TFemail.getText();
-            String inputPassword = TFpassword.getText();
-            String password = users.getEmployee(email).getPassword();
+            connector.select(logInQuery);
 
-            if (inputPassword.equals(password)) {
-                sceneChanger.SceneChange(event, "Scene2Dashboard.fxml");
+
+            if (true){
+
+
             } else {
                 alert.setTitle("Error");
                 alert.setHeaderText("Wrong email or password");
@@ -84,7 +87,7 @@ public class Login {
 
     @FXML
     public int randomizePin() {
-        pin = rand.nextInt(999999);
+        pin = rand.nextInt(999999 - 100000) + 100000;
         System.out.println(pin);
         return pin;
     }
@@ -93,23 +96,20 @@ public class Login {
     public void createAccount(ActionEvent event) throws IOException {
         String name = TFname.getText();
         String surname = TFsurname.getText();
-        String email = TFmailSighUp.getText();
+        String mail = TFmailSighUp.getText();
         String password1 = TFpasswordSignUp.getText();
         String password2 = TFpasswordconfirm.getText();
         String pinConfirm = TFpin.getText();
         String pinString = String.format("%06d", pin);
         if (pinString.equals(pinConfirm)) {
             if (password1.equals(password2)) {
-                Employee employee = new Employee(name, surname, email, password1);
-                /*
                 String values = "'" + mail + "', '" + name + "', '" + surname + "', '" + password1 + "', 'employee'";
                 System.out.println(values);
-                connector.executeSQL("INSERT INTO `pc2fma2`.`user` " +
-                        "(`email`,`name`,`surname`,`password`,`account-type`) " +
-                        "VALUES ('" + mail + "','" + name + "','" + surname + "','" + password1 + "','employee');");
-                */
-                //Employee employee = new Employee(name, surname, mail, password1);
-                users.putEmployee(email, employee);
+                String createAccountQuery = "INSERT INTO pc2fma2.account " +
+                        "(`email`, `name`, `surname`, `password`, `account_type`) " +
+                        "VALUES ('" + mail + "','" + name + "','" + surname + "','" + password1 + "','employee');";
+                System.out.println(createAccountQuery);
+                connector.executeSQL(createAccountQuery);
                 sceneChanger.SceneChange(event, "Scene1Login.fxml");
             } else {
                 alert.setTitle("Error");

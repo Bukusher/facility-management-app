@@ -37,8 +37,19 @@ public class UserAdmin {
 
     @FXML
     public void fetchUser(ActionEvent event) throws IOException {
+        connector.select("");
+    }
 
+    @FXML
+    public void DeleteUser(ActionEvent event) throws IOException {
 
+        String searchMail = TFnewMail.getText();
+        connector.executeSQL("DELETE FROM account WHERE email = '" + searchMail + "'");
+        TFfirstName.setText("");
+        TFsurname.setText("");
+        TFnewMail.setText("");
+        TFnewPassword.setText("");
+        roleBox.setValue("");
     }
 
     @FXML
@@ -49,9 +60,13 @@ public class UserAdmin {
         String surname = TFsurname.getText();
         String role = String.valueOf(roleBox.getValue());
 
-        String columns = "email, name, surname, password, account-type";
-        String values = "'" + newMail + "', '" + firstName + "', '" + surname + "', '" + newPassword + "', '" + role + "'";
-        connector.insert("user", columns, values);
+        String values = "'" + newMail + "', '" + firstName + "', '" + surname + "', '" + newPassword + "', 'employee'";
+        System.out.println(values);
+        String AddNewUserQuery = "INSERT INTO pc2fma2.account " +
+                "(`email`, `name`, `surname`, `password`, `account_type`) " +
+                "VALUES ('" + newMail + "','" + firstName + "','" + surname + "','" + newPassword + "','employee');";
+        System.out.println(AddNewUserQuery);
+        connector.executeSQL(AddNewUserQuery);
         TFfirstName.setText("");
         TFsurname.setText("");
         TFnewMail.setText("");
@@ -68,7 +83,7 @@ public class UserAdmin {
         String surname = TFsurname.getText();
         String role = String.valueOf(roleBox.getValue());
 
-        String columns = "'email', 'name', 'surname', 'password', 'account-type'";
+        String columns = "`email`, `name`, `surname`, `password`, `account_type`";
         String values = "'" + newMail + "', '" + firstName + "', '" + surname + "', '" + newPassword + "', '" + role + "'";
         connector.updateWhere("user", columns, values, searchMail);
     }
