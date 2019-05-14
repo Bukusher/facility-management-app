@@ -21,6 +21,7 @@ public class DB_Connector {
 
     public void update(String table, String column, String value) {
         try {
+            connect();
             statement = connection.createStatement();
             int affected = statement.executeUpdate("'UPDATE " + table + " SET " + column + " = " + value + "'");
             System.out.println(affected + " rows where affected");
@@ -31,6 +32,7 @@ public class DB_Connector {
 
     public void updateWhere(String table, String column, String value, String condition) {
         try {
+            connect();
             statement = connection.createStatement();
             int affected = statement.executeUpdate("UPDATE " + table + " SET " + column + " = " + value + " WHERE " + condition + "'");
             System.out.println(affected + " rows where affected");
@@ -55,6 +57,7 @@ public class DB_Connector {
     } Previus method */
     public void insert(String table, String columns, String values) {
         try {
+            connect();
             String sql = " insert into " + table + " (" + columns + ") values (" + values + ")";
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.executeUpdate();
@@ -67,12 +70,11 @@ public class DB_Connector {
         }
     }
 
-
     public void executeSQL(String query) {
         try {
+            connect();
             statement = connection.createStatement();
             statement.execute(query);
-
         } catch (SQLException ex) {
             System.err.print("Execution of query failed");
         } catch (NullPointerException ex) {
@@ -82,6 +84,7 @@ public class DB_Connector {
 
     public ResultSet select(String query) {
         try {
+            connect();
             statement = connection.createStatement();
             resultSet = statement.executeQuery(query);
         } catch (SQLException ex) {
@@ -91,6 +94,4 @@ public class DB_Connector {
         }
         return resultSet;
     }
-
-
 }
