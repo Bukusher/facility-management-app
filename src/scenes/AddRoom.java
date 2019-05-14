@@ -20,8 +20,6 @@ public class AddRoom {
     TextField TFnewChairAdd;
     @FXML
     TextField TFnewSizeAdd;
-   @FXML
-   TextField TFTFBuildingIdAdd;
     @FXML
     CheckBox CBtv;
     @FXML
@@ -43,7 +41,7 @@ public class AddRoom {
     }
 
     @FXML
-    private void AddRoom(ActionEvent event) throws IOException {
+    private void AddRoom(ActionEvent event) throws IOException,NullPointerException {
         boolean inTv = CBtv.isSelected();
         byte outTv = (byte)(inTv?1:0);
         boolean inprojector = CBprojector.isSelected();
@@ -61,9 +59,9 @@ public class AddRoom {
         String nameadd = TFnewNameAdd.getText();
         String chairadd = TFnewChairAdd.getText();
         String size = TFnewSizeAdd.getText();
-        String buildingid=TFTFBuildingIdAdd.getText();
+        String buildingid=TFBuildingIdAdd.getText();
         //Putting all vaules in variables
-        Connector.insert("room", "'room_id','room_availability','chairssize','tv','prejector','whiteboard','sink','microphones','stereo','overhead_projector','room_building_id' ", "'"+nameadd+"',"+"'1','"+chairadd+"','"+outTv+"','"+outprojector+"','"+outwhiteboard+"','"+outsink+"','"+outmicrophone+"','"+outstero+"','"+outoverheadprojector+"','"+buildingid+"'");
+     Connector.insert("room", "room_id,room_availability,chairs,tv,size,prejector,whiteboard,sink,microphones,stereo,overhead_projector,room_building_id ", "'"+nameadd+"',"+"'1','"+chairadd+"','"+outTv+"','"+size+"','"+outprojector+"','"+outwhiteboard+"','"+outsink+"','"+outmicrophone+"','"+outstero+"','"+outoverheadprojector+"','"+buildingid+"'");
     }
 
 
