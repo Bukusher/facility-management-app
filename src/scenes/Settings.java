@@ -3,6 +3,9 @@ package scenes;
 import javafx.css.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.*;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.*;
 
@@ -39,7 +42,7 @@ public class Settings {
     private Button BTSettingsDeleteAccount;
 
     @FXML
-    private ToggleSwitch TSSettingsDarkTheme;
+    private ToggleButton TBSettingsDarkTheme;
 
 
 
@@ -68,13 +71,20 @@ public class Settings {
     }
 
 
-    public void darktheme(ActionEvent event) throws IOException {
+    public void setDarkTheme(ActionEvent event) throws IOException {
 
-        if (TSSettingsDarkTheme.isPressed()){
+        if (TBSettingsDarkTheme.isSelected()){
             darkTheme = true;
         } else darkTheme = false;
 
         if (darkTheme) {
+            Parent homePageParent = FXMLLoader.load(getClass().getResource("scenes/Scene4settings.fxml"));
+            Scene scene = new Scene(homePageParent);
+            scene.getStylesheets().add("scenes/DarkTheme.css");
+            Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            appStage.setScene(scene);
+            appStage.show();
+        } else {
 
         }
     }
