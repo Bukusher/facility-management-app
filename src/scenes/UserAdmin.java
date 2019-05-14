@@ -34,9 +34,9 @@ public class UserAdmin {
     public void initialize() {
         roleBox.setItems(rolesList);
     }
+
     @FXML
     public void fetchUser(ActionEvent event) throws IOException {
-
 
 
     }
@@ -50,7 +50,7 @@ public class UserAdmin {
         String role = String.valueOf(roleBox.getValue());
 
         String columns = "email, name, surname, password, account-type";
-        String values = "'" + newMail + "', '" + firstName + "', '" + surname + "', '" + newPassword + "', '" + role +"'";
+        String values = "'" + newMail + "', '" + firstName + "', '" + surname + "', '" + newPassword + "', '" + role + "'";
         connector.insert("user", columns, values);
         TFfirstName.setText("");
         TFsurname.setText("");
@@ -69,7 +69,7 @@ public class UserAdmin {
         String role = String.valueOf(roleBox.getValue());
 
         String columns = "'email', 'name', 'surname', 'password', 'account-type'";
-        String values = "'" + newMail + "', '" + firstName + "', '" + surname + "', '" + newPassword + "', '" + role +"'";
+        String values = "'" + newMail + "', '" + firstName + "', '" + surname + "', '" + newPassword + "', '" + role + "'";
         connector.updateWhere("user", columns, values, searchMail);
     }
 
