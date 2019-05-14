@@ -6,9 +6,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import sample.DB_Connector;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class UserAdmin {
 
@@ -43,13 +45,21 @@ public class UserAdmin {
     @FXML
     public void DeleteUser(ActionEvent event) throws IOException {
 
+        TextInputDialog dialog = new TextInputDialog("");
+        dialog.setTitle("Delete Account Confirmation");
+        dialog.setHeaderText("Delete Account Confirmation");
+        dialog.setContentText("Please reenter the username:");
+        Optional<String> result = dialog.showAndWait();
+        String confirmationMail = result.get();
         String searchMail = TFnewMail.getText();
-        connector.executeSQL("DELETE FROM account WHERE email = '" + searchMail + "'");
-        TFfirstName.setText("");
-        TFsurname.setText("");
-        TFnewMail.setText("");
-        TFnewPassword.setText("");
-        roleBox.setValue("");
+        if (searchMail.equals(confirmationMail)) {
+            connector.executeSQL("DELETE FROM account WHERE email = '" + searchMail + "'");
+            TFfirstName.setText("");
+            TFsurname.setText("");
+            TFnewMail.setText("");
+            TFnewPassword.setText("");
+            roleBox.setValue("");
+        }
     }
 
     @FXML
