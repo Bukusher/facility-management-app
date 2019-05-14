@@ -13,13 +13,13 @@
       <Button id="BTback" fx:id="BTback" layoutX="73.0" layoutY="14.0" mnemonicParsing="false" onAction="#Dashboard" onDragDetected="#Dashboard" text="Back to Room Dashboard" />
       <Button id="BTlogout" fx:id="BTlogout" layoutX="509.0" layoutY="6.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="54.0" text="Logout" />
       <Button id="BTcancel" fx:id="BTcancel" layoutX="274.0" layoutY="337.0" mnemonicParsing="false" text="Cancel" />
-      <Button id="BTaddroom" fx:id="BTaddroom" layoutX="341.0" layoutY="337.0" mnemonicParsing="false" text="Add room" />
+      <Button id="BTaddroom" fx:id="BTaddroom" layoutX="341.0" layoutY="337.0" mnemonicParsing="false" onAction="#AddRoom" text="Add room" />
       <Label layoutX="24.0" layoutY="116.0" onDragDetected="#Dashboard" text="Room name" />
       <Label layoutX="103.0" layoutY="116.0" onDragDetected="#Dashboard" text="amount of chairs" />
       <Label layoutX="205.0" layoutY="116.0" onDragDetected="#Dashboard" text="Size (sqm)" />
-      <TextField id="TFnewroomname" fx:id="TFnewroomname2" layoutX="24.0" layoutY="143.0" prefHeight="25.0" prefWidth="67.0" />
-      <TextField id="TFnewchairamount" fx:id="TFnewchairamount2" layoutX="113.0" layoutY="143.0" prefHeight="25.0" prefWidth="67.0" />
-      <TextField id="TFnewroomsize" fx:id="TFnewroomsize2" layoutX="203.0" layoutY="143.0" prefHeight="25.0" prefWidth="67.0" />
+      <TextField id="TFnewroomname" fx:id="TFnewNameAdd" layoutX="24.0" layoutY="143.0" prefHeight="25.0" prefWidth="67.0" />
+      <TextField id="TFnewchairamount" fx:id="TFnewChairAdd" layoutX="113.0" layoutY="143.0" prefHeight="25.0" prefWidth="67.0" />
+      <TextField id="TFnewroomsize" fx:id="TFnewSizeAdd" layoutX="203.0" layoutY="143.0" prefHeight="25.0" prefWidth="67.0" />
       <CheckBox id="CBtv" fx:id="CBtv" layoutX="24.0" layoutY="187.0" mnemonicParsing="false" text="TV" />
       <CheckBox id="CBprojector" fx:id="CBprojector" layoutX="24.0" layoutY="209.0" mnemonicParsing="false" text="Projector" />
       <CheckBox id="CBwhiteboard" fx:id="CBwhiteboard" layoutX="24.0" layoutY="231.0" mnemonicParsing="false" text="Whiteboard" />
@@ -32,5 +32,7 @@
       <Label layoutX="210.0" layoutY="200.0" text="Block room from" />
       <Label layoutX="210.0" layoutY="250.0" text="to" />
       <Label layoutX="210.0" layoutY="309.0" text="Leave empty if room should not be blocked" />
+      <TextField id="TFnewroomsize" fx:id="TFBuildingIdAdd" layoutX="292.0" layoutY="143.0" prefHeight="25.0" prefWidth="67.0" />
+      <Label layoutX="292.0" layoutY="116.0" onDragDetected="#Dashboard" text="Building ID" />
    </children>
 </Pane>
