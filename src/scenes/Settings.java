@@ -10,46 +10,71 @@ import java.io.IOException;
 
 public class Settings {
 
+    SceneChanger sceneChange = new SceneChanger();
     private boolean darkTheme = false;
 
 
     @FXML
-    private Button BThelp;
+    private Button BTSettingsHelp;
 
     @FXML
-    private Button BTback;
+    private Button BTSettingsBack;
 
     @FXML
-    private Button BTlogout;
+    private Button BTSettingsLogout;
 
     @FXML
-    private TextField TFchangemail;
+    private TextField TFSettingsChangeMail;
 
     @FXML
-    private TextField TFChangepassword;
+    private TextField TFSettingsChangePassword;
 
     @FXML
-    private Button BTchangemail;
+    private Button BTSettingsChangeMail;
 
     @FXML
-    private Button BTchangepassword;
+    private Button BTSettingsChangePassword;
 
     @FXML
-    private Button BTdeleteaccount;
+    private Button BTSettingsDeleteAccount;
 
     @FXML
-    private ToggleSwitch TSdarktheme;
+    private ToggleSwitch TSSettingsDarkTheme;
 
 
 
-    public void darktheme(ActionEvent actionEvent) throws IOException {
+    @FXML
+    private void settingsBackToDashboard(ActionEvent event) throws IOException {
+        sceneChange.SceneChange(event, "Scene2Dashboard.fxml");
+    }
 
-        if (TSdarktheme.isPressed()){
+    public void settingsLogout(ActionEvent event) throws IOException {
+        sceneChange.SceneChange(event, "Scene1Login.fxml");
+    }
+
+    @FXML
+    private void ConfirmChangeMail(ActionEvent event) throws IOException {
+        sceneChange.SceneChange(event, "Scene4,2mailpopup.fxml");
+    }
+
+    @FXML
+    private void ConfirmNewPassword(ActionEvent event) throws IOException {
+        sceneChange.SceneChange(event, "Scene4,1passowrdpopup.fxml");
+    }
+
+    @FXML
+    private void ConfirmDeleteAccount(ActionEvent event) throws IOException {
+        sceneChange.SceneChange(event, "Scene4,3deleteaccountpopup.fxml");
+    }
+
+
+    public void darktheme(ActionEvent event) throws IOException {
+
+        if (TSSettingsDarkTheme.isPressed()){
             darkTheme = true;
         } else darkTheme = false;
 
         if (darkTheme) {
-
 
         }
     }
