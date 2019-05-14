@@ -54,12 +54,12 @@ public class Settings {
 
     @FXML
     private void ConfirmChangeMail(ActionEvent event) throws IOException {
-        sceneChange.SceneChange(event, "Scene4,2mailpopup.fxml");
+        //to be implemented
     }
 
     @FXML
     private void ConfirmNewPassword(ActionEvent event) throws IOException {
-        sceneChange.SceneChange(event, "Scene4,1passowrdpopup.fxml");
+        //to be implemented
     }
 
     @FXML

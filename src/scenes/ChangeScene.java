@@ -57,9 +57,7 @@ public class ChangeScene {
         sceneChange.SceneChange(event, "Scene8AdminSearch.fxml");
     }
 
-
-
-
+//not implemented yet
     @FXML
     private void ForgotPassword(ActionEvent event) throws IOException {
         sceneChange.SceneChange(event, "Scene1,2forgotpasswordpopup.fxml");
@@ -68,21 +66,6 @@ public class ChangeScene {
     @FXML
     private void DeleteRoomConfirmation(ActionEvent event) throws IOException {
         sceneChange.SceneChange(event, "Scene3,3,1deleteroomconfirmpoppup.fxml");
-    }
-
-    @FXML
-    private void ConfirmDeleteAccount(ActionEvent event) throws IOException {
-        sceneChange.SceneChange(event, "Scene4,3deleteaccountpopup.fxml");
-    }
-
-    @FXML
-    private void ConfirmChangeMail(ActionEvent event) throws IOException {
-        sceneChange.SceneChange(event, "Scene4,2mailpopup.fxml");
-    }
-
-    @FXML
-    private void ConfirmNewPassword(ActionEvent event) throws IOException {
-        sceneChange.SceneChange(event, "Scene4,1passowrdpopup.fxml");
     }
 
     @FXML
