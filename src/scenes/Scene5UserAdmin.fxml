@@ -17,9 +17,9 @@
       <TextField id="TFnewmail" fx:id="TFnewMail" layoutX="239.0" layoutY="99.0" />
       <Text layoutX="152.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New Email" />
       <Text layoutX="152.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New Password" />
-      <Button fx:id="BTsearch" layoutX="399.0" layoutY="57.0" mnemonicParsing="false" text="Fetch info" />
+      <Button fx:id="BTsearch" layoutX="399.0" layoutY="57.0" mnemonicParsing="false" onAction="#fetchUser" text="Fetch info" />
       <Button fx:id="BTdelete" layoutX="108.0" layoutY="344.0" mnemonicParsing="false" text="Delete User" />
-      <Button fx:id="BTupdate" layoutX="399.0" layoutY="344.0" mnemonicParsing="false" text="Update User Info" />
+      <Button fx:id="BTupdate" layoutX="399.0" layoutY="344.0" mnemonicParsing="false" onAction="#EditUser" text="Update User Info" />
       <TextField id="TFnewmail" fx:id="TFfirstName" layoutX="239.0" layoutY="187.0" />
       <TextField id="TFnewpassword" fx:id="TFsurname" layoutX="239.0" layoutY="228.0" />
       <Text layoutX="152.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name" />

@@ -4,13 +4,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import sample.DB_Connector;
 
 import java.io.IOException;
-import java.sql.ResultSet;
 
 public class UserAdmin {
 
@@ -27,10 +25,10 @@ public class UserAdmin {
     @FXML
     private ChoiceBox roleBox;
 
-    ObservableList<String> rolesList = FXCollections.observableArrayList("administrator", "manager", "employee");
+    private ObservableList<String> rolesList = FXCollections.observableArrayList("administrator", "manager", "employee");
 
-    SceneChanger sceneChange = new SceneChanger();
-    DB_Connector connector = new DB_Connector();
+    private SceneChanger sceneChange = new SceneChanger();
+    private DB_Connector connector = new DB_Connector();
 
     @FXML
     public void initialize() {
@@ -38,8 +36,7 @@ public class UserAdmin {
     }
     @FXML
     public void fetchUser(ActionEvent event) throws IOException {
-        String searchMail = TFsearchMail.getText();
-        ResultSet resultSet = connector.select("SELECT password FROM user WHERE (email = " + searchMail + ")");
+
 
 
     }
