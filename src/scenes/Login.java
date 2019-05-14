@@ -47,16 +47,15 @@ public class Login {
     private void login(ActionEvent event) throws IOException {
         String email = TFemail.getText();
         String inputPassword = TFpassword.getText();
-        String password = null;
-        Statement stmt = null;
         String logInQuery = "SELECT password FROM account WHERE email = '" + email + "'";
         System.out.println(logInQuery);
         try {
-            connector.select(logInQuery);
+            ResultSet resultSet = connector.select(logInQuery);
+            String s = resultSet.getString("password");
 
 
-            if (true){
-
+            if (inputPassword.equals(s)) {
+                sceneChanger.SceneChange(event, "Scene2Dashboard.fxml");
 
             } else {
                 alert.setTitle("Error");
