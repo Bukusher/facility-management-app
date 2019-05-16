@@ -12,6 +12,9 @@ import sample.Employee;
 import java.security.SecureRandom;
 
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 
 public class Login {
@@ -39,29 +42,33 @@ public class Login {
     private DB_Connector connector = new DB_Connector();
     private SceneChanger sceneChanger = new SceneChanger();
 
-    public EmployeeHashMap users = new EmployeeHashMap();
 
     @FXML
     private void login(ActionEvent event) throws IOException {
-        Administrator admin = new Administrator("Admin", "Admin", "Admin", "Admin");
-        users.putEmployee("Admin", admin);
-
-        //ResultSet resultSet = connector.select("SELECT password FROM user WHERE (email = " + email + ")");
-
+        String email = TFemail.getText();
+        String inputPassword = TFpassword.getText();
+        String logInQuery = "SELECT `password` FROM `pc2fma2`.`account` where email = '" + email + "'";
         try {
-            String email = TFemail.getText();
-            String inputPassword = TFpassword.getText();
-            String password = users.getEmployee(email).getPassword();
+            ResultSet resultSet = connector.select(logInQuery);
+            String password;
 
-            if (inputPassword.equals(password)) {
-                sceneChanger.SceneChange(event, "Scene2Dashboard.fxml");
-            } else {
-                alert.setTitle("Error");
-                alert.setHeaderText("Wrong email or password");
-                alert.setContentText("Please try again");
-                alert.showAndWait();
+            if (resultSet != null) {
+                do {
+                    resultSet.next();
+                    password = resultSet.getString(1);
+                } while (resultSet.next());
+                if (inputPassword.equals(password)) {
+                    sceneChanger.SceneChange(event, "Scene2Dashboard.fxml");
+                } else {
+                    alert.setTitle("Error");
+                    alert.setHeaderText("Wrong email or password");
+                    alert.setContentText("Please try again");
+                    alert.showAndWait();
+                }
+
             }
-        } catch (Exception bruh) {
+        } catch (SQLException ex) {
+            System.err.println(new java.util.Date() + " : " + ex.getMessage());
             alert.setTitle("Error");
             alert.setHeaderText("Wrong email or password");
             alert.setContentText("Please try again");
@@ -84,7 +91,7 @@ public class Login {
 
     @FXML
     public int randomizePin() {
-        pin = rand.nextInt(999999);
+        pin = rand.nextInt(999999 - 100000) + 100000;
         System.out.println(pin);
         return pin;
     }
@@ -93,23 +100,18 @@ public class Login {
     public void createAccount(ActionEvent event) throws IOException {
         String name = TFname.getText();
         String surname = TFsurname.getText();
-        String email = TFmailSighUp.getText();
+        String mail = TFmailSighUp.getText();
         String password1 = TFpasswordSignUp.getText();
         String password2 = TFpasswordconfirm.getText();
         String pinConfirm = TFpin.getText();
         String pinString = String.format("%06d", pin);
         if (pinString.equals(pinConfirm)) {
             if (password1.equals(password2)) {
-                Employee employee = new Employee(name, surname, email, password1);
-                /*
                 String values = "'" + mail + "', '" + name + "', '" + surname + "', '" + password1 + "', 'employee'";
-                System.out.println(values);
-                connector.executeSQL("INSERT INTO `pc2fma2`.`user` " +
-                        "(`email`,`name`,`surname`,`password`,`account-type`) " +
-                        "VALUES ('" + mail + "','" + name + "','" + surname + "','" + password1 + "','employee');");
-                */
-                //Employee employee = new Employee(name, surname, mail, password1);
-                users.putEmployee(email, employee);
+                String createAccountQuery = "INSERT INTO pc2fma2.account " +
+                        "(`email`, `name`, `surname`, `password`, `account_type`) " +
+                        "VALUES ('" + mail + "','" + name + "','" + surname + "','" + password1 + "','employee');";
+                connector.executeSQL(createAccountQuery);
                 sceneChanger.SceneChange(event, "Scene1Login.fxml");
             } else {
                 alert.setTitle("Error");
