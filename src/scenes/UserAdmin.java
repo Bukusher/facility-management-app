@@ -10,6 +10,8 @@ import javafx.scene.control.TextInputDialog;
 import sample.DB_Connector;
 
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Optional;
 
 public class UserAdmin {
@@ -39,7 +41,31 @@ public class UserAdmin {
 
     @FXML
     public void fetchUser(ActionEvent event) throws IOException {
-        connector.select("");
+        String fetchUserQuery = "SELECT * FROM `pc2fma2`.`account` where email = '" + TFsearchMail.getText() + "'";
+        String rsEmail = "";
+        String rsName = "";
+        String rsSurname = "";
+        String rsPassword = "";
+        String rsAccount = "";
+        try {
+            ResultSet resultSet = connector.select(fetchUserQuery);
+            if (resultSet.next()) {
+                rsEmail = resultSet.getString(1);
+                rsName = resultSet.getString(2);
+                rsSurname = resultSet.getString(3);
+                rsPassword = resultSet.getString(4);
+                rsAccount = resultSet.getString(5);
+            }
+            TFfirstName.setText(rsName);
+            TFsurname.setText(rsSurname);
+            TFnewMail.setText(rsEmail);
+            TFnewPassword.setText(rsPassword);
+            roleBox.setValue(rsAccount);
+
+
+        } catch (SQLException ex) {
+
+        }
     }
 
     @FXML
@@ -94,8 +120,10 @@ public class UserAdmin {
         String role = String.valueOf(roleBox.getValue());
 
         String columns = "`email`, `name`, `surname`, `password`, `account_type`";
-        String values = "'" + newMail + "', '" + firstName + "', '" + surname + "', '" + newPassword + "', '" + role + "'";
-        connector.updateWhere("user", columns, values, searchMail);
+        String editUserQuery = "UPDATE account SET `email` = '" + newMail + "', `name` = '" + firstName + "', `surname` = '" + surname +
+                "', `password` = '" + newPassword + "', `account_type` = '" + role + "' WHERE `email` = '" + searchMail + "'";
+        System.out.println(editUserQuery);
+        connector.executeSQL(editUserQuery);
     }
 
     @FXML

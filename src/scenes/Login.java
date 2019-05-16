@@ -13,6 +13,7 @@ import java.security.SecureRandom;
 
 import java.io.IOException;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 
@@ -41,29 +42,33 @@ public class Login {
     private DB_Connector connector = new DB_Connector();
     private SceneChanger sceneChanger = new SceneChanger();
 
-    public EmployeeHashMap users = new EmployeeHashMap();
 
     @FXML
     private void login(ActionEvent event) throws IOException {
         String email = TFemail.getText();
         String inputPassword = TFpassword.getText();
-        String logInQuery = "SELECT password FROM account WHERE email = '" + email + "'";
-        System.out.println(logInQuery);
+        String logInQuery = "SELECT `password` FROM `pc2fma2`.`account` where email = '" + email + "'";
         try {
             ResultSet resultSet = connector.select(logInQuery);
-            String s = resultSet.getString("password");
+            String password;
 
+            if (resultSet != null) {
+                do {
+                    resultSet.next();
+                    password = resultSet.getString(1);
+                } while (resultSet.next());
+                if (inputPassword.equals(password)) {
+                    sceneChanger.SceneChange(event, "Scene2Dashboard.fxml");
+                } else {
+                    alert.setTitle("Error");
+                    alert.setHeaderText("Wrong email or password");
+                    alert.setContentText("Please try again");
+                    alert.showAndWait();
+                }
 
-            if (inputPassword.equals(s)) {
-                sceneChanger.SceneChange(event, "Scene2Dashboard.fxml");
-
-            } else {
-                alert.setTitle("Error");
-                alert.setHeaderText("Wrong email or password");
-                alert.setContentText("Please try again");
-                alert.showAndWait();
             }
-        } catch (Exception bruh) {
+        } catch (SQLException ex) {
+            System.err.println(new java.util.Date() + " : " + ex.getMessage());
             alert.setTitle("Error");
             alert.setHeaderText("Wrong email or password");
             alert.setContentText("Please try again");
@@ -103,11 +108,9 @@ public class Login {
         if (pinString.equals(pinConfirm)) {
             if (password1.equals(password2)) {
                 String values = "'" + mail + "', '" + name + "', '" + surname + "', '" + password1 + "', 'employee'";
-                System.out.println(values);
                 String createAccountQuery = "INSERT INTO pc2fma2.account " +
                         "(`email`, `name`, `surname`, `password`, `account_type`) " +
                         "VALUES ('" + mail + "','" + name + "','" + surname + "','" + password1 + "','employee');";
-                System.out.println(createAccountQuery);
                 connector.executeSQL(createAccountQuery);
                 sceneChanger.SceneChange(event, "Scene1Login.fxml");
             } else {
