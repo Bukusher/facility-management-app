@@ -64,6 +64,7 @@ public class UserAdmin {
 
 
         } catch (SQLException ex) {
+            System.out.println();
 
         }
     }
@@ -80,6 +81,7 @@ public class UserAdmin {
         String searchMail = TFnewMail.getText();
         if (searchMail.equals(confirmationMail)) {
             connector.executeSQL("DELETE FROM account WHERE email = '" + searchMail + "'");
+            TFsearchMail.setText("");
             TFfirstName.setText("");
             TFsurname.setText("");
             TFnewMail.setText("");
@@ -124,6 +126,12 @@ public class UserAdmin {
                 "', `password` = '" + newPassword + "', `account_type` = '" + role + "' WHERE `email` = '" + searchMail + "'";
         System.out.println(editUserQuery);
         connector.executeSQL(editUserQuery);
+        TFsearchMail.setText("");
+        TFfirstName.setText("");
+        TFsurname.setText("");
+        TFnewMail.setText("");
+        TFnewPassword.setText("");
+        roleBox.setValue("");
     }
 
     @FXML
