@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class AddRoom {
     SceneChanger sceneChange = new SceneChanger();
-    private DB_Connector Connector;
+    private DB_Connector connector= new DB_Connector();
     @FXML
     TextField TFBuildingIdAdd;
     @FXML
@@ -65,9 +65,9 @@ public class AddRoom {
         System.out.println(values);
         String AddNewRoomQuery = "INSERT INTO pc2fma2.room " +
                 "(`room_id`, `room_availability`, `chairs`, `tv`, `size`, `prejector`, `whiteboard`, `sink`, `microphones`, `stereo`, `overhead_projector`, `room_building_id` ) " +
-                "VALUES ('" + nameAdd + "','1','" + chairAdd + "','" + outTv + "',"+size + "','"+ outProjector+"','"+outWhiteboard+"','"+outSink+"','"+ outMicrophone+"','"+outStero +"','"+outOverheadProjector+"','"+ buildingID+"');";
+                "VALUES ('" + nameAdd + "','1','" + chairAdd + "','" + outTv + "','"+size + "','"+ outProjector+"','"+outWhiteboard+"','"+outSink+"','"+ outMicrophone+"','"+outStero +"','"+outOverheadProjector+"','"+ buildingID+"');";
         System.out.println(AddNewRoomQuery);
-        Connector.executeSQL(AddNewRoomQuery);
+        connector.executeSQL(AddNewRoomQuery);
     }
 
 
