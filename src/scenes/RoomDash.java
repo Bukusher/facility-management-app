@@ -26,7 +26,7 @@ SceneChanger sceneChanger=new SceneChanger();
 
     @FXML
     private void Dashboard(ActionEvent event) throws IOException {
-        sceneChanger.SceneChange(event, "Scene1Login.fxml");
+        sceneChanger.SceneChange(event, "Scene2Dashboard.fxml");
     }
 
 
