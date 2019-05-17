@@ -7,37 +7,86 @@ import javafx.scene.control.TextField;
 import sample.DB_Connector;
 
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class EditRoom {
 
     SceneChanger sceneChange = new SceneChanger();
-    private DB_Connector Connector;
-
+    private DB_Connector Connector= new DB_Connector();
     @FXML
-    TextField TFNewNameEdit;
+    TextField TFsearchRoomEdit;
     @FXML
-    TextField TFBewChairEdit;
+    TextField TFnewNameEdit;
     @FXML
-    TextField TFBewSizeEdit;
+    TextField TFnewChairEdit;
+    @FXML
+    TextField TFnewSizeEdit;
+    @FXML
+    TextField TFbuildingIdEdit;
     @FXML
     CheckBox CBtv;
     @FXML
-    CheckBox CBProjector;
+    CheckBox CBprojector;
     @FXML
-    CheckBox CBWhiteboard;
+    CheckBox CBwhiteboard;
     @FXML
-    CheckBox CBSink;
+    CheckBox CBsink;
     @FXML
-    CheckBox CBMicrophone;
+    CheckBox CBmicrophone;
     @FXML
-    CheckBox CBSpeakers;
+    CheckBox CBspeakers;
     @FXML
-    CheckBox CBOverheadProjector;
+    CheckBox CBoverheadProjector;
 
     @FXML
     private void DashboardRoom(ActionEvent event) throws IOException {
         sceneChange.SceneChange(event, "Scene3roomdashboard.fxml");
     }
+    @FXML
+    private void Search(ActionEvent event) throws IOException {
+        String searchRoom = "SELECT * FROM `pc2fma2`.`room` where room_id  = '" + TFsearchRoomEdit.getText() +"' AND "+ "room_building_id = '"+TFbuildingIdEdit.getText()    +"'";
+        String rsRoomName = "";
+        String rsChairsAmount = "";
+        String rsSize = "";
+        String rsTv = "";
+        String rsPrejector = "";
+        boolean Checkvalue;
+        try {
+            ResultSet resultSet = Connector.select(searchRoom);
+            if (resultSet.next()) {
+                rsRoomName = resultSet.getString(1);
+                rsChairsAmount = resultSet.getString(4);
+                rsSize= resultSet.getString(5);
+                rsTv = resultSet.getString(6);
+                rsPrejector = resultSet.getString(7);
+            }
+            System.out.println(rsRoomName+" "+rsChairsAmount+" "+rsPrejector+" "+rsSize+" "+rsTv);
+            TFnewNameEdit.setText(rsRoomName);
+            TFnewChairEdit.setText(rsChairsAmount);
+            TFnewSizeEdit.setText(rsSize);
+            if (rsTv=="1"){
+                Checkvalue= true;
+                CBtv.setSelected(Checkvalue);
+            }
+
+            //CheckBox.set(rsPassword);
+            //roleBox.setValue(rsAccount);
+
+
+        } catch (SQLException ex) {
+            System.out.println("bruh");
+
+        }
+    }
+
+
+    @FXML
+    private void applyChange (ActionEvent event) throws IOException {
+
+    }
+
+
 
 }
 
