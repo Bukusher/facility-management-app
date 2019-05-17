@@ -1,16 +1,19 @@
 package scenes;
 
+import javafx.application.*;
 import javafx.css.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.*;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.geometry.Insets;
+import javafx.scene.*;
 import javafx.scene.control.*;
+import javafx.scene.layout.*;
 import javafx.stage.*;
+import javafx.util.*;
 import sample.DB_Connector;
 
 import java.io.IOException;
+import java.sql.*;
 
 public class Settings {
 
@@ -29,10 +32,16 @@ public class Settings {
     private Button BTSettingsLogout;
 
     @FXML
-    private TextField TFSettingsChangeMail;
+    private TextField TFSettingsOldMail;
 
     @FXML
-    private TextField TFSettingsChangePassword;
+    private TextField TFSettingsNewMail;
+
+    @FXML
+    private TextField TFSettingsOldPassword;
+
+    @FXML
+    private TextField TFSettingsNewPassword;
 
     @FXML
     private Button BTSettingsChangeMail;
@@ -58,18 +67,37 @@ public class Settings {
 
     @FXML
     private void ConfirmChangeMail(ActionEvent event) throws IOException {
+
+        /*
         try {
-            String mail = TFSettingsChangeMail.getText();
-            //sql to be implemented
+            String oldMail = TFSettingsOldMail.getText();
+            String newMail = TFSettingsNewMail.getText();
+
+            if (!oldMail.isEmpty() && !newMail.isEmpty()) {
+                ResultSet DBMail = connector.select("email", "account", "email", oldMail);
+                DBMail.next();
+                System.out.println(DBMail.getString(1));
+
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Email information");
+                alert.setContentText("Both emails should be entered before clicking!");
+                alert.showAndWait();
+            }
+
+
         } catch (Exception ex) {
             System.err.println(ex);
         }
+
+         */
     }
 
     @FXML
     private void ConfirmNewPassword(ActionEvent event) throws IOException {
         try {
-            String password = TFSettingsChangePassword.getText();
+            String oldPassword = TFSettingsOldPassword.getText();
             //sql to be implemented
         } catch (Exception ex) {
             System.err.println(ex);
