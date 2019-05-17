@@ -51,8 +51,13 @@ public class EditRoom {
         String rsChairsAmount = "";
         String rsSize = "";
         byte rsTv = 0;
-        String rsPrejector = "";
-        boolean Checkvalue;
+        byte rsPrejector =0;
+        byte rsWhiteboard=0;
+        byte rsSink = 0;
+        byte rsMicrophone=0;
+        byte rsStereo=0;
+        byte rsOverheadProjector=0;
+
         try {
             ResultSet resultSet = Connector.select(searchRoom);
             if (resultSet.next()) {
@@ -60,18 +65,32 @@ public class EditRoom {
                 rsChairsAmount = resultSet.getString(4);
                 rsSize = resultSet.getString(5);
                 rsTv = resultSet.getByte(6);
-                rsPrejector = resultSet.getString(7);
+                rsPrejector = resultSet.getByte(7);
+                rsWhiteboard= resultSet.getByte(8);
+                rsSink=resultSet.getByte(9);
+                rsMicrophone=resultSet.getByte(10);
+                rsStereo=resultSet.getByte(11);
+                rsOverheadProjector=resultSet.getByte(12);
+
+
             }
-            System.out.println(rsRoomName + " " + rsChairsAmount + " " + rsPrejector + " " + rsSize + " " + rsTv);
             TFnewNameEdit.setText(rsRoomName);
             TFnewChairEdit.setText(rsChairsAmount);
             TFnewSizeEdit.setText(rsSize);
-            boolean TvOut = rsTv!=0;
-            CBtv.setSelected(TvOut);
-
-            //CheckBox.set(rsPassword);
-            //roleBox.setValue(rsAccount);
-
+            boolean tvOut = rsTv!=0;
+            CBtv.setSelected(tvOut);
+            boolean prejectorOut = rsPrejector!=0;
+            CBprojector.setSelected(prejectorOut);
+            boolean whiteboardOut = rsWhiteboard!=0;
+            CBwhiteboard.setSelected(whiteboardOut);
+            boolean sinkOut = rsSink!=0;
+            CBsink.setSelected(sinkOut);
+            boolean microphoneOut = rsMicrophone!=0;
+            CBmicrophone.setSelected(microphoneOut);
+            boolean stereoOut = rsStereo!=0;
+            CBspeakers.setSelected(stereoOut);
+            boolean overheadProjectorOut = rsOverheadProjector!=0;
+            CBoverheadProjector.setSelected(overheadProjectorOut);
 
         } catch (SQLException ex) {
             System.out.println("bruh");
@@ -84,6 +103,7 @@ public class EditRoom {
     private void applyChange(ActionEvent event) throws IOException {
 
     }
+
 
 
 }

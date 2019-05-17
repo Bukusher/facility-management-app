@@ -24,12 +24,12 @@
       <TextField id="TFeditchairamount" fx:id="TFnewChairEdit" layoutX="113.0" layoutY="143.0" prefHeight="25.0" prefWidth="67.0" />
       <TextField id="TFeditroomsize" fx:id="TFnewSizeEdit" layoutX="203.0" layoutY="143.0" prefHeight="25.0" prefWidth="67.0" />
       <CheckBox id="CBtv" fx:id="CBtv" layoutX="24.0" layoutY="187.0" mnemonicParsing="false" text="TV" />
-      <CheckBox id="CBprojector" fx:id="CBProjector" layoutX="24.0" layoutY="209.0" mnemonicParsing="false" text="Projector" />
-      <CheckBox id="CBwhiteboard" fx:id="CBWhiteboard" layoutX="24.0" layoutY="231.0" mnemonicParsing="false" text="Whiteboard" />
-      <CheckBox id="CBsink" fx:id="CBSink" layoutX="24.0" layoutY="254.0" mnemonicParsing="false" text="Sink" />
+      <CheckBox id="CBprojector" fx:id="CBprojector" layoutX="24.0" layoutY="209.0" mnemonicParsing="false" text="Projector" />
+      <CheckBox id="CBwhiteboard" fx:id="CBwhiteboard" layoutX="24.0" layoutY="231.0" mnemonicParsing="false" text="Whiteboard" />
+      <CheckBox id="CBsink" fx:id="CBsink" layoutX="24.0" layoutY="254.0" mnemonicParsing="false" text="Sink" />
       <CheckBox id="CBmicrophone" fx:id="CBmicrophone" layoutX="24.0" layoutY="277.0" mnemonicParsing="false" text="Microphone" />
-      <CheckBox id="CBspeakers" fx:id="CBSpeakers" layoutX="24.0" layoutY="300.0" mnemonicParsing="false" text="Speakers" />
-      <CheckBox id="CBoverheadprojector" fx:id="CBOverheadProjector" layoutX="24.0" layoutY="323.0" mnemonicParsing="false" text="Overheadprojector" />
+      <CheckBox id="CBspeakers" fx:id="CBspeakers" layoutX="24.0" layoutY="300.0" mnemonicParsing="false" text="Speakers" />
+      <CheckBox id="CBoverheadprojector" fx:id="CBoverheadProjector" layoutX="24.0" layoutY="323.0" mnemonicParsing="false" text="Overheadprojector" />
       <DatePicker id="DPfrom" fx:id="DPfrom" layoutX="210.0" layoutY="220.0" />
       <DatePicker id="DPto" fx:id="DPto" layoutX="210.0" layoutY="274.0" />
       <Label layoutX="210.0" layoutY="200.0" text="Block room from" />
