@@ -13,7 +13,7 @@ import java.sql.SQLException;
 public class EditRoom {
 
     SceneChanger sceneChange = new SceneChanger();
-    private DB_Connector Connector= new DB_Connector();
+    private DB_Connector Connector = new DB_Connector();
     @FXML
     TextField TFsearchRoomEdit;
     @FXML
@@ -43,13 +43,14 @@ public class EditRoom {
     private void DashboardRoom(ActionEvent event) throws IOException {
         sceneChange.SceneChange(event, "Scene3roomdashboard.fxml");
     }
+
     @FXML
     private void Search(ActionEvent event) throws IOException {
-        String searchRoom = "SELECT * FROM `pc2fma2`.`room` where room_id  = '" + TFsearchRoomEdit.getText() +"' AND "+ "room_building_id = '"+TFbuildingIdEdit.getText()    +"'";
+        String searchRoom = "SELECT * FROM `pc2fma2`.`room` where room_id  = '" + TFsearchRoomEdit.getText() + "' AND " + "room_building_id = '" + TFbuildingIdEdit.getText() + "'";
         String rsRoomName = "";
         String rsChairsAmount = "";
         String rsSize = "";
-        String rsTv = "";
+        byte rsTv = 0;
         String rsPrejector = "";
         boolean Checkvalue;
         try {
@@ -57,18 +58,16 @@ public class EditRoom {
             if (resultSet.next()) {
                 rsRoomName = resultSet.getString(1);
                 rsChairsAmount = resultSet.getString(4);
-                rsSize= resultSet.getString(5);
-                rsTv = resultSet.getString(6);
+                rsSize = resultSet.getString(5);
+                rsTv = resultSet.getByte(6);
                 rsPrejector = resultSet.getString(7);
             }
-            System.out.println(rsRoomName+" "+rsChairsAmount+" "+rsPrejector+" "+rsSize+" "+rsTv);
+            System.out.println(rsRoomName + " " + rsChairsAmount + " " + rsPrejector + " " + rsSize + " " + rsTv);
             TFnewNameEdit.setText(rsRoomName);
             TFnewChairEdit.setText(rsChairsAmount);
             TFnewSizeEdit.setText(rsSize);
-            if (rsTv=="1"){
-                Checkvalue= true;
-                CBtv.setSelected(Checkvalue);
-            }
+            boolean TvOut = rsTv!=0;
+            CBtv.setSelected(TvOut);
 
             //CheckBox.set(rsPassword);
             //roleBox.setValue(rsAccount);
@@ -82,10 +81,9 @@ public class EditRoom {
 
 
     @FXML
-    private void applyChange (ActionEvent event) throws IOException {
+    private void applyChange(ActionEvent event) throws IOException {
 
     }
-
 
 
 }
