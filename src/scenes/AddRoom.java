@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class AddRoom {
     SceneChanger sceneChange = new SceneChanger();
-    private DB_Connector Connector;
+    private DB_Connector connector= new DB_Connector();
     @FXML
     TextField TFBuildingIdAdd;
     @FXML
@@ -41,27 +41,40 @@ public class AddRoom {
     }
 
     @FXML
-    private void AddRoom(ActionEvent event) throws IOException,NullPointerException {
+    private void AddRoom(ActionEvent event) throws IOException, NullPointerException {
         boolean inTv = CBtv.isSelected();
-        byte outTv = (byte)(inTv?1:0);
+        byte outTv = (byte) (inTv ? 1 : 0);
         boolean inProjector = CBprojector.isSelected();
-        byte outProjector=(byte)(inProjector?1:0);
+        byte outProjector = (byte) (inProjector ? 1 : 0);
         boolean inWhiteboard = CBwhiteboard.isSelected();
-        byte outWhiteboard=(byte)(inWhiteboard?1:0);
+        byte outWhiteboard = (byte) (inWhiteboard ? 1 : 0);
         boolean inSink = CBsink.isSelected();
-        byte outSink=(byte)(inSink?1:0);
+        byte outSink = (byte) (inSink ? 1 : 0);
         boolean inMicrophone = CBmicrophone.isSelected();
-        byte outMicrophone=(byte)(inMicrophone?1:0);
+        byte outMicrophone = (byte) (inMicrophone ? 1 : 0);
         boolean inStero = CBspeakers.isSelected();
-        byte outStero=(byte)(inStero?1:0);
+        byte outStero = (byte) (inStero ? 1 : 0);
         boolean inOverheadProjector = CBoverheadprojector.isSelected();
-        byte outOverheadProjector=(byte)(inOverheadProjector?1:0);
+        byte outOverheadProjector = (byte) (inOverheadProjector ? 1 : 0);
         String nameAdd = TFnewNameAdd.getText();
         String chairAdd = TFnewChairAdd.getText();
         String size = TFnewSizeAdd.getText();
-        String buildingID=TFBuildingIdAdd.getText();
+        String buildingID = TFBuildingIdAdd.getText();
         //Putting all vaules in variables
-     Connector.insert("room", "room_id,room_availability,chairs,tv,size,prejector,whiteboard,sink,microphones,stereo,overhead_projector,room_building_id ", "'"+nameAdd+"',"+"'1','"+chairAdd+"','"+outTv+"','"+size+"','"+outProjector+"','"+outWhiteboard+"','"+outSink+"','"+outMicrophone+"','"+outStero+"','"+outOverheadProjector+"','"+buildingID+"'");
+        String AddNewRoomQuery = "INSERT INTO pc2fma2.room " +
+                "(`room_id`, `room_availability`, `chairs`, `tv`, `size`, `prejector`, `whiteboard`, `sink`, `microphones`, `stereo`, `overhead_projector`, `room_building_id` ) " +
+                "VALUES ('" + nameAdd + "','1','" + chairAdd + "','" + outTv + "','"+size + "','"+ outProjector+"','"+outWhiteboard+"','"+outSink+"','"+ outMicrophone+"','"+outStero +"','"+outOverheadProjector+"','"+ buildingID+"');";
+        connector.executeSQL(AddNewRoomQuery);
+        TFnewNameAdd.setText("");
+        TFnewSizeAdd.setText("");
+        TFnewChairAdd.setText("");
+        CBtv.setSelected(false);
+        CBoverheadprojector.setSelected(false);
+        CBspeakers.setSelected(false);
+        CBmicrophone.setSelected(false);
+        CBprojector.setSelected(false);
+        CBsink.setSelected(false);
+        CBwhiteboard.setSelected(false);
     }
 
 
