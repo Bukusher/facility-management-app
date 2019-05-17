@@ -59,8 +59,8 @@ public class Settings {
     @FXML
     private void ConfirmChangeMail(ActionEvent event) throws IOException {
         try {
-            String mail = TFSettingsChangeMail.getText();
-            //sql to be implemented
+            String newEmail = TFSettingsChangeMail.getText();
+            connector.update("account", "email", newEmail, "email", "Jonas");
         } catch (Exception ex) {
             System.err.println(ex);
         }
