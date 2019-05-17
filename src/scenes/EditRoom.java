@@ -101,7 +101,42 @@ public class EditRoom {
 
     @FXML
     private void applyChange(ActionEvent event) throws IOException {
+        boolean inTv = CBtv.isSelected();
+        byte outTv = (byte) (inTv ? 1 : 0);
+        boolean inProjector = CBprojector.isSelected();
+        byte outProjector = (byte) (inProjector ? 1 : 0);
+        boolean inWhiteboard = CBwhiteboard.isSelected();
+        byte outWhiteboard = (byte) (inWhiteboard ? 1 : 0);
+        boolean inSink = CBsink.isSelected();
+        byte outSink = (byte) (inSink ? 1 : 0);
+        boolean inMicrophone = CBmicrophone.isSelected();
+        byte outMicrophone = (byte) (inMicrophone ? 1 : 0);
+        boolean inStero = CBspeakers.isSelected();
+        byte outStero = (byte) (inStero ? 1 : 0);
+        boolean inOverheadProjector = CBoverheadProjector.isSelected();
+        byte outOverheadProjector = (byte) (inOverheadProjector ? 1 : 0);
+        String nameedit = TFnewNameEdit.getText();
+        String chairedit = TFnewChairEdit.getText();
+        String size = TFnewSizeEdit.getText();
+        String buildingID = TFbuildingIdEdit.getText();
+        String searchRoom=TFsearchRoomEdit.getText();
 
+               String editRoomQuery = "UPDATE room SET `room_id` = '" + nameedit + "', `chairs` = '" + chairedit + "', `tv` = '" + outTv +
+                "', `size` = '" + size + "', `prejector` = '" + outProjector + "', `whiteboard` = '" + outWhiteboard +
+                       "', `sink` = '" + outSink + "', `microphones` = '" + outMicrophone +"', `stereo` = '" + outStero +"', `overhead_projector` = '" + outOverheadProjector +
+                       "' WHERE `room_id` = '" +searchRoom  + "' AND room_building_id = '"+buildingID +"'" ;
+
+        Connector.executeSQL(editRoomQuery);
+        TFnewNameEdit.setText("");
+        TFnewSizeEdit.setText("");
+        TFnewChairEdit.setText("");
+        CBtv.setSelected(false);
+        CBoverheadProjector.setSelected(false);
+        CBspeakers.setSelected(false);
+        CBmicrophone.setSelected(false);
+        CBprojector.setSelected(false);
+        CBsink.setSelected(false);
+        CBwhiteboard.setSelected(false);
     }
 
 
