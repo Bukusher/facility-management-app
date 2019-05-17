@@ -74,7 +74,7 @@ public class Settings {
             String newMail = TFSettingsNewMail.getText();
 
             if (!oldMail.isEmpty() && !newMail.isEmpty()) {
-                ResultSet DBMail = connector.select("email", "account", "email", oldMail);
+                ResultSet DBMail = connector.simpleSelect("email", "account", "email", oldMail);
                 DBMail.next();
                 System.out.println(DBMail.getString(1));
 

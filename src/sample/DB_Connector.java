@@ -74,7 +74,20 @@ public class DB_Connector {
         }
     }
 
-    public ResultSet select(String column, String table, String condition, String equals) {
+    public ResultSet select(String query) {
+        try {
+            connect();
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(query);
+        } catch (SQLException ex) {
+            System.err.print("Execution of query failed");
+        } catch (NullPointerException ex) {
+            System.err.print("bruh moment");
+        }
+        return resultSet;
+    }
+
+    public ResultSet simpleSelect(String column, String table, String condition, String equals) {
         try {
             connect();
             statement = connection.createStatement();
