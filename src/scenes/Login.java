@@ -5,16 +5,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import sample.Administrator;
+
 import sample.DB_Connector;
-import sample.Employee;
 
 import java.security.SecureRandom;
-
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 
 public class Login {
@@ -34,6 +31,14 @@ public class Login {
     PasswordField TFpasswordconfirm;
     @FXML
     TextField TFpin;
+    @FXML
+    TextField TFpasswordFogot;
+    @FXML
+    TextField TFpasswordFogotRepeat;
+    @FXML
+    TextField TFpinForgot;
+    @FXML
+    TextField TFemailForgot;
 
     private int pin;
 
@@ -65,7 +70,6 @@ public class Login {
                     alert.setContentText("Please try again");
                     alert.showAndWait();
                 }
-
             }
         } catch (SQLException ex) {
             System.err.println(new java.util.Date() + " : " + ex.getMessage());
@@ -75,13 +79,46 @@ public class Login {
             alert.showAndWait();
             System.err.println("Username not registered");
         }
+    }
 
+    @FXML
+    private void forgotPasswordBTN(ActionEvent event) throws IOException {
+        sceneChanger.SceneChange(event, "Scene1,2forgotPassword.fxml");
+    }
+
+    @FXML
+    private void resetPassword(ActionEvent event) throws IOException {
+        String pinForgot = TFpinForgot.getText();
+        String emailForgot = TFemailForgot.getText();
+        String passwordForgot = TFpasswordFogot.getText();
+        String passwordForgotRepeat = TFpasswordFogotRepeat.getText();
+        String pinString = String.format("%06d", pin);
+        try {
+            if (pinForgot.equals(pinString)) {
+                if (passwordForgot.equals(passwordForgotRepeat)) {
+                    String resetPasswordQuery = "UPDATE account SET `password` = '" + passwordForgot + "' WHERE `email` = '" + emailForgot + "'";
+                    connector.executeSQL(resetPasswordQuery);
+                    sceneChanger.SceneChange(event, "Scene1Login.fxml");
+                } else {
+                    alert.setTitle("Error");
+                    alert.setHeaderText("Passwords does not match!");
+                    alert.setContentText("Please retype your password.");
+                    alert.showAndWait();
+                }
+            } else {
+                alert.setTitle("Error");
+                alert.setHeaderText("Pin does not match!");
+                alert.setContentText("Please retype the pin you received or press 'send pin' for a new pin.");
+                alert.showAndWait();
+            }
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
     }
 
     @FXML
     private void sighUp(ActionEvent event) throws IOException {
         sceneChanger.SceneChange(event, "Scene1,1Signuppopup.fxml");
-
     }
 
     @FXML
@@ -107,7 +144,6 @@ public class Login {
         String pinString = String.format("%06d", pin);
         if (pinString.equals(pinConfirm)) {
             if (password1.equals(password2)) {
-                String values = "'" + mail + "', '" + name + "', '" + surname + "', '" + password1 + "', 'employee'";
                 String createAccountQuery = "INSERT INTO pc2fma2.account " +
                         "(`email`, `name`, `surname`, `password`, `account_type`) " +
                         "VALUES ('" + mail + "','" + name + "','" + surname + "','" + password1 + "','employee');";
