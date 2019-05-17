@@ -14,12 +14,11 @@
       <Button id="BTSettingsLogout" fx:id="BTSettingsLogout" layoutX="492.0" layoutY="6.0" mnemonicParsing="false" onAction="#settingsLogout" prefHeight="42.0" prefWidth="98.0" text="Logout" />
       <Label layoutX="24.0" layoutY="74.0" text="Change your mail address" />
       <Label layoutX="24.0" layoutY="149.0" text="Change your password" />
-      <Label layoutX="24.0" layoutY="235.0" text="Dark Theme" />
       <TextField id="TFSettingsChangeMail" fx:id="TFSettingsChangeMail" layoutX="23.0" layoutY="99.0" />
       <PasswordField id="TFSettingsChangePassword" fx:id="TFSettingsChangePassword" layoutX="24.0" layoutY="175.0" />
       <Button id="BTSettingsChangeMail" fx:id="BTSettingsChangeMail" layoutX="189.0" layoutY="99.0" mnemonicParsing="false" onAction="#ConfirmChangeMail" text="Change Mail" />
       <Button id="BTSettingsChangePassword" fx:id="BTSettingsChangePassword" layoutX="189.0" layoutY="175.0" mnemonicParsing="false" onAction="#ConfirmNewPassword" text="Change password" />
       <Button id="BTSettingsDeleteAccount" fx:id="BTSettingsDeleteAccount" layoutX="460.0" layoutY="361.0" mnemonicParsing="false" onAction="#ConfirmDeleteAccount" text="Delete Account" />
-      <ToggleButton fx:id="TBSettingsDarkTheme" layoutX="24.0" layoutY="257.0" mnemonicParsing="false" onAction="#setDarkTheme" />
+      <ToggleButton fx:id="TBSettingsDarkTheme" layoutX="23.0" layoutY="260.0" mnemonicParsing="false" onAction="#setDarkTheme" text="Dark Theme" />
    </children>
 </Pane>

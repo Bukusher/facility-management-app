@@ -70,7 +70,6 @@ public class Login {
                     alert.setContentText("Please try again");
                     alert.showAndWait();
                 }
-
             }
         } catch (SQLException ex) {
             System.err.println(new java.util.Date() + " : " + ex.getMessage());
@@ -80,7 +79,6 @@ public class Login {
             alert.showAndWait();
             System.err.println("Username not registered");
         }
-
     }
 
     @FXML
@@ -95,7 +93,6 @@ public class Login {
         String passwordForgot = TFpasswordFogot.getText();
         String passwordForgotRepeat = TFpasswordFogotRepeat.getText();
         String pinString = String.format("%06d", pin);
-
         try {
             if (pinForgot.equals(pinString)) {
                 if (passwordForgot.equals(passwordForgotRepeat)) {
@@ -108,24 +105,20 @@ public class Login {
                     alert.setContentText("Please retype your password.");
                     alert.showAndWait();
                 }
-
             } else {
                 alert.setTitle("Error");
                 alert.setHeaderText("Pin does not match!");
                 alert.setContentText("Please retype the pin you received or press 'send pin' for a new pin.");
                 alert.showAndWait();
             }
-
         } catch (Exception e) {
             System.out.println(e.toString());
         }
     }
 
-
     @FXML
     private void sighUp(ActionEvent event) throws IOException {
         sceneChanger.SceneChange(event, "Scene1,1Signuppopup.fxml");
-
     }
 
     @FXML

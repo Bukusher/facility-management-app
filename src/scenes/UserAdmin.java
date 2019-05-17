@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
@@ -33,6 +34,7 @@ public class UserAdmin {
 
     private SceneChanger sceneChange = new SceneChanger();
     private DB_Connector connector = new DB_Connector();
+    private Alert alert = new Alert(Alert.AlertType.ERROR);
 
     @FXML
     public void initialize() {
@@ -41,13 +43,13 @@ public class UserAdmin {
 
     @FXML
     public void fetchUser(ActionEvent event) throws IOException {
-        String fetchUserQuery = "SELECT * FROM `pc2fma2`.`account` where email = '" + TFsearchMail.getText() + "'";
-        String rsEmail = "";
-        String rsName = "";
-        String rsSurname = "";
-        String rsPassword = "";
-        String rsAccount = "";
         try {
+            String fetchUserQuery = "SELECT * FROM `pc2fma2`.`account` where email = '" + TFsearchMail.getText() + "'";
+            String rsEmail = "";
+            String rsName = "";
+            String rsSurname = "";
+            String rsPassword = "";
+            String rsAccount = "";
             ResultSet resultSet = connector.select(fetchUserQuery);
             if (resultSet.next()) {
                 rsEmail = resultSet.getString(1);
@@ -61,17 +63,13 @@ public class UserAdmin {
             TFnewMail.setText(rsEmail);
             TFnewPassword.setText(rsPassword);
             roleBox.setValue(rsAccount);
-
-
         } catch (SQLException ex) {
             System.out.println();
-
         }
     }
 
     @FXML
     public void DeleteUser(ActionEvent event) throws IOException {
-
         TextInputDialog dialog = new TextInputDialog("");
         dialog.setTitle("Delete Account Confirmation");
         dialog.setHeaderText("Delete Account Confirmation");
@@ -79,14 +77,23 @@ public class UserAdmin {
         Optional<String> result = dialog.showAndWait();
         String confirmationMail = result.get();
         String searchMail = TFnewMail.getText();
-        if (searchMail.equals(confirmationMail)) {
-            connector.executeSQL("DELETE FROM account WHERE email = '" + searchMail + "'");
-            TFsearchMail.setText("");
-            TFfirstName.setText("");
-            TFsurname.setText("");
-            TFnewMail.setText("");
-            TFnewPassword.setText("");
-            roleBox.setValue("");
+        try {
+            if (searchMail.equals(confirmationMail)) {
+                connector.executeSQL("DELETE FROM account WHERE email = '" + searchMail + "'");
+                TFsearchMail.setText("");
+                TFfirstName.setText("");
+                TFsurname.setText("");
+                TFnewMail.setText("");
+                TFnewPassword.setText("");
+                roleBox.setValue(null);
+            } else {
+                alert.setTitle("Error");
+                alert.setHeaderText("Username did not match!");
+                alert.setContentText("Please try again");
+                alert.showAndWait();
+            }
+        } catch (Exception e) {
+            System.err.println(new java.util.Date() + " : " + e.getMessage());
         }
     }
 
@@ -97,20 +104,15 @@ public class UserAdmin {
         String firstName = TFfirstName.getText();
         String surname = TFsurname.getText();
         String role = String.valueOf(roleBox.getValue());
-
-        String values = "'" + newMail + "', '" + firstName + "', '" + surname + "', '" + newPassword + "', 'employee'";
-        System.out.println(values);
         String AddNewUserQuery = "INSERT INTO pc2fma2.account " +
                 "(`email`, `name`, `surname`, `password`, `account_type`) " +
-                "VALUES ('" + newMail + "','" + firstName + "','" + surname + "','" + newPassword + "','employee');";
-        System.out.println(AddNewUserQuery);
+                "VALUES ('" + newMail + "','" + firstName + "','" + surname + "','" + newPassword + "','" + role + "');";
         connector.executeSQL(AddNewUserQuery);
         TFfirstName.setText("");
         TFsurname.setText("");
         TFnewMail.setText("");
         TFnewPassword.setText("");
-        roleBox.setValue("");
-
+        roleBox.setValue(null);
     }
 
     public void EditUser(ActionEvent event) throws IOException {
@@ -120,8 +122,6 @@ public class UserAdmin {
         String firstName = TFfirstName.getText();
         String surname = TFsurname.getText();
         String role = String.valueOf(roleBox.getValue());
-
-        String columns = "`email`, `name`, `surname`, `password`, `account_type`";
         String editUserQuery = "UPDATE account SET `email` = '" + newMail + "', `name` = '" + firstName + "', `surname` = '" + surname +
                 "', `password` = '" + newPassword + "', `account_type` = '" + role + "' WHERE `email` = '" + searchMail + "'";
         System.out.println(editUserQuery);
@@ -131,7 +131,7 @@ public class UserAdmin {
         TFsurname.setText("");
         TFnewMail.setText("");
         TFnewPassword.setText("");
-        roleBox.setValue("");
+        roleBox.setValue(null);
     }
 
     @FXML
