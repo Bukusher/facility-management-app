@@ -13,8 +13,8 @@
       <Button id="BTback" fx:id="BTback" layoutX="73.0" layoutY="14.0" mnemonicParsing="false" onAction="#DashboardRoom" text="Back to Room Dashboard" />
       <Button id="BTlogout" fx:id="BTlogout" layoutX="509.0" layoutY="6.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="54.0" text="Logout" />
       <Button id="BTsearchroom" fx:id="BTsearchroom" layoutX="341.0" layoutY="72.0" mnemonicParsing="false" onAction="#Search" text="Search" />
-      <Button id="BTcancel" fx:id="BTcancel" layoutX="274.0" layoutY="337.0" mnemonicParsing="false" text="Cancel" />
-      <Button id="BTchangeroom" fx:id="BTchangeroom" layoutX="341.0" layoutY="337.0" mnemonicParsing="false" onAction="#applyChange" text="Apply changes" />
+      <Button id="BTcancel" fx:id="BTcancel" layoutX="248.0" layoutY="337.0" mnemonicParsing="false" text="Cancel" />
+      <Button id="BTchangeroom" fx:id="BTchangeroom" layoutX="462.0" layoutY="337.0" mnemonicParsing="false" onAction="#applyChange" text="Apply changes" />
       <Label layoutX="24.0" layoutY="76.0" text="Search room" />
       <Label layoutX="24.0" layoutY="116.0" text="Room name" />
       <Label layoutX="103.0" layoutY="116.0" text="amount of chairs" />
@@ -38,5 +38,6 @@
       <Label layoutX="201.0" layoutY="46.0" />
       <TextField id="TFeditroomsize" fx:id="TFbuildingIdEdit" layoutX="248.0" layoutY="72.0" prefHeight="25.0" prefWidth="77.0" />
       <Label layoutX="190.0" layoutY="76.0" text="buildingID" />
+      <Button id="BTchangeroom" fx:id="BTdeleteRoom" layoutX="337.0" layoutY="337.0" mnemonicParsing="false" onAction="#deleteRoom" text="Delete Room" />
    </children>
 </Pane>

@@ -61,13 +61,20 @@ public class AddRoom {
         String size = TFnewSizeAdd.getText();
         String buildingID = TFBuildingIdAdd.getText();
         //Putting all vaules in variables
-        String values = "'" + nameAdd + "', '1', '" + chairAdd + "', '" + outTv + "', '" + size + "', '" + outProjector + "', '" + outWhiteboard + "', '" + outSink + "', '" + outMicrophone + "', '" + outStero + "', '" + outOverheadProjector + "', '" + buildingID + "'";
-        System.out.println(values);
         String AddNewRoomQuery = "INSERT INTO pc2fma2.room " +
                 "(`room_id`, `room_availability`, `chairs`, `tv`, `size`, `prejector`, `whiteboard`, `sink`, `microphones`, `stereo`, `overhead_projector`, `room_building_id` ) " +
                 "VALUES ('" + nameAdd + "','1','" + chairAdd + "','" + outTv + "','"+size + "','"+ outProjector+"','"+outWhiteboard+"','"+outSink+"','"+ outMicrophone+"','"+outStero +"','"+outOverheadProjector+"','"+ buildingID+"');";
-        System.out.println(AddNewRoomQuery);
         connector.executeSQL(AddNewRoomQuery);
+        TFnewNameAdd.setText("");
+        TFnewSizeAdd.setText("");
+        TFnewChairAdd.setText("");
+        CBtv.setSelected(false);
+        CBoverheadprojector.setSelected(false);
+        CBspeakers.setSelected(false);
+        CBmicrophone.setSelected(false);
+        CBprojector.setSelected(false);
+        CBsink.setSelected(false);
+        CBwhiteboard.setSelected(false);
     }
 
 

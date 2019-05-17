@@ -19,10 +19,6 @@ SceneChanger sceneChanger=new SceneChanger();
         sceneChanger.SceneChange(event, "Scene3,2addroom.fxml");
     }
 
-    @FXML
-    private void DeleteRoom(ActionEvent event) throws IOException {
-        sceneChanger.SceneChange(event, "Scene3,3deleteroom.fxml");
-    }
 
     @FXML
     private void Dashboard(ActionEvent event) throws IOException {

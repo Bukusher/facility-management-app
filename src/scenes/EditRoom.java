@@ -93,7 +93,7 @@ public class EditRoom {
             CBoverheadProjector.setSelected(overheadProjectorOut);
 
         } catch (SQLException ex) {
-            System.out.println("bruh");
+            System.out.println("Bruh ");
 
         }
     }
@@ -139,7 +139,23 @@ public class EditRoom {
         CBwhiteboard.setSelected(false);
     }
 
+@FXML
+private void deleteRoom(ActionEvent event) throws IOException{
+        String roomName= TFsearchRoomEdit.getText();
+        String buildingID= TFbuildingIdEdit.getText();
+        Connector.executeSQL("DELETE FROM room WHERE `room_id` = '" +roomName  + "' AND room_building_id = '"+buildingID +"'");
+    TFnewNameEdit.setText("");
+    TFnewSizeEdit.setText("");
+    TFnewChairEdit.setText("");
+    CBtv.setSelected(false);
+    CBoverheadProjector.setSelected(false);
+    CBspeakers.setSelected(false);
+    CBmicrophone.setSelected(false);
+    CBprojector.setSelected(false);
+    CBsink.setSelected(false);
+    CBwhiteboard.setSelected(false);
 
+}
 
 }
 
