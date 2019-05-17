@@ -36,32 +36,32 @@ public class AddRoom {
     CheckBox CBoverheadprojector;
 
     @FXML
-    private void Dashboard(ActionEvent event) throws IOException {
-        sceneChange.SceneChange(event, "Scene2Dashboard.fxml");
+    private void DashboardRoom(ActionEvent event) throws IOException {
+        sceneChange.SceneChange(event, "Scene3roomdashboard.fxml");
     }
 
     @FXML
     private void AddRoom(ActionEvent event) throws IOException,NullPointerException {
         boolean inTv = CBtv.isSelected();
         byte outTv = (byte)(inTv?1:0);
-        boolean inprojector = CBprojector.isSelected();
-        byte outprojector=(byte)(inprojector?1:0);
-        boolean inwhiteboard = CBwhiteboard.isSelected();
-        byte outwhiteboard=(byte)(inwhiteboard?1:0);
-        boolean insink = CBsink.isSelected();
-        byte outsink=(byte)(insink?1:0);
-        boolean inmicrophone = CBmicrophone.isSelected();
-        byte outmicrophone=(byte)(inmicrophone?1:0);
-        boolean instero = CBspeakers.isSelected();
-        byte outstero=(byte)(instero?1:0);
-        boolean inoverheadprojector = CBoverheadprojector.isSelected();
-        byte outoverheadprojector=(byte)(inoverheadprojector?1:0);
-        String nameadd = TFnewNameAdd.getText();
-        String chairadd = TFnewChairAdd.getText();
+        boolean inProjector = CBprojector.isSelected();
+        byte outProjector=(byte)(inProjector?1:0);
+        boolean inWhiteboard = CBwhiteboard.isSelected();
+        byte outWhiteboard=(byte)(inWhiteboard?1:0);
+        boolean inSink = CBsink.isSelected();
+        byte outSink=(byte)(inSink?1:0);
+        boolean inMicrophone = CBmicrophone.isSelected();
+        byte outMicrophone=(byte)(inMicrophone?1:0);
+        boolean inStero = CBspeakers.isSelected();
+        byte outStero=(byte)(inStero?1:0);
+        boolean inOverheadProjector = CBoverheadprojector.isSelected();
+        byte outOverheadProjector=(byte)(inOverheadProjector?1:0);
+        String nameAdd = TFnewNameAdd.getText();
+        String chairAdd = TFnewChairAdd.getText();
         String size = TFnewSizeAdd.getText();
-        String buildingid=TFBuildingIdAdd.getText();
+        String buildingID=TFBuildingIdAdd.getText();
         //Putting all vaules in variables
-     Connector.insert("room", "room_id,room_availability,chairs,tv,size,prejector,whiteboard,sink,microphones,stereo,overhead_projector,room_building_id ", "'"+nameadd+"',"+"'1','"+chairadd+"','"+outTv+"','"+size+"','"+outprojector+"','"+outwhiteboard+"','"+outsink+"','"+outmicrophone+"','"+outstero+"','"+outoverheadprojector+"','"+buildingid+"'");
+     Connector.insert("room", "room_id,room_availability,chairs,tv,size,prejector,whiteboard,sink,microphones,stereo,overhead_projector,room_building_id ", "'"+nameAdd+"',"+"'1','"+chairAdd+"','"+outTv+"','"+size+"','"+outProjector+"','"+outWhiteboard+"','"+outSink+"','"+outMicrophone+"','"+outStero+"','"+outOverheadProjector+"','"+buildingID+"'");
     }
 
 

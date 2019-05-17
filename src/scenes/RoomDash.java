@@ -23,6 +23,12 @@ SceneChanger sceneChanger=new SceneChanger();
     private void DeleteRoom(ActionEvent event) throws IOException {
         sceneChanger.SceneChange(event, "Scene3,3deleteroom.fxml");
     }
-    
+
+    @FXML
+    private void Dashboard(ActionEvent event) throws IOException {
+        sceneChanger.SceneChange(event, "Scene1Login.fxml");
+    }
+
+
 
 }
