@@ -72,11 +72,12 @@ public class DB_Connector {
         }
     }
 
-    public ResultSet select(String query) {
+    public ResultSet select(String column, String table, String condition, String equals) {
         try {
             connect();
             statement = connection.createStatement();
-            resultSet = statement.executeQuery(query);
+            resultSet = statement.executeQuery("SELECT `" + column + "` FROM `" + table + "` WHERE `" +
+                    condition + "` = '" + equals + "'");
         } catch (SQLException ex) {
             System.err.print("Execution of query failed");
         } catch (NullPointerException ex) {
