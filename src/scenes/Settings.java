@@ -1,19 +1,16 @@
 package scenes;
 
-import javafx.application.*;
-import javafx.css.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.*;
-import javafx.geometry.Insets;
 import javafx.scene.*;
 import javafx.scene.control.*;
-import javafx.scene.layout.*;
 import javafx.stage.*;
-import javafx.util.*;
 import sample.DB_Connector;
 
 import java.io.IOException;
 import java.sql.*;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class Settings {
 
@@ -68,7 +65,6 @@ public class Settings {
     @FXML
     private void ConfirmChangeMail(ActionEvent event) throws IOException {
 
-        /*
         try {
             String oldMail = TFSettingsOldMail.getText();
             String newMail = TFSettingsNewMail.getText();
@@ -76,8 +72,35 @@ public class Settings {
             if (!oldMail.isEmpty() && !newMail.isEmpty()) {
                 ResultSet DBMail = connector.simpleSelect("email", "account", "email", oldMail);
                 DBMail.next();
-                System.out.println(DBMail.getString(1));
+                if (DBMail.getString(1).equals(oldMail)) {
 
+                    TextInputDialog dialog = new TextInputDialog();
+                    dialog.setTitle("Confirmation");
+                    dialog.setHeaderText("Enter your password to confirm");
+                    dialog.setContentText("Password:");
+                    Optional<String> result = dialog.showAndWait();
+
+                    AtomicReference<String> password = new AtomicReference<>();
+                    result.ifPresent(password::set);
+
+                    ResultSet DBPassword = connector.simpleSelect("password","account", "email", oldMail);
+                    DBPassword.next();
+                    if (DBPassword.getString(1).equals(password.get())){
+                        connector.update("account", "email", newMail, "email", oldMail);
+                    } else {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Error");
+                        alert.setHeaderText("Wrong Password");
+                        alert.setContentText("Password does not match the email!");
+                        alert.showAndWait();
+                    }
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText("Email information");
+                    alert.setContentText("Emails not registered in the database!");
+                    alert.showAndWait();
+                }
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
@@ -85,13 +108,9 @@ public class Settings {
                 alert.setContentText("Both emails should be entered before clicking!");
                 alert.showAndWait();
             }
-
-
         } catch (Exception ex) {
             System.err.println(ex);
         }
-
-         */
     }
 
     @FXML
