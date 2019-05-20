@@ -13,6 +13,7 @@ import java.io.DataInput;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class BookRoom {
@@ -41,9 +42,9 @@ public class BookRoom {
     @FXML
     CheckBox CBsearchoverheadprojector;
     @FXML
-    DatePicker DPsearchfrom;
+    DateTimePicker DPsearchfrom;
     @FXML
-    DatePicker DPsearchto;
+    DateTimePicker DPsearchto;
     @FXML
     TextArea TArooms;
     @FXML
@@ -70,7 +71,16 @@ public class BookRoom {
         Boolean microphone = CBsearchmicrophone.isSelected();
         Boolean speaker = CBsearchspeakers.isSelected();
         Boolean overhead = CBsearchoverheadprojector.isSelected();
-        //Insert Date here
+        StringBuilder fromsb = new StringBuilder(DPsearchfrom.getDateTimeValue().toString());
+        StringBuilder tosb = new StringBuilder(DPsearchto.getDateTimeValue().toString());
+        fromsb.setCharAt(10, ' ');
+        tosb.setCharAt(10, ' ');
+        fromsb.append(":00");
+        tosb.append(":00");
+        String from = String.valueOf(fromsb);
+        String to = String.valueOf(tosb);
+
+
 
 
         //Check how many Qualifiers are selected
