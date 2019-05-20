@@ -9,7 +9,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.BookRoom">
+<?import scenes.DateTimePicker?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="657.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.BookRoom">
    <children>
       <Button id="BThelp" fx:id="BThelp" layoutX="24.0" layoutY="14.0" mnemonicParsing="false" text="Help" />
       <Button id="BTback" fx:id="BTback" layoutX="73.0" layoutY="14.0" mnemonicParsing="false" onAction="#Dashboard" text="Back to Dashboard" />
@@ -28,16 +29,16 @@
       <CheckBox id="CBsearchmicrophone" fx:id="CBsearchmicrophone" layoutX="34.0" layoutY="248.0" mnemonicParsing="false" text="Microphone" />
       <CheckBox id="CBsearchspeakers" fx:id="CBsearchspeakers" layoutX="34.0" layoutY="271.0" mnemonicParsing="false" text="Speakers" />
       <CheckBox id="CBsearchoverheadprojector" fx:id="CBsearchoverheadprojector" layoutX="34.0" layoutY="294.0" mnemonicParsing="false" text="Overheadprojector" />
-      <DatePicker id="DPsearchfrom" fx:id="DPsearchfrom" layoutX="170.0" layoutY="176.0" />
-      <DatePicker id="DPsearchto" fx:id="DPsearchto" layoutX="170.0" layoutY="244.0" />
+      <DateTimePicker id="DPsearchfrom" fx:id="DPsearchfrom" layoutX="170.0" layoutY="176.0" />
+      <DateTimePicker id="DPsearchto" fx:id="DPsearchto" layoutX="170.0" layoutY="244.0" />
       <Label layoutX="169.0" layoutY="153.0" text="Book room from" />
       <Label layoutX="170.0" layoutY="225.0" text="to" />
-      <Text layoutX="357.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Available rooms" />
+      <Text layoutX="400.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Available rooms" />
       <Button id="BTsearchroom" fx:id="BTsearchroom" layoutX="144.0" layoutY="322.0" mnemonicParsing="false" onAction="#searchRooms" text="Search" />
-      <TextArea id="TArooms" fx:id="TArooms" layoutX="357.0" layoutY="76.0" prefHeight="251.0" prefWidth="232.0" />
-      <TextField id="TFroombookentry" fx:id="TFroombookentry" layoutX="357.0" layoutY="366.0" prefHeight="25.0" prefWidth="35.0" />
-      <Label layoutX="357.0" layoutY="330.0" text="Which of the above listed entries would you&#10;like to book? (If empty, entry1 is chosen)" />
-      <Button id="BTbookroom" fx:id="BTbookroom" layoutX="400.0" layoutY="366.0" mnemonicParsing="false" text="Book" />
+      <TextArea id="TArooms" fx:id="TArooms" layoutX="400.0" layoutY="76.0" prefHeight="251.0" prefWidth="232.0" />
+      <TextField id="TFroombookentry" fx:id="TFroombookentry" layoutX="400.0" layoutY="366.0" prefHeight="25.0" prefWidth="35.0" />
+      <Label layoutX="400.0" layoutY="330.0" text="Which of the above listed entries would you&#10;like to book? (If empty, entry1 is chosen)" />
+      <Button id="BTbookroom" fx:id="BTbookroom" layoutX="457.0" layoutY="366.0" mnemonicParsing="false" text="Book" />
       <Label layoutX="27.0" layoutY="84.0" text="Building name" />
    </children>
 </AnchorPane>
