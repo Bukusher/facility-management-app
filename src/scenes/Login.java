@@ -131,7 +131,6 @@ public class Login {
     @FXML
     public int randomizePin() {
         pin = rand.nextInt(999999 - 100000) + 100000;
-        System.out.println(pin);
         String name = TFname.getText();
         String surname = TFsurname.getText();
         String mail = TFmailSighUp.getText();
@@ -147,7 +146,6 @@ public class Login {
     @FXML
     public int randomizePinForget() {
         pin = rand.nextInt(999999 - 100000) + 100000;
-        System.out.println(pin);
         String mail = TFemailForgot.getText();
         String pinString = String.format("%06d", pin);
         try {
