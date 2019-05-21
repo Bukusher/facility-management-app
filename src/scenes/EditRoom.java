@@ -12,7 +12,7 @@ import java.sql.SQLException;
 
 public class EditRoom {
 
-    SceneChanger sceneChange = new SceneChanger();
+    private SceneChanger sceneChange = new SceneChanger();
     private DB_Connector Connector = new DB_Connector();
     @FXML
     TextField TFsearchRoomEdit;
@@ -22,8 +22,6 @@ public class EditRoom {
     TextField TFnewChairEdit;
     @FXML
     TextField TFnewSizeEdit;
-    @FXML
-    TextField TFbuildingIdEdit;
     @FXML
     CheckBox CBtv;
     @FXML
@@ -46,17 +44,17 @@ public class EditRoom {
 
     @FXML
     private void Search(ActionEvent event) throws IOException {
-        String searchRoom = "SELECT * FROM `pc2fma2`.`room` where room_id  = '" + TFsearchRoomEdit.getText() + "' AND " + "room_building_id = '" + TFbuildingIdEdit.getText() + "'";
+        String searchRoom = "SELECT * FROM `pc2fma2`.`room` where room_id  = '" + TFsearchRoomEdit.getText() + "'";
         String rsRoomName = "";
         String rsChairsAmount = "";
         String rsSize = "";
         byte rsTv = 0;
-        byte rsPrejector =0;
-        byte rsWhiteboard=0;
+        byte rsPrejector = 0;
+        byte rsWhiteboard = 0;
         byte rsSink = 0;
-        byte rsMicrophone=0;
-        byte rsStereo=0;
-        byte rsOverheadProjector=0;
+        byte rsMicrophone = 0;
+        byte rsStereo = 0;
+        byte rsOverheadProjector = 0;
 
         try {
             ResultSet resultSet = Connector.select(searchRoom);
@@ -66,35 +64,31 @@ public class EditRoom {
                 rsSize = resultSet.getString(5);
                 rsTv = resultSet.getByte(6);
                 rsPrejector = resultSet.getByte(7);
-                rsWhiteboard= resultSet.getByte(8);
-                rsSink=resultSet.getByte(9);
-                rsMicrophone=resultSet.getByte(10);
-                rsStereo=resultSet.getByte(11);
-                rsOverheadProjector=resultSet.getByte(12);
-
-
+                rsWhiteboard = resultSet.getByte(8);
+                rsSink = resultSet.getByte(9);
+                rsMicrophone = resultSet.getByte(10);
+                rsStereo = resultSet.getByte(11);
+                rsOverheadProjector = resultSet.getByte(12);
             }
             TFnewNameEdit.setText(rsRoomName);
             TFnewChairEdit.setText(rsChairsAmount);
             TFnewSizeEdit.setText(rsSize);
-            boolean tvOut = rsTv!=0;
+            boolean tvOut = rsTv != 0;
             CBtv.setSelected(tvOut);
-            boolean prejectorOut = rsPrejector!=0;
+            boolean prejectorOut = rsPrejector != 0;
             CBprojector.setSelected(prejectorOut);
-            boolean whiteboardOut = rsWhiteboard!=0;
+            boolean whiteboardOut = rsWhiteboard != 0;
             CBwhiteboard.setSelected(whiteboardOut);
-            boolean sinkOut = rsSink!=0;
+            boolean sinkOut = rsSink != 0;
             CBsink.setSelected(sinkOut);
-            boolean microphoneOut = rsMicrophone!=0;
+            boolean microphoneOut = rsMicrophone != 0;
             CBmicrophone.setSelected(microphoneOut);
-            boolean stereoOut = rsStereo!=0;
+            boolean stereoOut = rsStereo != 0;
             CBspeakers.setSelected(stereoOut);
-            boolean overheadProjectorOut = rsOverheadProjector!=0;
+            boolean overheadProjectorOut = rsOverheadProjector != 0;
             CBoverheadProjector.setSelected(overheadProjectorOut);
-
         } catch (SQLException ex) {
-            System.out.println("Bruh ");
-
+            System.err.println(ex);
         }
     }
 
@@ -118,13 +112,12 @@ public class EditRoom {
         String nameedit = TFnewNameEdit.getText();
         String chairedit = TFnewChairEdit.getText();
         String size = TFnewSizeEdit.getText();
-        String buildingID = TFbuildingIdEdit.getText();
-        String searchRoom=TFsearchRoomEdit.getText();
+        String searchRoom = TFsearchRoomEdit.getText();
 
-               String editRoomQuery = "UPDATE room SET `room_id` = '" + nameedit + "', `chairs` = '" + chairedit + "', `tv` = '" + outTv +
+        String editRoomQuery = "UPDATE room SET `room_id` = '" + nameedit + "', `chairs` = '" + chairedit + "', `tv` = '" + outTv +
                 "', `size` = '" + size + "', `prejector` = '" + outProjector + "', `whiteboard` = '" + outWhiteboard +
-                       "', `sink` = '" + outSink + "', `microphones` = '" + outMicrophone +"', `stereo` = '" + outStero +"', `overhead_projector` = '" + outOverheadProjector +
-                       "' WHERE `room_id` = '" +searchRoom  + "' AND room_building_id = '"+buildingID +"'" ;
+                "', `sink` = '" + outSink + "', `microphones` = '" + outMicrophone + "', `stereo` = '" + outStero + "', `overhead_projector` = '" + outOverheadProjector +
+                "' WHERE `room_id` = '" + searchRoom + "'";
 
         Connector.executeSQL(editRoomQuery);
         TFnewNameEdit.setText("");
@@ -139,23 +132,22 @@ public class EditRoom {
         CBwhiteboard.setSelected(false);
     }
 
-@FXML
-private void deleteRoom(ActionEvent event) throws IOException{
-        String roomName= TFsearchRoomEdit.getText();
-        String buildingID= TFbuildingIdEdit.getText();
-        Connector.executeSQL("DELETE FROM room WHERE `room_id` = '" +roomName  + "' AND room_building_id = '"+buildingID +"'");
-    TFnewNameEdit.setText("");
-    TFnewSizeEdit.setText("");
-    TFnewChairEdit.setText("");
-    CBtv.setSelected(false);
-    CBoverheadProjector.setSelected(false);
-    CBspeakers.setSelected(false);
-    CBmicrophone.setSelected(false);
-    CBprojector.setSelected(false);
-    CBsink.setSelected(false);
-    CBwhiteboard.setSelected(false);
+    @FXML
+    private void deleteRoom(ActionEvent event) throws IOException {
+        String roomName = TFsearchRoomEdit.getText();
+        Connector.executeSQL("DELETE FROM room WHERE `room_id` = '" + roomName + "'");
+        TFnewNameEdit.setText("");
+        TFnewSizeEdit.setText("");
+        TFnewChairEdit.setText("");
+        CBtv.setSelected(false);
+        CBoverheadProjector.setSelected(false);
+        CBspeakers.setSelected(false);
+        CBmicrophone.setSelected(false);
+        CBprojector.setSelected(false);
+        CBsink.setSelected(false);
+        CBwhiteboard.setSelected(false);
 
-}
+    }
 
 }
 
