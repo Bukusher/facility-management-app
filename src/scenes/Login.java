@@ -7,7 +7,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 import sample.DB_Connector;
-
+import sample.SendEmail;
 import java.security.SecureRandom;
 import java.io.IOException;
 import java.sql.ResultSet;
@@ -15,6 +15,7 @@ import java.sql.SQLException;
 
 
 public class Login {
+
     @FXML
     TextField TFemail;
     @FXML
@@ -41,7 +42,6 @@ public class Login {
     TextField TFemailForgot;
 
     private int pin;
-
     private Alert alert = new Alert(Alert.AlertType.ERROR);
     private SecureRandom rand = new SecureRandom();
     private DB_Connector connector = new DB_Connector();
