@@ -26,7 +26,6 @@ public class Main extends Application {
     public static void main(String[] args) {
         DB_Connector db_connector = new DB_Connector();
         db_connector.connect();
-        SendEmailStivs.send("from@gmail.com","xxxxx","to@gmail.com","hello javatpoint","How r u?");
         launch(args);
 
 
