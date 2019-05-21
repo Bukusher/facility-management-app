@@ -12,10 +12,14 @@ import java.io.IOException;
 public class SceneChanger {
 
     public void SceneChange (ActionEvent event, String file) throws IOException {
-        Parent homePageParent = FXMLLoader.load(getClass().getResource(file));
-        Scene homePageScene = new Scene(homePageParent);
-        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        appStage.setScene(homePageScene);
-        appStage.show();
+        try {
+            Parent homePageParent = FXMLLoader.load(getClass().getResource(file));
+            Scene homePageScene = new Scene(homePageParent);
+            Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            appStage.setScene(homePageScene);
+            appStage.show();
+        } catch (Exception e) {
+            System.err.println(new java.util.Date() + " : " + e.getMessage());
+        }
     }
 }

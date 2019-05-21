@@ -21,22 +21,12 @@ public class DB_Connector {
 
     }
 
-    public void update(String table, String column, String value) {
+    public void update(String table, String column, String value, String condition, String equals) {
         try {
             connect();
             statement = connection.createStatement();
-            int affected = statement.executeUpdate("'UPDATE " + table + " SET " + column + " = " + value + "'");
-            System.out.println(affected + " rows where affected");
-        } catch (SQLException ex) {
-            System.err.print("Update failed");
-        }
-    }
-
-    public void updateWhere(String table, String column, String value, String condition) {
-        try {
-            connect();
-            statement = connection.createStatement();
-            int affected = statement.executeUpdate("UPDATE " + table + " SET " + column + " = " + value + " WHERE " + condition + "'");
+            int affected = statement.executeUpdate("UPDATE `" + table + "` SET `" + column + "` = '" + value +
+                    "' WHERE `" + condition + "` = '" + equals + "'");
             System.out.println(affected + " rows where affected");
         } catch (SQLException ex) {
             System.err.print("Update failed");
@@ -89,6 +79,20 @@ public class DB_Connector {
             connect();
             statement = connection.createStatement();
             resultSet = statement.executeQuery(query);
+        } catch (SQLException ex) {
+            System.err.print("Execution of query failed");
+        } catch (NullPointerException ex) {
+            System.err.print("bruh moment");
+        }
+        return resultSet;
+    }
+
+    public ResultSet simpleSelect(String column, String table, String condition, String equals) {
+        try {
+            connect();
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("SELECT `" + column + "` FROM `" + table + "` WHERE `" +
+                    condition + "` = '" + equals + "'");
         } catch (SQLException ex) {
             System.err.print("Execution of query failed");
         } catch (NullPointerException ex) {
