@@ -232,11 +232,9 @@ public class BookRoom {
         tosb.setCharAt(10, ' ');
         fromsb.append(":00");
         tosb.append(":00");
-        String from = String.valueOf(fromsb);
-        String to = String.valueOf(tosb);
         //String sqlbook = "INSERT INTO `pc2fma2`.`booking` VALUES ('Admin', '" + rs.getString(1) + "', '" + rs.getString(2) + "', '" + from +"', '" + to + "', 'test');";
         //String sqlbook = "INSERT INTO `pc2fma2`.`booking` (user-email,room-id, building-id, start-time, end-time) VALUES ('Admin', '1', '1', '2019-04-30 14:40:00', '2019-05-31 14:40:00')";
-        String sqlbook = "INSERT INTO `pc2fma2`.`booking` (user-email,room-id, start-time, end-time) VALUES ('Admin', '1', '2019-04-30 14:40:00', '2019-05-31 14:40:00')";
+        String sqlbook = "INSERT INTO `pc2fma2`.`booking` (user-email,room-id, start-time, end-time) VALUES ('Admin', '"+rs.getString(2)+"', '"+String.valueOf(fromsb)+"', '"+String.valueOf(tosb)+"')";
         //String sqlbook = "INSERT INTO `pc2fma2`.`booking` NOT NULL AUTOINCREMENT, 'Admin', '1', '1', '" + DPsearchfrom.getDateTimeValue() + ":00', '" + DPsearchto.getDateTimeValue() + "', 'TEST'";
         System.out.println(sqlbook);
         Connector.select(sqlbook);
