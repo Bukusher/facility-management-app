@@ -7,6 +7,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 import sample.DB_Connector;
+import sample.SendEmail;
 
 import java.security.SecureRandom;
 import java.io.IOException;
@@ -88,12 +89,13 @@ public class Login {
 
     @FXML
     private void resetPassword(ActionEvent event) throws IOException {
-        String pinForgot = TFpinForgot.getText();
-        String emailForgot = TFemailForgot.getText();
-        String passwordForgot = TFpasswordFogot.getText();
-        String passwordForgotRepeat = TFpasswordFogotRepeat.getText();
-        String pinString = String.format("%06d", pin);
         try {
+            String pinForgot = TFpinForgot.getText();
+            String emailForgot = TFemailForgot.getText();
+            String passwordForgot = TFpasswordFogot.getText();
+            String passwordForgotRepeat = TFpasswordFogotRepeat.getText();
+            String pinString = String.format("%06d", pin);
+            SendEmail.send(emailForgot, "FMA pin for account creation", "Welcome " + emailForgot + ". \n" + "The pin to reset your password is: " + pinString);
             if (pinForgot.equals(pinString)) {
                 if (passwordForgot.equals(passwordForgotRepeat)) {
                     String resetPasswordQuery = "UPDATE account SET `password` = '" + passwordForgot + "' WHERE `email` = '" + emailForgot + "'";
@@ -112,7 +114,7 @@ public class Login {
                 alert.showAndWait();
             }
         } catch (Exception e) {
-            System.out.println(e.toString());
+            System.err.println(new java.util.Date() + " : " + e.getMessage());
         }
     }
 
@@ -130,37 +132,64 @@ public class Login {
     public int randomizePin() {
         pin = rand.nextInt(999999 - 100000) + 100000;
         System.out.println(pin);
+        String name = TFname.getText();
+        String surname = TFsurname.getText();
+        String mail = TFmailSighUp.getText();
+        String pinString = String.format("%06d", pin);
+        try {
+        SendEmail.send(mail, "FMA pin for account creation", "Welcome " + surname + ", " + name + ". \n" + "The pin for your account is: " + pinString);
+        } catch (Exception e){
+            System.err.println(new java.util.Date() + " : " + e.getMessage());
+        }
+        return pin;
+    }
+
+    @FXML
+    public int randomizePinForget() {
+        pin = rand.nextInt(999999 - 100000) + 100000;
+        System.out.println(pin);
+        String mail = TFemailForgot.getText();
+        String pinString = String.format("%06d", pin);
+        try {
+            SendEmail.send(mail, "FMA pin for account creation", "Welcome " + mail + ". \n" + "The pin to reset your password is: " + pinString);
+        } catch (Exception e){
+            System.err.println(new java.util.Date() + " : " + e.getMessage());
+        }
         return pin;
     }
 
     @FXML
     public void createAccount(ActionEvent event) throws IOException {
-        String name = TFname.getText();
-        String surname = TFsurname.getText();
-        String mail = TFmailSighUp.getText();
-        String password1 = TFpasswordSignUp.getText();
-        String password2 = TFpasswordconfirm.getText();
-        String pinConfirm = TFpin.getText();
-        String pinString = String.format("%06d", pin);
-        if (pinString.equals(pinConfirm)) {
-            if (password1.equals(password2)) {
-                String createAccountQuery = "INSERT INTO pc2fma2.account " +
-                        "(`email`, `name`, `surname`, `password`, `account_type`) " +
-                        "VALUES ('" + mail + "','" + name + "','" + surname + "','" + password1 + "','employee');";
-                connector.executeSQL(createAccountQuery);
-                sceneChanger.SceneChange(event, "Scene1Login.fxml");
+        try {
+            String name = TFname.getText();
+            String surname = TFsurname.getText();
+            String mail = TFmailSighUp.getText();
+            String password1 = TFpasswordSignUp.getText();
+            String password2 = TFpasswordconfirm.getText();
+            String pinConfirm = TFpin.getText();
+            String pinString = String.format("%06d", pin);
+            if (pinString.equals(pinConfirm)) {
+                if (password1.equals(password2)) {
+                    String createAccountQuery = "INSERT INTO pc2fma2.account " +
+                            "(`email`, `name`, `surname`, `password`, `account_type`) " +
+                            "VALUES ('" + mail + "','" + name + "','" + surname + "','" + password1 + "','employee');";
+                    connector.executeSQL(createAccountQuery);
+                    sceneChanger.SceneChange(event, "Scene1Login.fxml");
+                } else {
+                    alert.setTitle("Error");
+                    alert.setHeaderText("Passwords does not match!");
+                    alert.setContentText("Please retype your password.");
+                    alert.showAndWait();
+                }
             } else {
                 alert.setTitle("Error");
-                alert.setHeaderText("Passwords does not match!");
-                alert.setContentText("Please retype your password.");
+                alert.setHeaderText("Pin does not match!");
+                alert.setContentText("Please retype the pin you received or press 'send pin' for a new pin.");
                 alert.showAndWait();
             }
-        } else {
-            alert.setTitle("Error");
-            alert.setHeaderText("Pin does not match!");
-            alert.setContentText("Please retype the pin you received or press 'send pin' for a new pin.");
-            alert.showAndWait();
-        }
 
+        } catch (Exception e) {
+            System.err.println(new java.util.Date() + " : " + e.getMessage());
+        }
     }
 }

@@ -64,7 +64,7 @@ public class UserAdmin {
             TFnewPassword.setText(rsPassword);
             roleBox.setValue(rsAccount);
         } catch (SQLException ex) {
-            System.out.println();
+            System.err.println(new java.util.Date() + " : " + ex.getMessage());
         }
     }
 
@@ -107,12 +107,16 @@ public class UserAdmin {
         String AddNewUserQuery = "INSERT INTO pc2fma2.account " +
                 "(`email`, `name`, `surname`, `password`, `account_type`) " +
                 "VALUES ('" + newMail + "','" + firstName + "','" + surname + "','" + newPassword + "','" + role + "');";
-        connector.executeSQL(AddNewUserQuery);
-        TFfirstName.setText("");
-        TFsurname.setText("");
-        TFnewMail.setText("");
-        TFnewPassword.setText("");
-        roleBox.setValue(null);
+        try {
+            connector.executeSQL(AddNewUserQuery);
+            TFfirstName.setText("");
+            TFsurname.setText("");
+            TFnewMail.setText("");
+            TFnewPassword.setText("");
+            roleBox.setValue(null);
+        } catch (Exception e) {
+            System.err.println(new java.util.Date() + " : " + e.getMessage());
+        }
     }
 
     public void EditUser(ActionEvent event) throws IOException {
@@ -124,14 +128,17 @@ public class UserAdmin {
         String role = String.valueOf(roleBox.getValue());
         String editUserQuery = "UPDATE account SET `email` = '" + newMail + "', `name` = '" + firstName + "', `surname` = '" + surname +
                 "', `password` = '" + newPassword + "', `account_type` = '" + role + "' WHERE `email` = '" + searchMail + "'";
-        System.out.println(editUserQuery);
-        connector.executeSQL(editUserQuery);
-        TFsearchMail.setText("");
-        TFfirstName.setText("");
-        TFsurname.setText("");
-        TFnewMail.setText("");
-        TFnewPassword.setText("");
-        roleBox.setValue(null);
+        try {
+            connector.executeSQL(editUserQuery);
+            TFsearchMail.setText("");
+            TFfirstName.setText("");
+            TFsurname.setText("");
+            TFnewMail.setText("");
+            TFnewPassword.setText("");
+            roleBox.setValue(null);
+        } catch (Exception e) {
+            System.err.println(new java.util.Date() + " : " + e.getMessage());
+        }
     }
 
     @FXML
