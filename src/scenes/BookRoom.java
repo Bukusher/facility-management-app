@@ -3,27 +3,20 @@ package scenes;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import sample.AccountType;
 import sample.DB_Connector;
-
-import java.io.DataInput;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.util.Date;
 
-import static jdk.nashorn.internal.parser.TokenType.NOT;
 
 public class BookRoom {
     SceneChanger sceneChange = new SceneChanger();
     private DB_Connector Connector = new DB_Connector();
     private ResultSet rs;
-    @FXML
-    TextField TFsearchbuildingname;
+    private StringBuilder fromsb;
+    private StringBuilder tosb;
     @FXML
     TextField TFsearchroomname;
     @FXML
@@ -55,7 +48,6 @@ public class BookRoom {
 
     @FXML
     private void searchRooms(ActionEvent event) throws SQLException {
-        String building = TFsearchbuildingname.getText();
         String room = TFsearchroomname.getText();
         Integer chairs;
         if(TFsearchchairamount.getText().isEmpty())
@@ -74,134 +66,59 @@ public class BookRoom {
         Boolean microphone = CBsearchmicrophone.isSelected();
         Boolean speaker = CBsearchspeakers.isSelected();
         Boolean overhead = CBsearchoverheadprojector.isSelected();
-        StringBuilder fromsb = new StringBuilder(DPsearchfrom.getDateTimeValue().toString());
-        StringBuilder tosb = new StringBuilder(DPsearchto.getDateTimeValue().toString());
+        fromsb = new StringBuilder(DPsearchfrom.getDateTimeValue().toString());
+        tosb = new StringBuilder(DPsearchto.getDateTimeValue().toString());
         fromsb.setCharAt(10, ' ');
         tosb.setCharAt(10, ' ');
         fromsb.append(":00");
         tosb.append(":00");
-        String from = String.valueOf(fromsb);
-        String to = String.valueOf(tosb);
 
 
 
 
-        //Check how many Qualifiers are selected
-        Integer amountqualifiers=0;
-        if(!building.isEmpty())
-            amountqualifiers++;
-        if(!room.isEmpty())
-            amountqualifiers++;
-        if(chairs>=0)
-            amountqualifiers++;
-        if(size>=0)
-            amountqualifiers++;
-        if(tv)
-            amountqualifiers++;
-        if(projector)
-            amountqualifiers++;
-        if(whiteboard)
-            amountqualifiers++;
-        if(sink)
-            amountqualifiers++;
-        if(microphone)
-            amountqualifiers++;
-        if(speaker)
-            amountqualifiers++;
-        if(overhead)
-            amountqualifiers++;
 
 
         //Make SQL queurie
-        String sqlroom="SELECT * FROM `pc2fma2`.`room`";
-        String sqlbooking="SELECT * FROM `pc2fma2`.`booking`";
-        if(amountqualifiers>0)
-            sqlroom += " where";
-
-        if (!building.isEmpty())
-        {
-            sqlroom += " `room_building_id` = '";
-            sqlroom += building;
-            sqlroom += "'";
-            amountqualifiers--;
-            if(amountqualifiers>0)
-                sqlroom += " and";
-        }
+        String sqlroom="SELECT * FROM `pc2fma2`.`room` WHERE `room_availability` = '1'";
         if (!room.isEmpty())
         {
-            sqlroom += " `room_id` = '";
-            sqlroom += room;
-            sqlroom += "'";
-            amountqualifiers--;
-            if(amountqualifiers>0)
-                sqlroom += " and";
+            sqlroom += " AND `room_id` = '" + room + "'";
         }
         if (chairs>=0)
         {
-            sqlroom += " `chairs` BETWEEN '";
-            sqlroom += chairs;
-            sqlroom += "' AND '2147483647'";
-            amountqualifiers--;
-            if(amountqualifiers>0)
-                sqlroom += " and";
+            sqlroom += " AND `chairs` BETWEEN '" + chairs + "' AND '2147483647'";
         }
         if (size>=0)
         {
-            sqlroom += " `size` BETWEEN '";
-            sqlroom += size;
-            sqlroom += "' AND '2147483647'";
-            amountqualifiers--;
-            if(amountqualifiers>0)
-                sqlroom += " and";
+            sqlroom += " AND `size` BETWEEN '" + size + "' AND '2147483647'";
         }
         if (tv)
         {
             sqlroom += " `tv` = '1'";
-            amountqualifiers--;
-            if(amountqualifiers>0)
-                sqlroom += " and";
         }
         if (projector)
         {
-            sqlroom += " `prejector` = '1'";        //really called prEjector on Server? just checked with editroom code
-            amountqualifiers--;
-            if(amountqualifiers>0)
-                sqlroom += " and";
+            sqlroom += " AND `prejector` = '1'";        //really called prEjector on Server
         }
         if (whiteboard)
         {
-            sqlroom += " `whiteboard` = '1'";
-            amountqualifiers--;
-            if(amountqualifiers>0)
-                sqlroom += " and";
+            sqlroom += " AND `whiteboard` = '1'";
         }
         if (sink)
         {
-            sqlroom += " `sink` = '1'";
-            amountqualifiers--;
-            if(amountqualifiers>0)
-                sqlroom += " and";
+            sqlroom += " AND `sink` = '1'";
         }
         if (microphone)
         {
-            sqlroom += " `microphones` = '1'";
-            amountqualifiers--;
-            if(amountqualifiers>0)
-                sqlroom += " and";
+            sqlroom += " AND `microphones` = '1'";
         }
         if (speaker)
         {
-            sqlroom += " `stereo` = '1'";
-            amountqualifiers--;
-            if(amountqualifiers>0)
-                sqlroom += " and";
+            sqlroom += " AND `stereo` = '1'";
         }
         if (overhead)
         {
-            sqlroom += " `overhead_projector` = '1'";
-            amountqualifiers--;
-            if(amountqualifiers>0)
-                sqlroom += " and";
+            sqlroom += " AND `overhead_projector` = '1'";
         }
 
         //Execute SQL
@@ -211,7 +128,7 @@ public class BookRoom {
         String outputresults="";
         while(rs.next())
         {
-            outputresults+=entry + " - " + rs.getString(2) + "-" + rs.getString(1) + "\n";
+            outputresults+=entry + " - " + rs.getString(1) + "\n";
             entry++;
         }
         TArooms.setText(outputresults);
@@ -226,40 +143,30 @@ public class BookRoom {
             rs.previous();
         for (int i=1; i<chosenentry;i++)
             rs.next();
-        StringBuilder fromsb = new StringBuilder(DPsearchfrom.getDateTimeValue().toString());
-        StringBuilder tosb = new StringBuilder(DPsearchto.getDateTimeValue().toString());
-        fromsb.setCharAt(10, ' ');
-        tosb.setCharAt(10, ' ');
-        fromsb.append(":00");
-        tosb.append(":00");
-        //String sqlbook = "INSERT INTO `pc2fma2`.`booking` VALUES ('Admin', '" + rs.getString(1) + "', '" + rs.getString(2) + "', '" + from +"', '" + to + "', 'test');";
-        //String sqlbook = "INSERT INTO `pc2fma2`.`booking` (user-email,room-id, building-id, start-time, end-time) VALUES ('Admin', '1', '1', '2019-04-30 14:40:00', '2019-05-31 14:40:00')";
-        String sqlbook = "INSERT INTO `pc2fma2`.`booking` (user-email,room-id, start-time, end-time) VALUES ('Admin', '"+rs.getString(2)+"', '"+String.valueOf(fromsb)+"', '"+String.valueOf(tosb)+"')";
-        //String sqlbook = "INSERT INTO `pc2fma2`.`booking` NOT NULL AUTOINCREMENT, 'Admin', '1', '1', '" + DPsearchfrom.getDateTimeValue() + ":00', '" + DPsearchto.getDateTimeValue() + "', 'TEST'";
+        String sqlbook = "INSERT INTO `pc2fma2`.`booking` (`account_email`, `start_time`, `end_time`, `room_room_id`) VALUES ('Admin', '"+String.valueOf(fromsb)+"', '"+String.valueOf(tosb)+"', '" + rs.getString(1) + "'";
         System.out.println(sqlbook);
-        Connector.select(sqlbook);
+        Connector.executeSQL(sqlbook);
         ResultSet rs2 = Connector.select("SELECT * FROM `pc2fma2`.`booking`");
         String outputresults ="";
         Integer entry=1;
-        while(rs2.next())
+        while(true)
         {
             outputresults += entry;
-            outputresults += " - ";
-            outputresults+=rs.getString(1);
-            outputresults+=rs.getString(2);
-            outputresults+=rs.getString(3);
-            outputresults+=rs.getString(4);
-            outputresults+=rs.getString(5);
-            outputresults+=rs.getString(6);
-            outputresults+=rs.getString(7);
+            outputresults += " - bookingid ";
+            outputresults+=rs.getString(1) + " mail ";
+            outputresults+=rs.getString(2) + " starttime ";
+            outputresults+=rs.getString(3) + " endtime ";
+            outputresults+=rs.getString(4) + " roomnumber ";
+            outputresults+=rs.getString(5) + "\n";
 
             entry++;
-            outputresults +="\n";
+            rs2.next();
+            if(rs.last())
+                break;
         }
-        TArooms.setText(outputresults);
+        System.out.println(outputresults);
+        TFroombookentry.setText("");
     }
-
-
 
 
     @FXML
