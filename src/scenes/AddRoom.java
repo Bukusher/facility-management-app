@@ -12,8 +12,7 @@ import java.io.IOException;
 public class AddRoom {
     SceneChanger sceneChange = new SceneChanger();
     private DB_Connector connector= new DB_Connector();
-    @FXML
-    TextField TFBuildingIdAdd;
+
     @FXML
     TextField TFnewNameAdd;
     @FXML
@@ -59,11 +58,10 @@ public class AddRoom {
         String nameAdd = TFnewNameAdd.getText();
         String chairAdd = TFnewChairAdd.getText();
         String size = TFnewSizeAdd.getText();
-        String buildingID = TFBuildingIdAdd.getText();
-        //Putting all vaules in variables
+        //Putting all values in variables
         String AddNewRoomQuery = "INSERT INTO pc2fma2.room " +
-                "(`room_id`, `room_availability`, `chairs`, `tv`, `size`, `prejector`, `whiteboard`, `sink`, `microphones`, `stereo`, `overhead_projector`, `room_building_id` ) " +
-                "VALUES ('" + nameAdd + "','1','" + chairAdd + "','" + outTv + "','"+size + "','"+ outProjector+"','"+outWhiteboard+"','"+outSink+"','"+ outMicrophone+"','"+outStero +"','"+outOverheadProjector+"','"+ buildingID+"');";
+                "(`room_id`, `room_availability`, `chairs`, `tv`, `size`, `prejector`, `whiteboard`, `sink`, `microphones`, `stereo`, `overhead_projector`) " +
+                "VALUES ('" + nameAdd + "','1','" + chairAdd + "','" + outTv + "','"+size + "','"+ outProjector+"','"+outWhiteboard+"','"+outSink+"','"+ outMicrophone+"','"+outStero +"','"+outOverheadProjector+"');";
         connector.executeSQL(AddNewRoomQuery);
         TFnewNameAdd.setText("");
         TFnewSizeAdd.setText("");
