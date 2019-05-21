@@ -35,6 +35,9 @@ public class Settings {
     private TextField TFSettingsNewMail;
 
     @FXML
+    private TextField TFSettingsMail;
+
+    @FXML
     private TextField TFSettingsOldPassword;
 
     @FXML
@@ -116,8 +119,47 @@ public class Settings {
     @FXML
     private void ConfirmNewPassword(ActionEvent event) throws IOException {
         try {
+            String mail = TFSettingsMail.getText();
             String oldPassword = TFSettingsOldPassword.getText();
-            //sql to be implemented
+            String newPassword = TFSettingsNewPassword.getText();
+
+            if (!mail.isEmpty() && !oldPassword.isEmpty() && !newPassword.isEmpty()) {
+                ResultSet DBMail = connector.simpleSelect("email", "account", "email", mail);
+                DBMail.next();
+                ResultSet DBPassword = connector.simpleSelect("password", "account", "email", mail);
+                DBPassword.next();
+
+                if (DBMail.getString(1).equals(mail) && DBPassword.getString(1).equals(oldPassword)) {
+                    TextInputDialog dialog = new TextInputDialog();
+                    dialog.setTitle("Confirmation");
+                    dialog.setHeaderText("Re-enter your new password to confirm");
+                    dialog.setContentText("New Password: ");
+                    Optional<String> result = dialog.showAndWait();
+
+                    AtomicReference<String> confirmationPassword = new AtomicReference<>();
+                    result.ifPresent(confirmationPassword::set);
+
+                    if (newPassword.equals(confirmationPassword.get())){
+                        connector.update("account", "email", newPassword, "email", mail);
+                    } else {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Error");
+                        alert.setHeaderText("Passwords do not match");
+                        alert.showAndWait();
+                    }
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setContentText("Email or password not valid!");
+                    alert.showAndWait();
+                }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("One or more fields empty");
+                alert.setContentText("All fields should be complete before clicking!");
+                alert.showAndWait();
+            }
         } catch (Exception ex) {
             System.err.println(ex);
         }
