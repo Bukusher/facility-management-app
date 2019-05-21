@@ -3,6 +3,7 @@ package scenes;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import sample.DB_Connector;
 
 
 import java.io.IOException;

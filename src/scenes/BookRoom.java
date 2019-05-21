@@ -5,14 +5,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import jdk.nashorn.internal.ir.WhileNode;
 import sample.DB_Connector;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-public class BookRoom {
-    SceneChanger sceneChange = new SceneChanger();
+public class BookRoom extends ChangeScene{
     private DB_Connector Connector = new DB_Connector();
     private ResultSet rs;
     private StringBuilder fromsb;
@@ -121,6 +121,20 @@ public class BookRoom {
             sqlroom += " AND `overhead_projector` = '1'";
         }
 
+
+        String sqltime = "SELECT * FROM `pc2fma2`.`booking`"; //WHERE `start_time` BETWEEN '" + fromsb + "' AND '" + tosb + "'";
+        ResultSet rs2 = Connector.select(sqltime);
+        try {
+        while (rs2.next())
+
+            System.out.println(rs.getString(1));
+        }
+        catch(Exception ex)
+        {
+            System.out.println(ex);
+        }
+
+
         //Execute SQL
         rs = Connector.select(sqlroom);
 
@@ -143,40 +157,9 @@ public class BookRoom {
             rs.previous();
         for (int i=1; i<chosenentry;i++)
             rs.next();
-        String sqlbook = "INSERT INTO `pc2fma2`.`booking` (`account_email`, `start_time`, `end_time`, `room_room_id`) VALUES ('Admin', '"+String.valueOf(fromsb)+"', '"+String.valueOf(tosb)+"', '" + rs.getString(1) + "'";
+        String sqlbook = "INSERT INTO `pc2fma2`.`booking` (`account_email`, `start_time`, `end_time`, `room_room_id`) VALUES ('Admin', '"+String.valueOf(fromsb)+"', '"+String.valueOf(tosb)+"', '" + rs.getString(1) + "')";
         System.out.println(sqlbook);
         Connector.executeSQL(sqlbook);
-        ResultSet rs2 = Connector.select("SELECT * FROM `pc2fma2`.`booking`");
-        String outputresults ="";
-        Integer entry=1;
-        while(true)
-        {
-            outputresults += entry;
-            outputresults += " - bookingid ";
-            outputresults+=rs.getString(1) + " mail ";
-            outputresults+=rs.getString(2) + " starttime ";
-            outputresults+=rs.getString(3) + " endtime ";
-            outputresults+=rs.getString(4) + " roomnumber ";
-            outputresults+=rs.getString(5) + "\n";
-
-            entry++;
-            rs2.next();
-            if(rs.last())
-                break;
-        }
-        System.out.println(outputresults);
         TFroombookentry.setText("");
-    }
-
-
-    @FXML
-    private void Dashboard(ActionEvent event) throws IOException {
-        sceneChange.SceneChange(event, "Scene2Dashboard.fxml");
-    }
-
-
-    @FXML
-    private void logout(ActionEvent event) throws IOException {
-        sceneChange.SceneChange(event, "Scene1Login.fxml");
     }
 }
