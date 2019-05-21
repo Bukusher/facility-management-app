@@ -2,14 +2,13 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
-
 <?import scenes.DateTimePicker?>
+
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="657.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.BookRoom">
    <children>
       <Button id="BThelp" fx:id="BThelp" layoutX="24.0" layoutY="14.0" mnemonicParsing="false" text="Help" />
@@ -38,7 +37,7 @@
       <TextArea id="TArooms" fx:id="TArooms" layoutX="400.0" layoutY="76.0" prefHeight="251.0" prefWidth="232.0" />
       <TextField id="TFroombookentry" fx:id="TFroombookentry" layoutX="400.0" layoutY="366.0" prefHeight="25.0" prefWidth="35.0" />
       <Label layoutX="400.0" layoutY="330.0" text="Which of the above listed entries would you&#10;like to book? (If empty, entry1 is chosen)" />
-      <Button id="BTbookroom" fx:id="BTbookroom" layoutX="457.0" layoutY="366.0" mnemonicParsing="false" text="Book" />
+      <Button id="BTbookroom" fx:id="BTbookroom" layoutX="457.0" layoutY="366.0" mnemonicParsing="false" onAction="#bookroom" text="Book" />
       <Label layoutX="27.0" layoutY="84.0" text="Building name" />
    </children>
 </AnchorPane>

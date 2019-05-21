@@ -16,9 +16,12 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+import static jdk.nashorn.internal.parser.TokenType.NOT;
+
 public class BookRoom {
     SceneChanger sceneChange = new SceneChanger();
     private DB_Connector Connector = new DB_Connector();
+    private ResultSet rs;
     @FXML
     TextField TFsearchbuildingname;
     @FXML
@@ -110,106 +113,148 @@ public class BookRoom {
 
 
         //Make SQL queurie
-        String sql="SELECT * FROM `pc2fma2`.`room`";
+        String sqlroom="SELECT * FROM `pc2fma2`.`room`";
+        String sqlbooking="SELECT * FROM `pc2fma2`.`booking`";
         if(amountqualifiers>0)
-            sql += " where";
+            sqlroom += " where";
 
         if (!building.isEmpty())
         {
-            sql += " `room_building_id` = '";
-            sql += building;
-            sql += "'";
+            sqlroom += " `room_building_id` = '";
+            sqlroom += building;
+            sqlroom += "'";
             amountqualifiers--;
             if(amountqualifiers>0)
-                sql += " and";
+                sqlroom += " and";
         }
         if (!room.isEmpty())
         {
-            sql += " `room_id` = '";
-            sql += room;
-            sql += "'";
+            sqlroom += " `room_id` = '";
+            sqlroom += room;
+            sqlroom += "'";
             amountqualifiers--;
             if(amountqualifiers>0)
-                sql += " and";
+                sqlroom += " and";
         }
         if (chairs>=0)
         {
-            sql += " `chairs` BETWEEN '";
-            sql += chairs;
-            sql += "' AND '2147483647'";
+            sqlroom += " `chairs` BETWEEN '";
+            sqlroom += chairs;
+            sqlroom += "' AND '2147483647'";
             amountqualifiers--;
             if(amountqualifiers>0)
-                sql += " and";
+                sqlroom += " and";
         }
         if (size>=0)
         {
-            sql += " `size` BETWEEN '";
-            sql += size;
-            sql += "' AND '2147483647'";
+            sqlroom += " `size` BETWEEN '";
+            sqlroom += size;
+            sqlroom += "' AND '2147483647'";
             amountqualifiers--;
             if(amountqualifiers>0)
-                sql += " and";
+                sqlroom += " and";
         }
         if (tv)
         {
-            sql += " `tv` = '1'";
+            sqlroom += " `tv` = '1'";
             amountqualifiers--;
             if(amountqualifiers>0)
-                sql += " and";
+                sqlroom += " and";
         }
         if (projector)
         {
-            sql += " `prejector` = '1'";        //really called prEjector on Server? just checked with editroom code
+            sqlroom += " `prejector` = '1'";        //really called prEjector on Server? just checked with editroom code
             amountqualifiers--;
             if(amountqualifiers>0)
-                sql += " and";
+                sqlroom += " and";
         }
         if (whiteboard)
         {
-            sql += " `whiteboard` = '1'";
+            sqlroom += " `whiteboard` = '1'";
             amountqualifiers--;
             if(amountqualifiers>0)
-                sql += " and";
+                sqlroom += " and";
         }
         if (sink)
         {
-            sql += " `sink` = '1'";
+            sqlroom += " `sink` = '1'";
             amountqualifiers--;
             if(amountqualifiers>0)
-                sql += " and";
+                sqlroom += " and";
         }
         if (microphone)
         {
-            sql += " `microphones` = '1'";
+            sqlroom += " `microphones` = '1'";
             amountqualifiers--;
             if(amountqualifiers>0)
-                sql += " and";
+                sqlroom += " and";
         }
         if (speaker)
         {
-            sql += " `stereo` = '1'";
+            sqlroom += " `stereo` = '1'";
             amountqualifiers--;
             if(amountqualifiers>0)
-                sql += " and";
+                sqlroom += " and";
         }
         if (overhead)
         {
-            sql += " `overhead_projector` = '1'";
+            sqlroom += " `overhead_projector` = '1'";
             amountqualifiers--;
             if(amountqualifiers>0)
-                sql += " and";
+                sqlroom += " and";
         }
 
         //Execute SQL
-        ResultSet rs = Connector.select(sql);
+        rs = Connector.select(sqlroom);
 
         Integer entry =1;
         String outputresults="";
         while(rs.next())
         {
+            outputresults+=entry + " - " + rs.getString(2) + "-" + rs.getString(1) + "\n";
+            entry++;
+        }
+        TArooms.setText(outputresults);
+    }
+
+    @FXML
+    private void bookroom(ActionEvent event) throws SQLException {
+        Integer chosenentry = 1;
+        if(!TFroombookentry.getText().isEmpty())
+            chosenentry=Integer.parseInt(TFroombookentry.getText());
+        while (!rs.isFirst())
+            rs.previous();
+        for (int i=1; i<chosenentry;i++)
+            rs.next();
+        StringBuilder fromsb = new StringBuilder(DPsearchfrom.getDateTimeValue().toString());
+        StringBuilder tosb = new StringBuilder(DPsearchto.getDateTimeValue().toString());
+        fromsb.setCharAt(10, ' ');
+        tosb.setCharAt(10, ' ');
+        fromsb.append(":00");
+        tosb.append(":00");
+        String from = String.valueOf(fromsb);
+        String to = String.valueOf(tosb);
+        //String sqlbook = "INSERT INTO `pc2fma2`.`booking` VALUES ('Admin', '" + rs.getString(1) + "', '" + rs.getString(2) + "', '" + from +"', '" + to + "', 'test');";
+        //String sqlbook = "INSERT INTO `pc2fma2`.`booking` (user-email,room-id, building-id, start-time, end-time) VALUES ('Admin', '1', '1', '2019-04-30 14:40:00', '2019-05-31 14:40:00')";
+        String sqlbook = "INSERT INTO `pc2fma2`.`booking` (user-email,room-id, start-time, end-time) VALUES ('Admin', '1', '2019-04-30 14:40:00', '2019-05-31 14:40:00')";
+        //String sqlbook = "INSERT INTO `pc2fma2`.`booking` NOT NULL AUTOINCREMENT, 'Admin', '1', '1', '" + DPsearchfrom.getDateTimeValue() + ":00', '" + DPsearchto.getDateTimeValue() + "', 'TEST'";
+        System.out.println(sqlbook);
+        Connector.select(sqlbook);
+        ResultSet rs2 = Connector.select("SELECT * FROM `pc2fma2`.`booking`");
+        String outputresults ="";
+        Integer entry=1;
+        while(rs2.next())
+        {
             outputresults += entry;
             outputresults += " - ";
             outputresults+=rs.getString(1);
+            outputresults+=rs.getString(2);
+            outputresults+=rs.getString(3);
+            outputresults+=rs.getString(4);
+            outputresults+=rs.getString(5);
+            outputresults+=rs.getString(6);
+            outputresults+=rs.getString(7);
+
             entry++;
             outputresults +="\n";
         }
