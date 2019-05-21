@@ -21,7 +21,7 @@
       <PasswordField id="TFSettingsNewPassword" fx:id="TFSettingsNewPassword" layoutX="23.0" layoutY="325.0" prefHeight="26.0" prefWidth="251.0" promptText="New Password" />
       <Button id="BTSettingsChangeMail" fx:id="BTSettingsChangeMail" layoutX="22.0" layoutY="167.0" mnemonicParsing="false" onAction="#ConfirmChangeMail" text="Change Mail" />
       <Button id="BTSettingsChangePassword" fx:id="BTSettingsChangePassword" layoutX="23.0" layoutY="361.0" mnemonicParsing="false" onAction="#ConfirmNewPassword" text="Change password" />
-      <Button id="BTSettingsDeleteAccount" fx:id="BTSettingsDeleteAccount" layoutX="480.0" layoutY="361.0" mnemonicParsing="false" onAction="#ConfirmDeleteAccount" text="Delete Account" />
+      <Button id="BTSettingsDeleteAccount" fx:id="BTSettingsDeleteAccount" layoutX="480.0" layoutY="361.0" mnemonicParsing="false" onAction="#deleteAccountPopUp" text="Delete Account" />
       <ToggleButton fx:id="TBSettingsDarkTheme" layoutX="411.0" layoutY="174.0" mnemonicParsing="false" onAction="#setDarkTheme" text="Dark Theme" />
    </children>
 </Pane>

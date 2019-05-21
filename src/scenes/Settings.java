@@ -53,6 +53,18 @@ public class Settings {
     private Button BTSettingsDeleteAccount;
 
     @FXML
+    private Button BTDeleteAccountBack;
+
+    @FXML
+    private TextField TFDeleteAccountEmail;
+
+    @FXML
+    private TextField TFDeleteAccountPassword;
+
+    @FXML
+    private Button BTDeleteAccount;
+
+    @FXML
     private ToggleButton TBSettingsDarkTheme;
 
 
@@ -86,9 +98,9 @@ public class Settings {
                     AtomicReference<String> password = new AtomicReference<>();
                     result.ifPresent(password::set);
 
-                    ResultSet DBPassword = connector.simpleSelect("password","account", "email", oldMail);
+                    ResultSet DBPassword = connector.simpleSelect("password", "account", "email", oldMail);
                     DBPassword.next();
-                    if (DBPassword.getString(1).equals(password.get())){
+                    if (DBPassword.getString(1).equals(password.get())) {
                         connector.update("account", "email", newMail, "email", oldMail);
                     } else {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -139,7 +151,7 @@ public class Settings {
                     AtomicReference<String> confirmationPassword = new AtomicReference<>();
                     result.ifPresent(confirmationPassword::set);
 
-                    if (newPassword.equals(confirmationPassword.get())){
+                    if (newPassword.equals(confirmationPassword.get())) {
                         connector.update("account", "email", newPassword, "email", mail);
                     } else {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -166,11 +178,56 @@ public class Settings {
     }
 
     @FXML
-    private void ConfirmDeleteAccount(ActionEvent event) throws IOException {
-        //to be replaced by alerts
+    private void deleteAccountPopUp(ActionEvent event) throws IOException {
         sceneChange.SceneChange(event, "Scene4,3deleteaccountpopup.fxml");
     }
 
+    @FXML
+    private void deleteAccountBack(ActionEvent event) throws IOException {
+        sceneChange.SceneChange(event, "Scene4settings.fxml");
+    }
+
+    @FXML
+    private void ConfirmDeleteAccount(ActionEvent event) throws IOException {
+        try {
+            String email = TFDeleteAccountEmail.getText();
+            String password = TFDeleteAccountPassword.getText();
+
+            if (!email.isEmpty() && !password.isEmpty()) {
+
+                try {
+                    ResultSet DBMail = connector.simpleSelect("email", "account", "email", email);
+                    DBMail.next();
+                    if (!DBMail.getString(1).isEmpty()) {
+                        ResultSet DBPassword = connector.simpleSelect("password", "Account", "email", email);
+                        DBPassword.next();
+                        if (DBPassword.getString(1).equals(password)) {
+                            connector.executeSQL("DELETE FROM `account` WHERE `email` = '" + email + "'");
+                            sceneChange.SceneChange(event, "Scene1Login.fxml");
+                        } else {
+                            Alert alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setTitle("Error");
+                            alert.setContentText("Password is not valid!");
+                            alert.showAndWait();
+                        }
+                    }
+                } catch (SQLException ex) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setContentText("Email is not valid!");
+                    alert.showAndWait();
+                }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("One or more fields empty");
+                alert.setContentText("All fields should be complete before clicking!");
+                alert.showAndWait();
+            }
+        } catch (Exception ex) {
+            System.err.println(ex);
+        }
+    }
 
     public void setDarkTheme(ActionEvent event) throws IOException {
 
