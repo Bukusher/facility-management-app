@@ -3,6 +3,7 @@ package scenes;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import sample.DB_Connector;
 
 
@@ -10,10 +11,69 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class ChangeScene {
 
-    SceneChanger sceneChange = new SceneChanger();
+    @FXML
+    Button BTbooking;
+    @FXML
+    Button BThistory;
+    @FXML
+    Button BTroomAdmin;
+    @FXML
+    Button BTadmin;
+    @FXML
+    Button BTsearch;
+    @FXML
+    Button BTlog;
+
+
+
+    private SceneChanger sceneChange = new SceneChanger();
+    private DB_Connector connector = new DB_Connector();
+
+    public void initialize() {
+        String userEmail = currentusermail();
+        String RoleQuery = "SELECT `account_type` FROM `pc2fma2`.`account` where email = '" + userEmail + "'";
+        try {
+            ResultSet resultSet = connector.select(RoleQuery);
+            String role = "employee";
+            if (resultSet != null) {
+                while (resultSet.next()) {
+                    role = resultSet.getString(1);
+                }
+            }
+            switch (role){
+                case "employee" :
+                    BTbooking.setVisible(true);
+                    BThistory.setVisible(true);
+                    BTroomAdmin.setVisible(false);
+                    BTadmin.setVisible(false);
+                    BTsearch.setVisible(false);
+                    BTlog.setVisible(false);
+                    break;
+                case "administrator" :
+                    BTbooking.setVisible(true);
+                    BThistory.setVisible(true);
+                    BTroomAdmin.setVisible(true);
+                    BTadmin.setVisible(true);
+                    BTsearch.setVisible(true);
+                    BTlog.setVisible(true);
+                    break;
+                case "manager" :
+                    BTbooking.setVisible(true);
+                    BThistory.setVisible(true);
+                    BTroomAdmin.setVisible(true);
+                    BTadmin.setVisible(false);
+                    BTsearch.setVisible(true);
+                    BTlog.setVisible(false);
+            }
+        } catch (Exception e) {
+            System.err.println(new java.util.Date() + " : " + e.getMessage());
+        }
+    }
 
 
     @FXML
@@ -61,7 +121,7 @@ public class ChangeScene {
         sceneChange.SceneChange(event, "Scene8AdminSearch.fxml");
     }
 
-//not implemented yet
+    //not implemented yet
     @FXML
     private void ForgotPassword(ActionEvent event) throws IOException {
         sceneChange.SceneChange(event, "Scene1,2forgotpasswordpopup.fxml");

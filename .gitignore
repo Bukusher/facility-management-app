@@ -4,9 +4,11 @@
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+scr/scenes/user.credit
 
 # Generated files
 .idea/**/contentModel.xml
 .idea/misc.xml
 .idea/misc.xml
 .idea/misc.xml
+out/production/Project 2/sample/AccountType.class

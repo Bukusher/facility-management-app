@@ -155,8 +155,6 @@ public class BookRoom extends ChangeScene{
         ChronoLocalDateTime timefrom = ChronoLocalDateTime.from(DPsearchfrom.getDateTimeValue());
         ChronoLocalDateTime timeto = ChronoLocalDateTime.from(DPsearchto.getDateTimeValue());
 
-        System.out.println(timefrom.compareTo(timeto));
-
         //Switch between being able and not being able to book in the past
         if(now.compareTo(timefrom)<0 && now.compareTo(timeto)<0 && timefrom.compareTo(timeto)<0)
         //if (true)
@@ -211,6 +209,8 @@ public class BookRoom extends ChangeScene{
         String sqlbook = "INSERT INTO `pc2fma2`.`booking` (`account_email`, `start_time`, `end_time`, `room_room_id`) VALUES ('" + currentusermail() + "', '"+String.valueOf(fromsb)+"', '"+String.valueOf(tosb)+"', '" + rs.getString(1) + "')";
         Connector.executeSQL(sqlbook);
         TFroombookentry.setText("");
+        fromsb.delete(16,29);
+        tosb.delete(16,29);
         Alert a = new Alert(Alert.AlertType.CONFIRMATION);
         a.setTitle("Bookingconfirmation");
         a.setHeaderText("The booking was successful!");

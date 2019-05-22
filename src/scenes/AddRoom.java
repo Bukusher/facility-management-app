@@ -33,10 +33,21 @@ public class AddRoom {
     CheckBox CBspeakers;
     @FXML
     CheckBox CBoverheadprojector;
+    @FXML
+    CheckBox CBroomavailable;
+
 
     @FXML
     private void DashboardRoom(ActionEvent event) throws IOException {
         sceneChange.SceneChange(event, "Scene3roomdashboard.fxml");
+    }
+
+
+    //sets up new rooms to be available as standard, still changable by user though
+    @FXML
+    protected void initialize()
+    {
+        CBroomavailable.setSelected(true);
     }
 
     @FXML
@@ -55,13 +66,15 @@ public class AddRoom {
         byte outStero = (byte) (inStero ? 1 : 0);
         boolean inOverheadProjector = CBoverheadprojector.isSelected();
         byte outOverheadProjector = (byte) (inOverheadProjector ? 1 : 0);
+        boolean inAvailable = CBroomavailable.isSelected();
+        byte outAvailable = (byte) (inAvailable ? 1 : 0);
         String nameAdd = TFnewNameAdd.getText();
         String chairAdd = TFnewChairAdd.getText();
         String size = TFnewSizeAdd.getText();
         //Putting all values in variables
         String AddNewRoomQuery = "INSERT INTO pc2fma2.room " +
                 "(`room_id`, `room_availability`, `chairs`, `tv`, `size`, `prejector`, `whiteboard`, `sink`, `microphones`, `stereo`, `overhead_projector`) " +
-                "VALUES ('" + nameAdd + "','1','" + chairAdd + "','" + outTv + "','"+size + "','"+ outProjector+"','"+outWhiteboard+"','"+outSink+"','"+ outMicrophone+"','"+outStero +"','"+outOverheadProjector+"');";
+                "VALUES ('" + nameAdd + "','" + outAvailable + "','" + chairAdd + "','" + outTv + "','"+size + "','"+ outProjector+"','"+outWhiteboard+"','"+outSink+"','"+ outMicrophone+"','"+outStero +"','"+outOverheadProjector+"');";
         connector.executeSQL(AddNewRoomQuery);
         TFnewNameAdd.setText("");
         TFnewSizeAdd.setText("");
