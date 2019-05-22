@@ -225,13 +225,7 @@ public class BookRoom extends ChangeScene{
 
         ChronoLocalDateTime searchtimefrom = ChronoLocalDateTime.from(DPsearchfrom.getDateTimeValue());
         ChronoLocalDateTime searchtimeto = ChronoLocalDateTime.from(DPsearchto.getDateTimeValue());
-
-        StringBuilder sbtempfrom = new StringBuilder(rsbookings.getString(3));
-        StringBuilder sbtempto = new StringBuilder(rsbookings.getString(4));
-        sbtempfrom.setCharAt(10, 'T');
-        sbtempto.setCharAt(10, 'T');
-        ChronoLocalDateTime existingbookingfrom = ChronoLocalDateTime.from(LocalDateTime.parse(sbtempfrom));
-        ChronoLocalDateTime existingbookingto = ChronoLocalDateTime.from(LocalDateTime.parse(sbtempto));
+        
 
 
         //Checking and excluding already booked room
@@ -240,6 +234,12 @@ public class BookRoom extends ChangeScene{
              */
             boolean flag = false;
         while (rsbookings.next()) {
+            StringBuilder sbtempfrom = new StringBuilder(rsbookings.getString(3));
+            StringBuilder sbtempto = new StringBuilder(rsbookings.getString(4));
+            sbtempfrom.setCharAt(10, 'T');
+            sbtempto.setCharAt(10, 'T');
+            ChronoLocalDateTime existingbookingfrom = ChronoLocalDateTime.from(LocalDateTime.parse(sbtempfrom));
+            ChronoLocalDateTime existingbookingto = ChronoLocalDateTime.from(LocalDateTime.parse(sbtempto));
             if(room.equals(rsbookings.getString(5))) {
                 if (searchtimeto.compareTo(existingbookingfrom) <= 0 || existingbookingto.compareTo(searchtimefrom) <= 0) {
                     //for some reason doesn't work any other way properly, please don't change!
