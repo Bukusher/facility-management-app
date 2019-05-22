@@ -6,8 +6,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import sample.Account;
 import sample.DB_Connector;
-
-//import javax.annotation.Resources;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
