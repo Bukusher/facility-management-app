@@ -2,8 +2,9 @@ package scenes;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import sample.DB_Connector;
 
 
@@ -12,7 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.Optional;
 
 public class ChangeScene {
 
@@ -83,7 +84,14 @@ public class ChangeScene {
 
     @FXML
     private void logout(ActionEvent event) throws IOException {
-        sceneChange.SceneChange(event, "Scene1Login.fxml");
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation logout");
+        alert.setHeaderText("This action will bring you back to the login page");
+        alert.setContentText("Are you ok with this?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            sceneChange.SceneChange(event, "Scene1Login.fxml");
+        }
     }
 
     @FXML

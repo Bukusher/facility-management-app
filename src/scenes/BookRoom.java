@@ -2,12 +2,10 @@ package scenes;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 //import jdk.nashorn.internal.ir.WhileNode;
 import sample.DB_Connector;
+
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,9 +13,10 @@ import java.time.LocalDateTime;
 import java.time.chrono.ChronoLocalDate;
 import java.time.chrono.ChronoLocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 
-public class BookRoom extends ChangeScene{
+public class BookRoom extends ChangeScene {
     private DB_Connector Connector = new DB_Connector();
     private ResultSet rs;
     private StringBuilder fromsb;
@@ -55,13 +54,13 @@ public class BookRoom extends ChangeScene{
     private void searchRooms(ActionEvent event) throws SQLException {
         String room = TFsearchroomname.getText();
         Integer chairs;
-        if(TFsearchchairamount.getText().isEmpty())
-            chairs=-1;
+        if (TFsearchchairamount.getText().isEmpty())
+            chairs = -1;
         else
             chairs = Integer.parseInt(TFsearchchairamount.getText());
         Integer size;
-        if(TFsearchroomsize.getText().isEmpty())
-            size=-1;
+        if (TFsearchroomsize.getText().isEmpty())
+            size = -1;
         else
             size = Integer.parseInt(TFsearchroomsize.getText());
         Boolean tv = CBsearchtv.isSelected();
@@ -79,50 +78,36 @@ public class BookRoom extends ChangeScene{
         tosb.append(":00");
 
 
-
-
-
-
         //Make SQL queurie
-        String sqlroom="SELECT * FROM `pc2fma2`.`room` WHERE `room_availability` = '1'";
-        if (!room.isEmpty())
-        {
+        String sqlroom = "SELECT * FROM `pc2fma2`.`room` WHERE `room_availability` = '1'";
+        if (!room.isEmpty()) {
             sqlroom += " AND `room_id` = '" + room + "'";
         }
-        if (chairs>=0)
-        {
+        if (chairs >= 0) {
             sqlroom += " AND `chairs` BETWEEN '" + chairs + "' AND '2147483647'";
         }
-        if (size>=0)
-        {
+        if (size >= 0) {
             sqlroom += " AND `size` BETWEEN '" + size + "' AND '2147483647'";
         }
-        if (tv)
-        {
+        if (tv) {
             sqlroom += " `tv` = '1'";
         }
-        if (projector)
-        {
+        if (projector) {
             sqlroom += " AND `prejector` = '1'";        //really called prEjector on Server
         }
-        if (whiteboard)
-        {
+        if (whiteboard) {
             sqlroom += " AND `whiteboard` = '1'";
         }
-        if (sink)
-        {
+        if (sink) {
             sqlroom += " AND `sink` = '1'";
         }
-        if (microphone)
-        {
+        if (microphone) {
             sqlroom += " AND `microphones` = '1'";
         }
-        if (speaker)
-        {
+        if (speaker) {
             sqlroom += " AND `stereo` = '1'";
         }
-        if (overhead)
-        {
+        if (overhead) {
             sqlroom += " AND `overhead_projector` = '1'";
         }
         //sqlroom+=" EXCEPT SELECT * FROM `pc2fma2`.`booking` WHERE `start_time` BETWEEN '" + fromsb + "' AND '" + tosb + "' OR `end_time` BETWEEN '" + fromsb + "' AND '" + tosb + "'";
@@ -157,7 +142,7 @@ public class BookRoom extends ChangeScene{
         ChronoLocalDateTime timeto = ChronoLocalDateTime.from(DPsearchto.getDateTimeValue());
 
         //Switch between being able and not being able to book in the past
-        if(now.compareTo(timefrom)<0 && now.compareTo(timeto)<0 && timefrom.compareTo(timeto)<0)
+        if (now.compareTo(timefrom) < 0 && now.compareTo(timeto) < 0 && timefrom.compareTo(timeto) < 0)
         //if (true)
         {
             //Execute SQL
@@ -171,25 +156,19 @@ public class BookRoom extends ChangeScene{
             }
             TArooms.setText(outputresults);
 
-        }
-        else if (timeto.compareTo(timefrom)<0)
-        {
+        } else if (timeto.compareTo(timefrom) < 0) {
             Alert a = new Alert(Alert.AlertType.ERROR);
             a.setTitle("Error");
             a.setHeaderText("Your 'from' is later than your 'to'.");
             a.setContentText("Please note, that you will get this error as well, if you are trying to book during the current minute");
             a.showAndWait();
-        }
-        else if (timefrom.compareTo(timeto)==0)
-        {
+        } else if (timefrom.compareTo(timeto) == 0) {
             Alert a = new Alert(Alert.AlertType.ERROR);
             a.setTitle("Error");
             a.setHeaderText("You are trying to book between 2 identical times.");
             a.setContentText("This would result in no actual time being booked.");
             a.showAndWait();
-        }
-        else
-        {
+        } else {
             Alert a = new Alert(Alert.AlertType.ERROR);
             a.setTitle("Error");
             a.setHeaderText("Can't book in the past!");
@@ -200,22 +179,30 @@ public class BookRoom extends ChangeScene{
 
     @FXML
     private void bookroom(ActionEvent event) throws SQLException {
-        Integer chosenentry = 1;
-        if(!TFroombookentry.getText().isEmpty())
-            chosenentry=Integer.parseInt(TFroombookentry.getText());
-        while (!rs.isFirst())
-            rs.previous();
-        for (int i=1; i<chosenentry;i++)
-            rs.next();
-        String sqlbook = "INSERT INTO `pc2fma2`.`booking` (`account_email`, `start_time`, `end_time`, `room_room_id`) VALUES ('" + currentusermail() + "', '"+String.valueOf(fromsb)+"', '"+String.valueOf(tosb)+"', '" + rs.getString(1) + "')";
-        Connector.executeSQL(sqlbook);
-        TFroombookentry.setText("");
-        fromsb.delete(16,29);
-        tosb.delete(16,29);
-        Alert a = new Alert(Alert.AlertType.CONFIRMATION);
-        a.setTitle("Bookingconfirmation");
-        a.setHeaderText("The booking was successful!");
-        a.setContentText("You booked room " + rs.getString(1) + " from " + String.valueOf(fromsb) + " to " + String.valueOf(tosb) + ".");
-        a.showAndWait();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Booking");
+        alert.setHeaderText("Do you wish to book room.");
+        alert.setContentText(TFroombookentry.getText() + ". from " + String.valueOf(fromsb) + " until the " + String.valueOf(tosb) + ".");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            Integer chosenentry = 1;
+            if (!TFroombookentry.getText().isEmpty())
+                chosenentry = Integer.parseInt(TFroombookentry.getText());
+            while (!rs.isFirst())
+                rs.previous();
+            for (int i = 1; i < chosenentry; i++)
+                rs.next();
+            String sqlbook = "INSERT INTO `pc2fma2`.`booking` (`account_email`, `start_time`, `end_time`, `room_room_id`) VALUES ('" + currentusermail() + "', '" + String.valueOf(fromsb) + "', '" + String.valueOf(tosb) + "', '" + rs.getString(1) + "')";
+            Connector.executeSQL(sqlbook);
+            TFroombookentry.setText("");
+            fromsb.delete(16, 29);
+            tosb.delete(16, 29);
+            Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+            a.setTitle("Bookingconfirmation");
+            a.setHeaderText("The booking was successful!");
+            a.setContentText("You booked room " + rs.getString(1) + " from " + String.valueOf(fromsb) + " to " + String.valueOf(tosb) + ".");
+            a.showAndWait();
+        }
     }
 }
