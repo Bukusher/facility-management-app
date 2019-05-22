@@ -36,6 +36,8 @@ public class EditRoom {
     CheckBox CBspeakers;
     @FXML
     CheckBox CBoverheadProjector;
+    @FXML
+    CheckBox CBroomavailable;
 
     @FXML
     private void DashboardRoom(ActionEvent event) throws IOException {
@@ -55,6 +57,7 @@ public class EditRoom {
         byte rsMicrophone = 0;
         byte rsStereo = 0;
         byte rsOverheadProjector = 0;
+        byte rsavailable =0;
 
         try {
             ResultSet resultSet = Connector.select(searchRoom);
@@ -69,6 +72,7 @@ public class EditRoom {
                 rsMicrophone = resultSet.getByte(10);
                 rsStereo = resultSet.getByte(11);
                 rsOverheadProjector = resultSet.getByte(12);
+                rsavailable = resultSet.getByte(2);
             }
             TFnewNameEdit.setText(rsRoomName);
             TFnewChairEdit.setText(rsChairsAmount);
@@ -87,6 +91,8 @@ public class EditRoom {
             CBspeakers.setSelected(stereoOut);
             boolean overheadProjectorOut = rsOverheadProjector != 0;
             CBoverheadProjector.setSelected(overheadProjectorOut);
+            boolean availableOut = rsavailable !=0;
+            CBroomavailable.setSelected(availableOut);
         } catch (SQLException ex) {
             System.err.println(ex);
         }
@@ -109,12 +115,14 @@ public class EditRoom {
         byte outStero = (byte) (inStero ? 1 : 0);
         boolean inOverheadProjector = CBoverheadProjector.isSelected();
         byte outOverheadProjector = (byte) (inOverheadProjector ? 1 : 0);
+        boolean inAvailable = CBroomavailable.isSelected();
+        byte outavailable = (byte) (inAvailable ? 1 : 0);
         String nameedit = TFnewNameEdit.getText();
         String chairedit = TFnewChairEdit.getText();
         String size = TFnewSizeEdit.getText();
         String searchRoom = TFsearchRoomEdit.getText();
 
-        String editRoomQuery = "UPDATE room SET `room_id` = '" + nameedit + "', `chairs` = '" + chairedit + "', `tv` = '" + outTv +
+        String editRoomQuery = "UPDATE room SET `room_id` = '" + nameedit + "', `room_availability` = '" + outavailable + "', `chairs` = '" + chairedit + "', `tv` = '" + outTv +
                 "', `size` = '" + size + "', `prejector` = '" + outProjector + "', `whiteboard` = '" + outWhiteboard +
                 "', `sink` = '" + outSink + "', `microphones` = '" + outMicrophone + "', `stereo` = '" + outStero + "', `overhead_projector` = '" + outOverheadProjector +
                 "' WHERE `room_id` = '" + searchRoom + "'";
@@ -130,6 +138,7 @@ public class EditRoom {
         CBprojector.setSelected(false);
         CBsink.setSelected(false);
         CBwhiteboard.setSelected(false);
+        CBroomavailable.setSelected(false);
     }
 
     @FXML
@@ -146,7 +155,7 @@ public class EditRoom {
         CBprojector.setSelected(false);
         CBsink.setSelected(false);
         CBwhiteboard.setSelected(false);
-
+        CBroomavailable.setSelected(false);
     }
 
 }

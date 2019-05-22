@@ -156,8 +156,6 @@ public class BookRoom extends ChangeScene{
         ChronoLocalDateTime timefrom = ChronoLocalDateTime.from(DPsearchfrom.getDateTimeValue());
         ChronoLocalDateTime timeto = ChronoLocalDateTime.from(DPsearchto.getDateTimeValue());
 
-        System.out.println(timefrom.compareTo(timeto));
-
         //Switch between being able and not being able to book in the past
         if(now.compareTo(timefrom)<0 && now.compareTo(timeto)<0 && timefrom.compareTo(timeto)<0)
         //if (true)
