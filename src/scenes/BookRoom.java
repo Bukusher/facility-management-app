@@ -225,7 +225,7 @@ public class BookRoom extends ChangeScene{
 
         ChronoLocalDateTime searchtimefrom = ChronoLocalDateTime.from(DPsearchfrom.getDateTimeValue());
         ChronoLocalDateTime searchtimeto = ChronoLocalDateTime.from(DPsearchto.getDateTimeValue());
-        
+
 
 
         //Checking and excluding already booked room
@@ -274,6 +274,8 @@ public class BookRoom extends ChangeScene{
             if(checkRoomForBooking(rs.getString(1)))
             {
                 Alert a = new Alert(Alert.AlertType.ERROR);
+                while(!rs.isFirst())
+                    rs.previous();
                 a.setTitle("ERROR");
                 a.setHeaderText("The chosen room was booked while you waited.");
                 a.setContentText("please select a new room");
