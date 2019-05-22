@@ -2,10 +2,7 @@ package scenes;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 //import jdk.nashorn.internal.ir.WhileNode;
 import sample.DB_Connector;
 import java.io.IOException;
@@ -15,6 +12,7 @@ import java.time.LocalDateTime;
 import java.time.chrono.ChronoLocalDate;
 import java.time.chrono.ChronoLocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 
 public class BookRoom extends ChangeScene{
@@ -200,22 +198,30 @@ public class BookRoom extends ChangeScene{
 
     @FXML
     private void bookroom(ActionEvent event) throws SQLException {
-        Integer chosenentry = 1;
-        if(!TFroombookentry.getText().isEmpty())
-            chosenentry=Integer.parseInt(TFroombookentry.getText());
-        while (!rs.isFirst())
-            rs.previous();
-        for (int i=1; i<chosenentry;i++)
-            rs.next();
-        String sqlbook = "INSERT INTO `pc2fma2`.`booking` (`account_email`, `start_time`, `end_time`, `room_room_id`) VALUES ('" + currentusermail() + "', '"+String.valueOf(fromsb)+"', '"+String.valueOf(tosb)+"', '" + rs.getString(1) + "')";
-        Connector.executeSQL(sqlbook);
-        TFroombookentry.setText("");
-        fromsb.delete(16,29);
-        tosb.delete(16,29);
-        Alert a = new Alert(Alert.AlertType.CONFIRMATION);
-        a.setTitle("Bookingconfirmation");
-        a.setHeaderText("The booking was successful!");
-        a.setContentText("You booked room " + rs.getString(1) + " from " + String.valueOf(fromsb) + " to " + String.valueOf(tosb) + ".");
-        a.showAndWait();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Booking");
+        alert.setHeaderText("Do you wish to book room:");
+        alert.setContentText(TFroombookentry.getText() + " from, " + String.valueOf(fromsb) + " , until ," + String.valueOf(tosb));
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            Integer chosenentry = 1;
+            if (!TFroombookentry.getText().isEmpty())
+                chosenentry = Integer.parseInt(TFroombookentry.getText());
+            while (!rs.isFirst())
+                rs.previous();
+            for (int i = 1; i < chosenentry; i++)
+                rs.next();
+            String sqlbook = "INSERT INTO `pc2fma2`.`booking` (`account_email`, `start_time`, `end_time`, `room_room_id`) VALUES ('" + currentusermail() + "', '" + String.valueOf(fromsb) + "', '" + String.valueOf(tosb) + "', '" + rs.getString(1) + "')";
+            Connector.executeSQL(sqlbook);
+            TFroombookentry.setText("");
+            fromsb.delete(16, 29);
+            tosb.delete(16, 29);
+            Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+            a.setTitle("Bookingconfirmation");
+            a.setHeaderText("The booking was successful!");
+            a.setContentText("You booked room " + rs.getString(1) + " from " + String.valueOf(fromsb) + " to " + String.valueOf(tosb) + ".");
+            a.showAndWait();
+        }
     }
 }

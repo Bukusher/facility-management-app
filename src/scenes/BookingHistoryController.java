@@ -20,6 +20,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.chrono.ChronoLocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 /**
  * Created by jonat on 21.05.2019.
@@ -64,29 +65,36 @@ public class BookingHistoryController extends ChangeScene{
         int chosenentry = Integer.parseInt(TFdeletebookingentry.getText());
         while (!resultSetBookingHistory.isFirst())
             resultSetBookingHistory.previous();
-        for (int i=1; i<chosenentry;i++)
+        for (int i = 1; i < chosenentry; i++)
             resultSetBookingHistory.next();
 
-        //Compare to current time to avoid deleting past bookings
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
-        StringBuilder sbbookingtime =new StringBuilder(resultSetBookingHistory.getString(4));
-        sbbookingtime.setCharAt(10, 'T');
-        ChronoLocalDateTime bookingtime = LocalDateTime.parse(sbbookingtime + ".000");
-        if (now.compareTo(bookingtime)<0)
-        {
-            String sqldeletebooking="DELETE FROM `pc2fma2`.`booking` WHERE `booking_id` = '" + resultSetBookingHistory.getString(1) + "'";
-            Connector.executeSQL(sqldeletebooking);
-            initialize();
-        }
-        else
-        {
-            Alert a = new Alert(Alert.AlertType.ERROR);
-            a.setTitle("Error");
-            a.setHeaderText("Can't delete past bookings");
-            a.setContentText("Please delete only future bookings");
-            a.showAndWait();
-        }
+        //Confirmation alert for delete booking
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Booking Deletion");
+        alert.setHeaderText("This will delete booking: "+ chosenentry );
+        alert.setContentText("Are you ok with this?");
 
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+
+            //Compare to current time to avoid deleting past bookings
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+            LocalDateTime now = LocalDateTime.now();
+            StringBuilder sbbookingtime = new StringBuilder(resultSetBookingHistory.getString(4));
+            sbbookingtime.setCharAt(10, 'T');
+            ChronoLocalDateTime bookingtime = LocalDateTime.parse(sbbookingtime + ".000");
+            if (now.compareTo(bookingtime) < 0) {
+                String sqldeletebooking = "DELETE FROM `pc2fma2`.`booking` WHERE `booking_id` = '" + resultSetBookingHistory.getString(1) + "'";
+                Connector.executeSQL(sqldeletebooking);
+                initialize();
+            } else {
+                Alert a = new Alert(Alert.AlertType.ERROR);
+                a.setTitle("Error");
+                a.setHeaderText("Can't delete past bookings");
+                a.setContentText("Please delete only future bookings");
+                a.showAndWait();
+            }
+
+        }
     }
 }
