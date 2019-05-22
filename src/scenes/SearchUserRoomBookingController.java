@@ -32,7 +32,7 @@ public class SearchUserRoomBookingController extends ChangeScene {
     @FXML
     private void searchName (ActionEvent event)
     {
-        if(TFroom.getText().equals(null))
+        if(TFroom.getText().equals(""))
         {
             Alert a = new Alert(Alert.AlertType.ERROR);
             a.setTitle("ERROR");
@@ -49,7 +49,7 @@ public class SearchUserRoomBookingController extends ChangeScene {
     @FXML
     private void searchRoom (ActionEvent event)
     {
-        if(TFroom.getText().equals(null))
+        if(TFroom.getText().equals(""))
         {
             Alert a = new Alert(Alert.AlertType.ERROR);
             a.setTitle("ERROR");
