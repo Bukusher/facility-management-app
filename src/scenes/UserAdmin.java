@@ -105,8 +105,8 @@ public class UserAdmin {
         String surname = TFsurname.getText();
         String role = String.valueOf(roleBox.getValue());
         String AddNewUserQuery = "INSERT INTO pc2fma2.account " +
-                "(`email`, `name`, `surname`, `password`, `account_type`) " +
-                "VALUES ('" + newMail + "','" + firstName + "','" + surname + "','" + newPassword + "','" + role + "');";
+                "(`email`, `name`, `surname`, `password`, `account_type`, `darktheme`) " +
+                "VALUES ('" + newMail + "','" + firstName + "','" + surname + "','" + newPassword + "','" + role + "', '0');";
         try {
             connector.executeSQL(AddNewUserQuery);
             TFfirstName.setText("");

@@ -12,7 +12,7 @@ import java.sql.*;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class Settings {
+public class Settings extends ChangeScene{
 
     private SceneChanger sceneChange = new SceneChanger();
     DB_Connector connector = new DB_Connector();
@@ -65,7 +65,7 @@ public class Settings {
     private Button BTDeleteAccount;
 
     @FXML
-    private ToggleButton TBSettingsDarkTheme;
+    private ToggleSwitch TSSettingsDarkTheme;
 
 
     @FXML
@@ -229,25 +229,18 @@ public class Settings {
         }
     }
 
-    public void setDarkTheme(ActionEvent event) throws IOException {
+    public void DarkTheme(ActionEvent event) throws IOException, SQLException {
+        ResultSet rs = connector.select("SELECT * FROM `pc2fma2`.`account` WHERE `email` = '" + currentusermail() + "'");
+        rs.next();
+        String sqlupdate = "UPDATE`pc2fma2`.`account` SET `darktheme` = '";
+        if(!rs.getString(6).equals("1"))
+            sqlupdate+="1";
+        else
+            sqlupdate+="0";
+        sqlupdate+="' WHERE `email` = '" + currentusermail() + "'";
+        connector.executeSQL(sqlupdate);
+        sceneChange.SceneChange(event, "Scene4settings.fxml");
 
-        darkTheme = TBSettingsDarkTheme.isSelected();
-
-        if (darkTheme) {
-            Parent homePageParent = FXMLLoader.load(getClass().getResource("Scene4settings.fxml"));
-            Scene scene = new Scene(homePageParent);
-            scene.getStylesheets().add("DarkTheme.css");
-            Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            appStage.setScene(scene);
-            appStage.show();
-        } else {
-            Parent homePageParent = FXMLLoader.load(getClass().getResource(".../scenes/Scene4settings.fxml"));
-            Scene scene = new Scene(homePageParent);
-            scene.getStylesheets().remove(".../scenes/DarkTheme.css");
-            Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            appStage.setScene(scene);
-            appStage.show();
-        }
     }
 
 }

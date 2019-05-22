@@ -219,25 +219,81 @@ public class BookRoom extends ChangeScene{
         }
     }
 
+    private boolean checkRoomForBooking (String room) throws SQLException {
+        String sqlorders = "SELECT * FROM `pc2fma2`.`booking`";
+        ResultSet rsbookings =Connector.select(sqlorders);
+
+        ChronoLocalDateTime searchtimefrom = ChronoLocalDateTime.from(DPsearchfrom.getDateTimeValue());
+        ChronoLocalDateTime searchtimeto = ChronoLocalDateTime.from(DPsearchto.getDateTimeValue());
+
+        StringBuilder sbtempfrom = new StringBuilder(rsbookings.getString(3));
+        StringBuilder sbtempto = new StringBuilder(rsbookings.getString(4));
+        sbtempfrom.setCharAt(10, 'T');
+        sbtempto.setCharAt(10, 'T');
+        ChronoLocalDateTime existingbookingfrom = ChronoLocalDateTime.from(LocalDateTime.parse(sbtempfrom));
+        ChronoLocalDateTime existingbookingto = ChronoLocalDateTime.from(LocalDateTime.parse(sbtempto));
+
+
+        //Checking and excluding already booked room
+            /*if searchtimeto<existingbookingfrom ->ok
+            if existingbookingto<searchtimefrom ->ok
+             */
+            boolean flag = false;
+        while (rsbookings.next()) {
+            if(room.equals(rsbookings.getString(5))) {
+                if (searchtimeto.compareTo(existingbookingfrom) <= 0 || existingbookingto.compareTo(searchtimefrom) <= 0) {
+                    //for some reason doesn't work any other way properly, please don't change!
+                } else {
+                    flag=true;
+                    break;
+                }
+            }
+        }
+        return flag;
+    }
+
     @FXML
     private void bookroom(ActionEvent event) throws SQLException {
-        Integer chosenentry = entryindex.get(0);
-        if(!TFroombookentry.getText().isEmpty())
-            chosenentry=entryindex.get(Integer.parseInt(TFroombookentry.getText())-1);
-        while (!rs.isFirst())
-            rs.previous();
-        for (int i=1; i<chosenentry;i++)
-            rs.next();
-        String sqlbook = "INSERT INTO `pc2fma2`.`booking` (`account_email`, `start_time`, `end_time`, `room_room_id`) VALUES ('" + currentusermail() + "', '"+String.valueOf(fromsb)+"', '"+String.valueOf(tosb)+"', '" + rs.getString(1) + "')";
-        Connector.executeSQL(sqlbook);
-        TFroombookentry.setText("");
-        fromsb.delete(16,29);
-        tosb.delete(16,29);
-        TFroombookentry.setText("");
-        Alert a = new Alert(Alert.AlertType.CONFIRMATION);
-        a.setTitle("Bookingconfirmation");
-        a.setHeaderText("The booking was successful!");
-        a.setContentText("You booked room " + rs.getString(1) + " from " + String.valueOf(fromsb) + " to " + String.valueOf(tosb) + ".");
-        a.showAndWait();
+        if(rs==null)
+        {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setTitle("ERROR");
+            a.setHeaderText("Please make a new search before you try to book.");
+            a.setContentText("There might have been an error, or you tried to book without making a new search.");
+            a.showAndWait();
+        }
+        else {
+            Integer chosenentry = entryindex.get(0);
+            if (!TFroombookentry.getText().isEmpty())
+                chosenentry = entryindex.get(Integer.parseInt(TFroombookentry.getText()) - 1);
+
+            while (!rs.isFirst())
+                rs.previous();
+            for (int i = 1; i < chosenentry; i++)
+                rs.next();
+            if(checkRoomForBooking(rs.getString(1)))
+            {
+                Alert a = new Alert(Alert.AlertType.ERROR);
+                a.setTitle("ERROR");
+                a.setHeaderText("The chosen room was booked while you waited.");
+                a.setContentText("please select a new room");
+                a.showAndWait();
+            }
+            else {
+                String sqlbook = "INSERT INTO `pc2fma2`.`booking` (`account_email`, `start_time`, `end_time`, `room_room_id`) VALUES ('" + currentusermail() + "', '" + String.valueOf(fromsb) + "', '" + String.valueOf(tosb) + "', '" + rs.getString(1) + "')";
+                Connector.executeSQL(sqlbook);
+                TFroombookentry.setText("");
+                fromsb.delete(16, 29);
+                tosb.delete(16, 29);
+                TFroombookentry.setText("");
+                Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+                a.setTitle("Bookingconfirmation");
+                a.setHeaderText("The booking was successful!");
+                a.setContentText("You booked room " + rs.getString(1) + " from " + String.valueOf(fromsb) + " to " + String.valueOf(tosb) + ".");
+                rs = null;
+                TArooms.setText("");
+                a.showAndWait();
+            }
+        }
     }
 }
