@@ -2,6 +2,8 @@ package scenes;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import sample.DB_Connector;
@@ -9,6 +11,7 @@ import sample.DB_Connector;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 
 public class EditRoom {
 
@@ -156,6 +159,18 @@ public class EditRoom {
         CBsink.setSelected(false);
         CBwhiteboard.setSelected(false);
         CBroomavailable.setSelected(false);
+    }
+    @FXML
+    private void logout(ActionEvent event) throws IOException {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Logout");
+        alert.setHeaderText("This will log");
+        alert.setContentText("Are you ok with this?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            sceneChange.SceneChange(event, "Scene1Login.fxml");
+        }
     }
 
 }
