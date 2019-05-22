@@ -210,6 +210,8 @@ public class BookRoom extends ChangeScene{
         String sqlbook = "INSERT INTO `pc2fma2`.`booking` (`account_email`, `start_time`, `end_time`, `room_room_id`) VALUES ('" + currentusermail() + "', '"+String.valueOf(fromsb)+"', '"+String.valueOf(tosb)+"', '" + rs.getString(1) + "')";
         Connector.executeSQL(sqlbook);
         TFroombookentry.setText("");
+        fromsb.delete(16,29);
+        tosb.delete(16,29);
         Alert a = new Alert(Alert.AlertType.CONFIRMATION);
         a.setTitle("Bookingconfirmation");
         a.setHeaderText("The booking was successful!");
