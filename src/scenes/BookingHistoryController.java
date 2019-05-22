@@ -33,12 +33,6 @@ public class BookingHistoryController extends ChangeScene{
     public ResultSet resultSetBookingHistory;
 
 
-    /*@FXML
-    protected void initialize()
-    {
-        PreparedStatement number = (PreparedStatement) Connector.select("SELECT COUNT (*) FROM `pc2fma2`.`booking`");
-        System.out.println(number);
-    }*/
 
     @FXML
     public void initialize()

@@ -79,11 +79,7 @@ public class BookRoom extends ChangeScene{
         tosb.setCharAt(10, ' ');
         fromsb.append(":00");
         tosb.append(":00");
-
-
-
-
-
+        
 
         //Make SQL queurie
         String sqlroom="SELECT * FROM `pc2fma2`.`room` WHERE `room_availability` = '1'";
@@ -127,26 +123,6 @@ public class BookRoom extends ChangeScene{
         {
             sqlroom += " AND `overhead_projector` = '1'";
         }
-        //sqlroom+=" EXCEPT SELECT * FROM `pc2fma2`.`booking` WHERE `start_time` BETWEEN '" + fromsb + "' AND '" + tosb + "' OR `end_time` BETWEEN '" + fromsb + "' AND '" + tosb + "'";
-        //sqlroom+= "LEFT JOIN `pc2fma2`.`booking` ON `pc2fma2`.`room`.`room_id` = `pc2fma2`.`booking`.`room_room_id` WHERE `start_time` NOT BETWEEN '" + fromsb + "' AND '" + tosb + "' OR `end_time` NOT BETWEEN '" + fromsb + "' AND '" + tosb + "'";
-        //sqlroom+=" EXCEPT SELECT * FROM `pc2fma2`.`booking` WHERE `start_time` BETWEEN '" + fromsb + "' AND '" + tosb + "' OR `end_time` BETWEEN '" + fromsb + "' AND '" + tosb + "'";
-
-
-
-
-        /*
-        String sqltime = "SELECT * FROM `pc2fma2`.`booking`"; //WHERE `start_time` BETWEEN '" + fromsb + "' AND '" + tosb + "'";
-        ResultSet rs2 = Connector.select(sqltime);
-        try {
-        while (rs2.next())
-
-            System.out.println(rs.getString(1));
-        }
-        catch(Exception ex)
-        {
-            System.out.println(ex);
-        }
-        */
 
 
         //Check if booking is in future
@@ -245,9 +221,6 @@ public class BookRoom extends ChangeScene{
 
     @FXML
     private void bookroom(ActionEvent event) throws SQLException {
-        System.out.println("arraysiye: " + entryindex.size());
-        for(int i=0;i<entryindex.size();i++)
-            System.out.println(entryindex.get(i));
         Integer chosenentry = entryindex.get(0);
         if(!TFroombookentry.getText().isEmpty())
             chosenentry=entryindex.get(Integer.parseInt(TFroombookentry.getText())-1);
