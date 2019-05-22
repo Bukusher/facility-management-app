@@ -43,7 +43,6 @@ public class BookingHistoryController extends ChangeScene{
     @FXML
     protected void initialize()
     {
-        System.out.println(currentusermail());
         resultSetBookingHistory =Connector.select("SELECT * FROM `pc2fma2`.`booking` WHERE `account_email` = '" + currentusermail() + "' ORDER BY `end_time` DESC");
         String bookinghistoryresults ="";
         try {
