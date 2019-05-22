@@ -8,10 +8,7 @@ import javafx.scene.control.Button;
 import sample.DB_Connector;
 
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -152,6 +149,12 @@ public class ChangeScene {
             e.printStackTrace();
         }
         return s;
+    }
+
+    public void setDarkthemeFileWrite(String s) throws IOException {
+        PrintWriter pw = new PrintWriter(new FileWriter("dark.mode"));
+        pw.print(s);
+        pw.close();
     }
 
  /*   @FXML

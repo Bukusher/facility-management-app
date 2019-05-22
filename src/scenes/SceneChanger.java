@@ -25,17 +25,10 @@ public class SceneChanger {
             Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
             //Darkmode
-            try {
-                ResultSet rs = connector.select("SELECT * FROM `pc2fma2`.`account` WHERE `email` = '" + currentusermail() + "'");
-                rs.next();
-                if (rs.getString(6).equals("1"))
-                    homePageScene.getStylesheets().add("/scenes/DarkTheme.css");
-                else
-                    homePageScene.getStylesheets().add("com/sun/javafx/scene/control/skin/modena/modena.css");
-            }
-            catch (Exception e) {
-                System.err.println(e);
-            }
+            if(isDarkModeOnFileRead())
+                homePageScene.getStylesheets().add("/scenes/DarkTheme.css");
+            else
+                homePageScene.getStylesheets().add("com/sun/javafx/scene/control/skin/modena/modena.css");
             //Darkmode over
 
             appStage.setScene(homePageScene);
@@ -44,11 +37,11 @@ public class SceneChanger {
             System.err.println(new java.util.Date() + " : " + e.getMessage());
         }
     }
-
-    public String currentusermail() {
+    public boolean isDarkModeOnFileRead ()
+    {
         String s = null;
         try {
-            BufferedReader br = new BufferedReader(new FileReader("user.credit"));
+            BufferedReader br = new BufferedReader(new FileReader("dark.mode"));
             s = br.readLine();
             br.close();
         } catch (FileNotFoundException e) {
@@ -56,6 +49,9 @@ public class SceneChanger {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return s;
+        if(s.equals("ON"))
+            return true;
+        else
+            return false;
     }
 }

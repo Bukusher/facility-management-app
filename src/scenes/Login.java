@@ -15,7 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-public class Login {
+public class Login extends ChangeScene {
     @FXML
     TextField TFemail;
     @FXML
@@ -69,6 +69,19 @@ public class Login {
                     PrintWriter pw = new PrintWriter(new FileWriter("user.credit"));
                     pw.print(TFemail.getText());
                     pw.close();
+
+                    //Darkmode
+                    try {
+                        ResultSet rs = connector.select("SELECT * FROM `pc2fma2`.`account` WHERE `email` = '" + currentusermail() + "'");
+                        rs.next();
+                        if (rs.getString(6).equals("1"))
+                            setDarkthemeFileWrite("ON");
+                        else
+                            setDarkthemeFileWrite("OFF");
+                    }
+                    catch (Exception e) {
+                        System.err.println(e);
+                    }
 
                     //change scene
                     sceneChanger.SceneChange(event, "Scene2Dashboard.fxml");

@@ -234,9 +234,15 @@ public class Settings extends ChangeScene{
         rs.next();
         String sqlupdate = "UPDATE`pc2fma2`.`account` SET `darktheme` = '";
         if(!rs.getString(6).equals("1"))
+        {
             sqlupdate+="1";
-        else
-            sqlupdate+="0";
+            setDarkthemeFileWrite("ON");
+        }
+
+        else {
+            sqlupdate += "0";
+            setDarkthemeFileWrite("OFF");
+        }
         sqlupdate+="' WHERE `email` = '" + currentusermail() + "'";
         connector.executeSQL(sqlupdate);
         sceneChange.SceneChange(event, "Scene4settings.fxml");
