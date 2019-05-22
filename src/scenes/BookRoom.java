@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 import java.time.chrono.ChronoLocalDate;
 import java.time.chrono.ChronoLocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 
 public class BookRoom extends ChangeScene{
@@ -22,6 +23,7 @@ public class BookRoom extends ChangeScene{
     private ResultSet rs;
     private StringBuilder fromsb;
     private StringBuilder tosb;
+    public ArrayList<Integer> entryindex=new ArrayList();
     @FXML
     TextField TFsearchroomname;
     @FXML
@@ -132,8 +134,6 @@ public class BookRoom extends ChangeScene{
 
 
 
-
-
         /*
         String sqltime = "SELECT * FROM `pc2fma2`.`booking`"; //WHERE `start_time` BETWEEN '" + fromsb + "' AND '" + tosb + "'";
         ResultSet rs2 = Connector.select(sqltime);
@@ -153,11 +153,44 @@ public class BookRoom extends ChangeScene{
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
 
-        ChronoLocalDateTime timefrom = ChronoLocalDateTime.from(DPsearchfrom.getDateTimeValue());
-        ChronoLocalDateTime timeto = ChronoLocalDateTime.from(DPsearchto.getDateTimeValue());
+        ChronoLocalDateTime searchtimefrom = ChronoLocalDateTime.from(DPsearchfrom.getDateTimeValue());
+        ChronoLocalDateTime searchtimeto = ChronoLocalDateTime.from(DPsearchto.getDateTimeValue());
+
+
+
+        //controll with past bookings for intersections.
+        String sqlorders = "SELECT * FROM `pc2fma2`.`booking`";
+        ResultSet rsbookings =Connector.select(sqlorders);
+
+        ArrayList<String> bookedroomsarraylist = new ArrayList();
+        while (rsbookings.next())
+        {
+            StringBuilder sbtempfrom = new StringBuilder(rsbookings.getString(3));
+            StringBuilder sbtempto = new StringBuilder(rsbookings.getString(4));
+            sbtempfrom.setCharAt(10, 'T');
+            sbtempto.setCharAt(10, 'T');
+            ChronoLocalDateTime existingbookingfrom = ChronoLocalDateTime.from(LocalDateTime.parse(sbtempfrom));
+            ChronoLocalDateTime existingbookingto = ChronoLocalDateTime.from(LocalDateTime.parse(sbtempto));
+
+
+            //Checking and excluding already booked room
+            /*if searchtimeto<existingbookingfrom ->ok
+            if existingbookingto<searchtimefrom ->ok
+             */
+            if(searchtimeto.compareTo(existingbookingfrom)<=0 ||existingbookingto.compareTo(searchtimefrom)<=0)
+            {
+                //for some reason doesn't work any other way properly, please don't change!
+            }
+            else
+            {
+                bookedroomsarraylist.add(rsbookings.getString(5));
+            }
+        }
+
+
 
         //Switch between being able and not being able to book in the past
-        if(now.compareTo(timefrom)<0 && now.compareTo(timeto)<0 && timefrom.compareTo(timeto)<0)
+        if(now.compareTo(searchtimefrom)<0 && now.compareTo(searchtimeto)<0 && searchtimefrom.compareTo(searchtimeto)<0)
         //if (true)
         {
             //Execute SQL
@@ -165,14 +198,26 @@ public class BookRoom extends ChangeScene{
 
             Integer entry = 1;
             String outputresults = "";
-            while (rs.next()) {
-                outputresults += entry + " - " + rs.getString(1) + "\n";
-                entry++;
+            boolean flag;
+            for (int i=0;rs.next();i++) {
+                flag=false;
+                for (int j=0;j<bookedroomsarraylist.size();j++)
+                {
+                    if(rs.getString(1).equals(bookedroomsarraylist.get(j))) {
+                        flag = true;
+                        break;
+                    }
+                }
+                if (!flag) {
+                    outputresults += entry + " - " + rs.getString(1) + "\n";
+                    entry++;
+                    entryindex.add(i+1);
+                }
             }
             TArooms.setText(outputresults);
 
         }
-        else if (timeto.compareTo(timefrom)<0)
+        else if (searchtimeto.compareTo(searchtimefrom)<0)
         {
             Alert a = new Alert(Alert.AlertType.ERROR);
             a.setTitle("Error");
@@ -180,7 +225,7 @@ public class BookRoom extends ChangeScene{
             a.setContentText("Please note, that you will get this error as well, if you are trying to book during the current minute");
             a.showAndWait();
         }
-        else if (timefrom.compareTo(timeto)==0)
+        else if (searchtimefrom.compareTo(searchtimeto)==0)
         {
             Alert a = new Alert(Alert.AlertType.ERROR);
             a.setTitle("Error");
@@ -200,9 +245,12 @@ public class BookRoom extends ChangeScene{
 
     @FXML
     private void bookroom(ActionEvent event) throws SQLException {
-        Integer chosenentry = 1;
+        System.out.println("arraysiye: " + entryindex.size());
+        for(int i=0;i<entryindex.size();i++)
+            System.out.println(entryindex.get(i));
+        Integer chosenentry = entryindex.get(0);
         if(!TFroombookentry.getText().isEmpty())
-            chosenentry=Integer.parseInt(TFroombookentry.getText());
+            chosenentry=entryindex.get(Integer.parseInt(TFroombookentry.getText())-1);
         while (!rs.isFirst())
             rs.previous();
         for (int i=1; i<chosenentry;i++)
