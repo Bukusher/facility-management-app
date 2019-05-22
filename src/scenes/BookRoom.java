@@ -79,7 +79,7 @@ public class BookRoom extends ChangeScene{
         tosb.setCharAt(10, ' ');
         fromsb.append(":00");
         tosb.append(":00");
-        
+
 
         //Make SQL queurie
         String sqlroom="SELECT * FROM `pc2fma2`.`room` WHERE `room_availability` = '1'";
@@ -233,6 +233,7 @@ public class BookRoom extends ChangeScene{
         TFroombookentry.setText("");
         fromsb.delete(16,29);
         tosb.delete(16,29);
+        TFroombookentry.setText("");
         Alert a = new Alert(Alert.AlertType.CONFIRMATION);
         a.setTitle("Bookingconfirmation");
         a.setHeaderText("The booking was successful!");
