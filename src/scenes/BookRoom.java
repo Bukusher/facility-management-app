@@ -2,6 +2,7 @@ package scenes;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -10,6 +11,10 @@ import sample.DB_Connector;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.chrono.ChronoLocalDate;
+import java.time.chrono.ChronoLocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 public class BookRoom extends ChangeScene{
@@ -120,8 +125,16 @@ public class BookRoom extends ChangeScene{
         {
             sqlroom += " AND `overhead_projector` = '1'";
         }
+        //sqlroom+=" EXCEPT SELECT * FROM `pc2fma2`.`booking` WHERE `start_time` BETWEEN '" + fromsb + "' AND '" + tosb + "' OR `end_time` BETWEEN '" + fromsb + "' AND '" + tosb + "'";
+        //sqlroom+= "LEFT JOIN `pc2fma2`.`booking` ON `pc2fma2`.`room`.`room_id` = `pc2fma2`.`booking`.`room_room_id` WHERE `start_time` NOT BETWEEN '" + fromsb + "' AND '" + tosb + "' OR `end_time` NOT BETWEEN '" + fromsb + "' AND '" + tosb + "'";
+        //sqlroom+=" EXCEPT SELECT * FROM `pc2fma2`.`booking` WHERE `start_time` BETWEEN '" + fromsb + "' AND '" + tosb + "' OR `end_time` BETWEEN '" + fromsb + "' AND '" + tosb + "'";
 
 
+
+
+
+
+        /*
         String sqltime = "SELECT * FROM `pc2fma2`.`booking`"; //WHERE `start_time` BETWEEN '" + fromsb + "' AND '" + tosb + "'";
         ResultSet rs2 = Connector.select(sqltime);
         try {
@@ -133,19 +146,58 @@ public class BookRoom extends ChangeScene{
         {
             System.out.println(ex);
         }
+        */
 
 
-        //Execute SQL
-        rs = Connector.select(sqlroom);
+        //Check if booking is in future
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
 
-        Integer entry =1;
-        String outputresults="";
-        while(rs.next())
+        ChronoLocalDateTime timefrom = ChronoLocalDateTime.from(DPsearchfrom.getDateTimeValue());
+        ChronoLocalDateTime timeto = ChronoLocalDateTime.from(DPsearchto.getDateTimeValue());
+
+        System.out.println(timefrom.compareTo(timeto));
+
+        //Switch between being able and not being able to book in the past
+        if(now.compareTo(timefrom)<0 && now.compareTo(timeto)<0 && timefrom.compareTo(timeto)<0)
+        //if (true)
         {
-            outputresults+=entry + " - " + rs.getString(1) + "\n";
-            entry++;
+            //Execute SQL
+            rs = Connector.select(sqlroom);
+
+            Integer entry = 1;
+            String outputresults = "";
+            while (rs.next()) {
+                outputresults += entry + " - " + rs.getString(1) + "\n";
+                entry++;
+            }
+            TArooms.setText(outputresults);
+
         }
-        TArooms.setText(outputresults);
+        else if (timeto.compareTo(timefrom)<0)
+        {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setTitle("Error");
+            a.setHeaderText("Your 'from' is later than your 'to'.");
+            a.setContentText("Please note, that you will get this error as well, if you are trying to book during the current minute");
+            a.showAndWait();
+        }
+        else if (timefrom.compareTo(timeto)==0)
+        {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setTitle("Error");
+            a.setHeaderText("You are trying to book between 2 identical times.");
+            a.setContentText("This would result in no actual time being booked.");
+            a.showAndWait();
+        }
+        else
+        {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setTitle("Error");
+            a.setHeaderText("Can't book in the past!");
+            a.setContentText("Please book only in the future.");
+            a.showAndWait();
+        }
     }
 
     @FXML
@@ -157,9 +209,13 @@ public class BookRoom extends ChangeScene{
             rs.previous();
         for (int i=1; i<chosenentry;i++)
             rs.next();
-        String sqlbook = "INSERT INTO `pc2fma2`.`booking` (`account_email`, `start_time`, `end_time`, `room_room_id`) VALUES ('Admin', '"+String.valueOf(fromsb)+"', '"+String.valueOf(tosb)+"', '" + rs.getString(1) + "')";
-        System.out.println(sqlbook);
+        String sqlbook = "INSERT INTO `pc2fma2`.`booking` (`account_email`, `start_time`, `end_time`, `room_room_id`) VALUES ('" + currentusermail() + "', '"+String.valueOf(fromsb)+"', '"+String.valueOf(tosb)+"', '" + rs.getString(1) + "')";
         Connector.executeSQL(sqlbook);
         TFroombookentry.setText("");
+        Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+        a.setTitle("Bookingconfirmation");
+        a.setHeaderText("The booking was successful!");
+        a.setContentText("You booked room " + rs.getString(1) + " from " + String.valueOf(fromsb) + " to " + String.valueOf(tosb) + ".");
+        a.showAndWait();
     }
 }
