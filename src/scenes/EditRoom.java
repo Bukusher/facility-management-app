@@ -2,6 +2,8 @@ package scenes;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import sample.DB_Connector;
@@ -9,6 +11,7 @@ import sample.DB_Connector;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 
 public class EditRoom {
 
@@ -144,18 +147,28 @@ public class EditRoom {
     @FXML
     private void deleteRoom(ActionEvent event) throws IOException {
         String roomName = TFsearchRoomEdit.getText();
-        Connector.executeSQL("DELETE FROM room WHERE `room_id` = '" + roomName + "'");
-        TFnewNameEdit.setText("");
-        TFnewSizeEdit.setText("");
-        TFnewChairEdit.setText("");
-        CBtv.setSelected(false);
-        CBoverheadProjector.setSelected(false);
-        CBspeakers.setSelected(false);
-        CBmicrophone.setSelected(false);
-        CBprojector.setSelected(false);
-        CBsink.setSelected(false);
-        CBwhiteboard.setSelected(false);
-        CBroomavailable.setSelected(false);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete Room Confirmation");
+        alert.setHeaderText("Delete Room Confirmation");
+        alert.setContentText("Are you sure you want to delete room?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            Connector.executeSQL("DELETE FROM booking WHERE `room_room_id` = '" + roomName + "'");
+            Connector.executeSQL("DELETE FROM room WHERE `room_id` = '" + roomName + "'");
+            TFnewNameEdit.setText("");
+            TFnewSizeEdit.setText("");
+            TFnewChairEdit.setText("");
+            CBtv.setSelected(false);
+            CBoverheadProjector.setSelected(false);
+            CBspeakers.setSelected(false);
+            CBmicrophone.setSelected(false);
+            CBprojector.setSelected(false);
+            CBsink.setSelected(false);
+            CBwhiteboard.setSelected(false);
+            CBroomavailable.setSelected(false);
+        }
+
     }
 
 }
