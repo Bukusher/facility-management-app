@@ -9,8 +9,8 @@ import javafx.scene.control.TextField;
 import sample.DB_Connector;
 import sample.SendEmail;
 
+import java.io.*;
 import java.security.SecureRandom;
-import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -64,7 +64,15 @@ public class Login {
                     password = resultSet.getString(1);
                 } while (resultSet.next());
                 if (inputPassword.equals(password)) {
+
+                    //Store username in file for use in other scenes
+                    PrintWriter pw = new PrintWriter(new FileWriter("user.credit"));
+                    pw.print(TFemail.getText());
+                    pw.close();
+
+                    //change scene
                     sceneChanger.SceneChange(event, "Scene2Dashboard.fxml");
+
                 } else {
                     alert.setTitle("Error");
                     alert.setHeaderText("Wrong email or password");

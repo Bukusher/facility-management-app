@@ -3,8 +3,12 @@ package scenes;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import sample.DB_Connector;
 
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 
 public class ChangeScene {
@@ -71,6 +75,20 @@ public class ChangeScene {
     @FXML
     private void BackToLogin(ActionEvent event) throws IOException {
         sceneChange.SceneChange(event, "Scene1Login.fxml");
+    }
+
+    public String currentusermail() {
+        String s = null;
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("user.credit"));
+            s = br.readLine();
+            br.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return s;
     }
 
  /*   @FXML
