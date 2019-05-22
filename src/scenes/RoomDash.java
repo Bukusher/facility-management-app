@@ -31,7 +31,7 @@ SceneChanger sceneChanger=new SceneChanger();
     private void logout(ActionEvent event) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation Logout");
-        alert.setHeaderText("This will log");
+        alert.setHeaderText("This will log you out");
         alert.setContentText("Are you ok with this?");
 
         Optional<ButtonType> result = alert.showAndWait();
