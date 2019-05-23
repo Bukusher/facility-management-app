@@ -77,25 +77,35 @@ public class EditRoom {
                 rsOverheadProjector = resultSet.getByte(12);
                 rsavailable = resultSet.getByte(2);
             }
-            TFnewNameEdit.setText(rsRoomName);
-            TFnewChairEdit.setText(rsChairsAmount);
-            TFnewSizeEdit.setText(rsSize);
-            boolean tvOut = rsTv != 0;
-            CBtv.setSelected(tvOut);
-            boolean prejectorOut = rsPrejector != 0;
-            CBprojector.setSelected(prejectorOut);
-            boolean whiteboardOut = rsWhiteboard != 0;
-            CBwhiteboard.setSelected(whiteboardOut);
-            boolean sinkOut = rsSink != 0;
-            CBsink.setSelected(sinkOut);
-            boolean microphoneOut = rsMicrophone != 0;
-            CBmicrophone.setSelected(microphoneOut);
-            boolean stereoOut = rsStereo != 0;
-            CBspeakers.setSelected(stereoOut);
-            boolean overheadProjectorOut = rsOverheadProjector != 0;
-            CBoverheadProjector.setSelected(overheadProjectorOut);
-            boolean availableOut = rsavailable !=0;
-            CBroomavailable.setSelected(availableOut);
+            if (rsRoomName.equals(TFsearchRoomEdit)) {
+                TFnewNameEdit.setText(rsRoomName);
+                TFnewChairEdit.setText(rsChairsAmount);
+                TFnewSizeEdit.setText(rsSize);
+                boolean tvOut = rsTv != 0;
+                CBtv.setSelected(tvOut);
+                boolean prejectorOut = rsPrejector != 0;
+                CBprojector.setSelected(prejectorOut);
+                boolean whiteboardOut = rsWhiteboard != 0;
+                CBwhiteboard.setSelected(whiteboardOut);
+                boolean sinkOut = rsSink != 0;
+                CBsink.setSelected(sinkOut);
+                boolean microphoneOut = rsMicrophone != 0;
+                CBmicrophone.setSelected(microphoneOut);
+                boolean stereoOut = rsStereo != 0;
+                CBspeakers.setSelected(stereoOut);
+                boolean overheadProjectorOut = rsOverheadProjector != 0;
+                CBoverheadProjector.setSelected(overheadProjectorOut);
+                boolean availableOut = rsavailable != 0;
+                CBroomavailable.setSelected(availableOut);
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Room Does Not Exist");
+                alert.setHeaderText(null);
+                alert.setContentText("This room do not exist, Search another Room ID ");
+
+                alert.showAndWait();
+
+            }
         } catch (SQLException ex) {
             System.err.println(ex);
         }
