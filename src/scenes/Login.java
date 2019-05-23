@@ -223,6 +223,7 @@ public class Login extends ChangeScene {
                     alert.setHeaderText("Passwords does not match!");
                     alert.setContentText("Please retype your password.");
                     alert.showAndWait();
+
                 }
             } else {
                 alert.setTitle("Error");
