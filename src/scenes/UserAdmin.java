@@ -61,7 +61,7 @@ public class UserAdmin {
             TFnewPassword.setText(rsPassword);
             roleBox.setValue(rsAccount);
         } catch (SQLException ex) {
-            System.err.println(new java.util.Date() + " : " + ex.getMessage());
+            System.err.println(new java.util.Date() + " : " + ex);
         }
     }
 
@@ -90,7 +90,7 @@ public class UserAdmin {
                 alert.showAndWait();
             }
         } catch (Exception e) {
-            System.err.println(new java.util.Date() + " : " + e.getMessage());
+            System.err.println(new java.util.Date() + " : " + e);
         }
     }
 
@@ -112,7 +112,7 @@ public class UserAdmin {
             TFnewPassword.setText("");
             roleBox.setValue(null);
         } catch (Exception e) {
-            System.err.println(new java.util.Date() + " : " + e.getMessage());
+            System.err.println(new java.util.Date() + " : " + e);
         }
     }
 
@@ -134,7 +134,7 @@ public class UserAdmin {
             TFnewPassword.setText("");
             roleBox.setValue(null);
         } catch (Exception e) {
-            System.err.println(new java.util.Date() + " : " + e.getMessage());
+            System.err.println(new java.util.Date() + " : " + e);
         }
     }
 

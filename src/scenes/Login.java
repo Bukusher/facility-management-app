@@ -78,9 +78,8 @@ public class Login extends ChangeScene {
                             setDarkthemeFileWrite("ON");
                         else
                             setDarkthemeFileWrite("OFF");
-                    }
-                    catch (Exception e) {
-                        System.err.println(e);
+                    } catch (Exception e) {
+                        System.err.println(new java.util.Date() + " : " + e);
                     }
 
                     //change scene
@@ -94,12 +93,11 @@ public class Login extends ChangeScene {
                 }
             }
         } catch (SQLException ex) {
-            System.err.println(new java.util.Date() + " : " + ex.getMessage());
+            System.err.println(new java.util.Date() + " : " + ex);
             alert.setTitle("Error");
             alert.setHeaderText("Wrong email or password");
             alert.setContentText("Please try again");
             alert.showAndWait();
-            System.err.println("Username not registered");
         }
     }
 
@@ -137,7 +135,7 @@ public class Login extends ChangeScene {
                 alert.showAndWait();
             }
         } catch (Exception e) {
-            System.err.println(new java.util.Date() + " : " + e.getMessage());
+            System.err.println(new java.util.Date() + " : " + e);
         }
     }
 
@@ -159,8 +157,8 @@ public class Login extends ChangeScene {
         String mail = TFmailSighUp.getText();
         String pinString = String.format("%06d", pin);
         try {
-        SendEmail.send(mail, "FMA pin for account creation", "Welcome " + surname + ", " + name + ". \n" + "The pin for your account is: " + pinString);
-        } catch (Exception e){
+            SendEmail.send(mail, "FMA pin for account creation", "Welcome " + surname + ", " + name + ". \n" + "The pin for your account is: " + pinString);
+        } catch (Exception e) {
             System.err.println(new java.util.Date() + " : " + e.getMessage());
         }
         return pin;
@@ -173,7 +171,7 @@ public class Login extends ChangeScene {
         String pinString = String.format("%06d", pin);
         try {
             SendEmail.send(mail, "FMA pin for account creation", "Welcome " + mail + ". \n" + "The pin to reset your password is: " + pinString);
-        } catch (Exception e){
+        } catch (Exception e) {
             System.err.println(new java.util.Date() + " : " + e.getMessage());
         }
         return pin;

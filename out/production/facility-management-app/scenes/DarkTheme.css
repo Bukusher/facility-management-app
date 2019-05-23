@@ -1,10 +1,18 @@
 .root{
-    -fx-base: #DFB951;
+    -fx-base: #3E50B4;
     -fx-background: #212121;
-    -fx-focus-color: #FF3F80;
+    -fx-focus-color: #3E50B4;
 }
 
 .button{
     -fx-text-fill: #FFFFFF;
     -fx-background-color: #3E50B4;
 }
+.text-area{
+    -fx-text-fill: #FFFFFF;
+}
+.text-area .content{
+    -fx-background-color: #303030;
+}
+
+

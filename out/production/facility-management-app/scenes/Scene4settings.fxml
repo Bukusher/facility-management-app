@@ -4,10 +4,9 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="424.0" prefWidth="603.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.Settings">
+<Pane focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="424.0" prefWidth="603.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.Settings">
    <children>
       <Button id="BTSettingsHelp" fx:id="BTSettingsHelp" layoutX="24.0" layoutY="14.0" mnemonicParsing="false" text="Help" />
       <Button id="BTSettingsBack" fx:id="BTSettingsBack" layoutX="73.0" layoutY="14.0" mnemonicParsing="false" onAction="#settingsBackToDashboard" text="Back to Dashboard" />
@@ -22,6 +21,7 @@
       <Button id="BTSettingsChangeMail" fx:id="BTSettingsChangeMail" layoutX="22.0" layoutY="167.0" mnemonicParsing="false" onAction="#ConfirmChangeMail" text="Change Mail" />
       <Button id="BTSettingsChangePassword" fx:id="BTSettingsChangePassword" layoutX="23.0" layoutY="361.0" mnemonicParsing="false" onAction="#ConfirmNewPassword" text="Change password" />
       <Button id="BTSettingsDeleteAccount" fx:id="BTSettingsDeleteAccount" layoutX="480.0" layoutY="361.0" mnemonicParsing="false" onAction="#deleteAccountPopUp" text="Delete Account" />
-      <ToggleButton fx:id="TBSettingsDarkTheme" layoutX="411.0" layoutY="174.0" mnemonicParsing="false" onAction="#setDarkTheme" text="Dark Theme" />
+      <Label layoutX="411.0" layoutY="149.0" text="Dark Mode" />
+      <Button id="BTDarkmode" fx:id="BTDarkmode" layoutX="414.0" layoutY="167.0" mnemonicParsing="false" onAction="#DarkTheme" text="On/Off" />
    </children>
 </Pane>
