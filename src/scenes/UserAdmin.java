@@ -124,7 +124,7 @@ public class UserAdmin {
         String surname = TFsurname.getText();
         String role = String.valueOf(roleBox.getValue());
         String editUserQuery = "UPDATE account SET `email` = '" + newMail + "', `name` = '" + firstName + "', `surname` = '" + surname +
-                "', `password` = '" + newPassword + "', `account_type` = '" + role + "' WHERE `email` = '" + searchMail + "'";
+                "', `password` = '" + newPassword + "', `account_type` = '" + role + "', `darktheme` = '0' WHERE `email` = '" + searchMail + "'";
         try {
             connector.executeSQL(editUserQuery);
             TFsearchMail.setText("");

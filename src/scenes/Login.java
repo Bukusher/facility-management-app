@@ -72,9 +72,9 @@ public class Login extends ChangeScene {
 
                     //Darkmode
                     try {
-                        ResultSet rs = connector.select("SELECT * FROM `pc2fma2`.`account` WHERE `email` = '" + currentusermail() + "'");
+                        ResultSet rs = connector.select("SELECT `darktheme` FROM `pc2fma2`.`account` WHERE `email` = '" + currentusermail() + "'");
                         rs.next();
-                        if (rs.getString(6).equals("1"))
+                        if (rs.getString(1).equals("1"))
                             setDarkthemeFileWrite("ON");
                         else
                             setDarkthemeFileWrite("OFF");
@@ -158,7 +158,19 @@ public class Login extends ChangeScene {
         String pinString = String.format("%06d", pin);
         try {
             SendEmail.send(mail, "FMA pin for account creation", "Welcome " + surname + ", " + name + ". \n" + "The pin for your account is: " + pinString);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information Dialog");
+            alert.setHeaderText("The email has sent!");
+            alert.setContentText("press ok to return to last page");
+            alert.showAndWait();
         } catch (Exception e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setHeaderText("Pin not sent!");
+            alert.setContentText("Please double check your email or contact the admin");
+
+            alert.showAndWait();
             e.printStackTrace();
         }
         return pin;
@@ -171,8 +183,20 @@ public class Login extends ChangeScene {
         String pinString = String.format("%06d", pin);
         try {
             SendEmail.send(mail, "FMA pin for account creation", "Welcome " + mail + ". \n" + "The pin to reset your password is: " + pinString);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information Dialog");
+            alert.setHeaderText("The email has sent!");
+            alert.setContentText("press ok to return to last page");
+
+            alert.showAndWait();
         } catch (Exception e) {
             e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setHeaderText("Pin not sent!");
+            alert.setContentText("Please double check your email or contact the admin");
+
+            alert.showAndWait();
         }
         return pin;
     }
@@ -190,8 +214,8 @@ public class Login extends ChangeScene {
             if (pinString.equals(pinConfirm)) {
                 if (password1.equals(password2)) {
                     String createAccountQuery = "INSERT INTO pc2fma2.account " +
-                            "(`email`, `name`, `surname`, `password`, `account_type`) " +
-                            "VALUES ('" + mail + "','" + name + "','" + surname + "','" + password1 + "','employee');";
+                            "(`email`, `name`, `surname`, `password`, `account_type`, `darktheme`) " +
+                            "VALUES ('" + mail + "','" + name + "','" + surname + "','" + password1 + "','employee', '0');";
                     connector.executeSQL(createAccountQuery);
                     sceneChanger.SceneChange(event, "Scene1Login.fxml");
                 } else {
