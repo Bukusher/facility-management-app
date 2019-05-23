@@ -104,7 +104,9 @@ public class Login {
             String passwordForgotRepeat = TFpasswordFogotRepeat.getText();
             String pinString = String.format("%06d", pin);
             SendEmail.send(emailForgot, "FMA pin for account creation", "Welcome " + emailForgot + ". \n" + "The pin to reset your password is: " + pinString);
+            //checks pin
             if (pinForgot.equals(pinString)) {
+                //checks password
                 if (passwordForgot.equals(passwordForgotRepeat)) {
                     String resetPasswordQuery = "UPDATE account SET `password` = '" + passwordForgot + "' WHERE `email` = '" + emailForgot + "'";
                     connector.executeSQL(resetPasswordQuery);
