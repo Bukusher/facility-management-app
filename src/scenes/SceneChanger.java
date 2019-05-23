@@ -18,14 +18,14 @@ import java.sql.SQLException;
 public class SceneChanger {
     private DB_Connector connector = new DB_Connector();
 
-    public void SceneChange (ActionEvent event, String file) throws IOException {
+    public void SceneChange(ActionEvent event, String file) throws IOException {
         try {
             Parent homePageParent = FXMLLoader.load(getClass().getResource(file));
             Scene homePageScene = new Scene(homePageParent);
             Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
             //Darkmode
-            if(isDarkModeOnFileRead())
+            if (isDarkModeOnFileRead())
                 homePageScene.getStylesheets().add("/scenes/DarkTheme.css");
             else
                 homePageScene.getStylesheets().add("com/sun/javafx/scene/control/skin/modena/modena.css");
@@ -34,11 +34,11 @@ public class SceneChanger {
             appStage.setScene(homePageScene);
             appStage.show();
         } catch (Exception e) {
-            System.err.println(new java.util.Date() + " : " + e.getMessage());
+            e.printStackTrace();
         }
     }
-    public boolean isDarkModeOnFileRead ()
-    {
+
+    public boolean isDarkModeOnFileRead() {
         String s = null;
         try {
             BufferedReader br = new BufferedReader(new FileReader("dark.mode"));
@@ -49,7 +49,7 @@ public class SceneChanger {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if(s.equals("ON"))
+        if (s.equals("ON"))
             return true;
         else
             return false;

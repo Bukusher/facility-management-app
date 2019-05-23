@@ -78,8 +78,8 @@ public class Login extends ChangeScene {
                             setDarkthemeFileWrite("ON");
                         else
                             setDarkthemeFileWrite("OFF");
-                    } catch (Exception e) {
-                        System.err.println(new java.util.Date() + " : " + e);
+                    } catch (SQLException e) {
+                        e.getMessage();
                     }
 
                     //change scene
@@ -93,7 +93,7 @@ public class Login extends ChangeScene {
                 }
             }
         } catch (SQLException ex) {
-            System.err.println(new java.util.Date() + " : " + ex);
+            System.err.println(new java.util.Date() + " : " + ex.getMessage());
             alert.setTitle("Error");
             alert.setHeaderText("Wrong email or password");
             alert.setContentText("Please try again");
@@ -135,7 +135,7 @@ public class Login extends ChangeScene {
                 alert.showAndWait();
             }
         } catch (Exception e) {
-            System.err.println(new java.util.Date() + " : " + e);
+            e.printStackTrace();
         }
     }
 
@@ -159,7 +159,7 @@ public class Login extends ChangeScene {
         try {
             SendEmail.send(mail, "FMA pin for account creation", "Welcome " + surname + ", " + name + ". \n" + "The pin for your account is: " + pinString);
         } catch (Exception e) {
-            System.err.println(new java.util.Date() + " : " + e.getMessage());
+            e.printStackTrace();
         }
         return pin;
     }
@@ -172,7 +172,7 @@ public class Login extends ChangeScene {
         try {
             SendEmail.send(mail, "FMA pin for account creation", "Welcome " + mail + ". \n" + "The pin to reset your password is: " + pinString);
         } catch (Exception e) {
-            System.err.println(new java.util.Date() + " : " + e.getMessage());
+            e.printStackTrace();
         }
         return pin;
     }
@@ -208,7 +208,7 @@ public class Login extends ChangeScene {
             }
 
         } catch (Exception e) {
-            System.err.println(new java.util.Date() + " : " + e.getMessage());
+            e.printStackTrace();
         }
     }
 }

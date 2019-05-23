@@ -2,6 +2,7 @@ package sample;
 
 
 //Make sure to use back ticks ````````` here are some
+
 import java.sql.*;
 
 public class DB_Connector {
@@ -58,7 +59,7 @@ public class DB_Connector {
         } catch (SQLException ex) {
             System.err.print("Update failed");
         } catch (NullPointerException ex) {
-            System.err.print("bruh");
+            System.err.print("null pointer");
         }
     }
 
@@ -70,7 +71,7 @@ public class DB_Connector {
         } catch (SQLException ex) {
             System.err.print("Execution of query failed");
         } catch (NullPointerException ex) {
-            System.err.print("bruh moment");
+            System.err.print("null pointer");
         }
     }
 
@@ -82,7 +83,7 @@ public class DB_Connector {
         } catch (SQLException ex) {
             System.err.print("Execution of query failed");
         } catch (NullPointerException ex) {
-            System.err.print("bruh moment");
+            System.err.print("null pointer");
         }
         return resultSet;
     }
@@ -96,7 +97,7 @@ public class DB_Connector {
         } catch (SQLException ex) {
             System.err.print("Execution of query failed");
         } catch (NullPointerException ex) {
-            System.err.print("bruh moment");
+            System.err.print("null pointer");
         }
         return resultSet;
     }

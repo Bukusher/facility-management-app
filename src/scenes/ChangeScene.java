@@ -31,7 +31,6 @@ public class ChangeScene {
     Button BTlog;
 
 
-
     private SceneChanger sceneChange = new SceneChanger();
     private DB_Connector connector = new DB_Connector();
 
@@ -46,37 +45,36 @@ public class ChangeScene {
                     role = resultSet.getString(1);
                 }
             }
-            switch (role){
-                case "employee" :
-                    BTbooking.setVisible(true);
-                    BThistory.setVisible(true);
-                    BTroomAdmin.setVisible(false);
-                    BTadmin.setVisible(false);
-                    BTsearch.setVisible(false);
-                    BTlog.setVisible(false);
-                    break;
-                case "administrator" :
-                    BTbooking.setVisible(true);
-                    BThistory.setVisible(true);
-                    BTroomAdmin.setVisible(true);
-                    BTadmin.setVisible(true);
-                    BTsearch.setVisible(true);
-                    BTlog.setVisible(true);
-                    break;
-                case "manager" :
-                    BTbooking.setVisible(true);
-                    BThistory.setVisible(true);
-                    BTroomAdmin.setVisible(true);
-                    BTadmin.setVisible(false);
-                    BTsearch.setVisible(true);
-                    BTlog.setVisible(false);
-            }
+            if (role != null)
+                switch (role) {
+                    case "employee":
+                        BTbooking.setVisible(true);
+                        BThistory.setVisible(true);
+                        BTroomAdmin.setVisible(false);
+                        BTadmin.setVisible(false);
+                        BTsearch.setVisible(false);
+                        BTlog.setVisible(false);
+                        break;
+                    case "administrator":
+                        BTbooking.setVisible(true);
+                        BThistory.setVisible(true);
+                        BTroomAdmin.setVisible(true);
+                        BTadmin.setVisible(true);
+                        BTsearch.setVisible(true);
+                        BTlog.setVisible(true);
+                        break;
+                    case "manager":
+                        BTbooking.setVisible(true);
+                        BThistory.setVisible(true);
+                        BTroomAdmin.setVisible(true);
+                        BTadmin.setVisible(false);
+                        BTsearch.setVisible(true);
+                        BTlog.setVisible(false);
+                }
         } catch (Exception e) {
-            System.err.println(new java.util.Date() + " : " + e.getMessage());
+
         }
     }
-
-
 
 
     @FXML
