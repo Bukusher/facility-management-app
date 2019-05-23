@@ -182,7 +182,7 @@ public class BookRoom extends ChangeScene{
                     }
                 }
                 if (!flag) {
-                    outputresults += entry + " - " + rs.getString(1) + "\n";
+                    outputresults +=  "Entry: " + entry + " Room: " + rs.getString(1) + "\n";
                     entry++;
                     entryindex.add(i+1);
                 }
