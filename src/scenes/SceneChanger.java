@@ -38,6 +38,7 @@ public class SceneChanger {
         }
     }
 
+
     public boolean isDarkModeOnFileRead() {
         String s = null;
         try {
