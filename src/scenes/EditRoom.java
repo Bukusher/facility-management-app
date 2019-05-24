@@ -77,7 +77,7 @@ public class EditRoom {
                 rsOverheadProjector = resultSet.getByte(12);
                 rsavailable = resultSet.getByte(2);
             }
-            if (rsRoomName.equals(TFsearchRoomEdit)) {
+            if (rsRoomName.equals(TFsearchRoomEdit.getText())) {
                 TFnewNameEdit.setText(rsRoomName);
                 TFnewChairEdit.setText(rsChairsAmount);
                 TFnewSizeEdit.setText(rsSize);
