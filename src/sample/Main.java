@@ -16,7 +16,6 @@ public class Main extends Application {
     private SceneChanger sceneChange = new SceneChanger();
     @Override
     public void start(Stage primaryStage) throws Exception {
-
         Parent root = FXMLLoader.load(getClass().getResource("../scenes/Scene1Login.fxml"));
         Scene scene =new Scene(root, 600, 400);
         primaryStage.setTitle("Facility Management Application");
@@ -26,15 +25,11 @@ public class Main extends Application {
             scene.getStylesheets().add("/scenes/DarkTheme.css");
         //Darkmode over
         primaryStage.show();
-
     }
 
     public static void main(String[] args) {
         DB_Connector db_connector = new DB_Connector();
         db_connector.connect();
-
         launch(args);
-
-
     }
 }
