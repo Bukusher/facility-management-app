@@ -1,5 +1,7 @@
 package scenes;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -21,6 +23,8 @@ public class BookRoom extends ChangeScene{
     private StringBuilder fromsb;
     private StringBuilder tosb;
     public ArrayList<Integer> entryindex=new ArrayList();
+    private ObservableList<String> sortList = FXCollections.observableArrayList("Roomname", "Chairs", "Size");
+    private ObservableList<String> ascdescList = FXCollections.observableArrayList("Ascending", "Descending");
     @FXML
     TextField TFsearchroomname;
     @FXML
@@ -49,6 +53,19 @@ public class BookRoom extends ChangeScene{
     TextArea TArooms;
     @FXML
     TextField TFroombookentry;
+    @FXML
+    private ChoiceBox DDsortby;
+    @FXML
+    private ChoiceBox DDascdesc;
+
+    @FXML
+    public void initialize()
+    {
+        DDsortby.setItems(sortList);
+        DDascdesc.setItems(ascdescList);
+        DDsortby.setValue("Roomname");
+        DDascdesc.setValue("Ascending");
+    }
 
     @FXML
     private void searchRooms(ActionEvent event) throws SQLException {
@@ -120,6 +137,17 @@ public class BookRoom extends ChangeScene{
         {
             sqlroom += " AND `overhead_projector` = '1'";
         }
+        sqlroom+= " ORDER BY ";
+        if(DDsortby.getValue().equals("Roomname"))
+            sqlroom+="`room_id` ";
+        else if (DDsortby.getValue().equals("Chairs"))
+            sqlroom+="`chairs` ";
+        else if (DDsortby.getValue().equals("Size"))
+            sqlroom+="`size` ";
+        if(DDascdesc.getValue().equals("Ascending"))
+            sqlroom+= "ASC";
+        else if (DDascdesc.getValue().equals("Descending"))
+            sqlroom+="DESC";
 
 
         //Check if booking is in future
@@ -182,7 +210,23 @@ public class BookRoom extends ChangeScene{
                     }
                 }
                 if (!flag) {
-                    outputresults +=  "Entry: " + entry + " Room: " + rs.getString(1) + "\n";
+                    outputresults +=  "Entry: " + entry + " Room: " + rs.getString(1) + " Chairs: " + rs.getString(4) + " Size: " + rs.getString(5) + "sqm Equipment: ";
+                    //Equipment
+                    if(rs.getString(6).equals("1"))
+                        outputresults += "TV ";
+                    if(rs.getString(7).equals("1"))
+                        outputresults += "Projector ";
+                    if(rs.getString(8).equals("1"))
+                        outputresults += "Whiteboard ";
+                    if(rs.getString(9).equals("1"))
+                        outputresults += "Sink ";
+                    if(rs.getString(10).equals("1"))
+                        outputresults += "Microphone(s) ";
+                    if(rs.getString(11).equals("1"))
+                        outputresults += "Stereo/Speakers ";
+                    if(rs.getString(12).equals("1"))
+                        outputresults += "Overhead Projector ";
+                    outputresults+="\n";
                     entry++;
                     entryindex.add(i+1);
                 }
