@@ -61,6 +61,7 @@ public class BookRoom extends ChangeScene{
     @FXML
     public void initialize()
     {
+        //Sets the Multiple Choice DropDown Menus
         DDsortby.setItems(sortList);
         DDascdesc.setItems(ascdescList);
         DDsortby.setValue("Roomname");
@@ -137,6 +138,7 @@ public class BookRoom extends ChangeScene{
         {
             sqlroom += " AND `overhead_projector` = '1'";
         }
+        //Sorting the results
         sqlroom+= " ORDER BY ";
         if(DDsortby.getValue().equals("Roomname"))
             sqlroom+="`room_id` ";
@@ -158,8 +160,8 @@ public class BookRoom extends ChangeScene{
         ChronoLocalDateTime searchtimeto = ChronoLocalDateTime.from(DPsearchto.getDateTimeValue());
 
 
-
-        //controll with past bookings for intersections.
+        //check with past bookings for intersections.
+        //This could potentially done by a better Single SQL select that excludes romms that have bookings in the given timeframe, however multiple JOINs and EXCLUDEs are needed and I didn't get it to work
         String sqlorders = "SELECT * FROM `pc2fma2`.`booking`";
         ResultSet rsbookings =Connector.select(sqlorders);
 
@@ -266,7 +268,6 @@ public class BookRoom extends ChangeScene{
 
         ChronoLocalDateTime searchtimefrom = ChronoLocalDateTime.from(DPsearchfrom.getDateTimeValue());
         ChronoLocalDateTime searchtimeto = ChronoLocalDateTime.from(DPsearchto.getDateTimeValue());
-
 
 
         //Checking and excluding already booked room

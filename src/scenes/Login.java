@@ -230,7 +230,6 @@ public class Login extends ChangeScene {
                 alert.setContentText("Please retype the pin you received or press 'send pin' for a new pin.");
                 alert.showAndWait();
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
