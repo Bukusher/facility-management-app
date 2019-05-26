@@ -12,7 +12,7 @@
       <Button id="BTback" fx:id="BTback" layoutX="73.0" layoutY="14.0" mnemonicParsing="false" onAction="#login" text="Back to Dashboard" />
       <Button id="BTlogout" fx:id="BTlogout" layoutX="509.0" layoutY="6.0" mnemonicParsing="false" onAction="#logout" prefHeight="42.0" prefWidth="54.0" text="Logout" />
       <Label layoutX="30.0" layoutY="64.0" text="Search by name:" />
-      <TextField fx:id="TFname" layoutX="126.0" layoutY="60.0" prefHeight="25.0" prefWidth="104.0" />
+      <TextField fx:id="TFnamesearch" layoutX="126.0" layoutY="60.0" prefHeight="25.0" prefWidth="104.0" />
       <Button fx:id="BTsearchName" layoutX="233.0" layoutY="60.0" mnemonicParsing="false" onAction="#searchName" text="Search" />
       <Label layoutX="319.0" layoutY="64.0" text="Search by room:" />
       <TextField fx:id="TFroom" layoutX="413.0" layoutY="60.0" prefHeight="25.0" prefWidth="104.0" />

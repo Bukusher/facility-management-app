@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import sample.DB_Connector;
 
 
@@ -29,53 +31,8 @@ public class ChangeScene {
     Button BTsearch;
     @FXML
     Button BTlog;
-
-
     private SceneChanger sceneChange = new SceneChanger();
     private DB_Connector connector = new DB_Connector();
-
-    public void initialize() {
-        String userEmail = currentusermail();
-        String RoleQuery = "SELECT `account_type` FROM `pc2fma2`.`account` where email = '" + userEmail + "'";
-        try {
-            ResultSet resultSet = connector.select(RoleQuery);
-            String role = "employee";
-            if (resultSet != null) {
-                while (resultSet.next()) {
-                    role = resultSet.getString(1);
-                }
-            }
-            if (role != null)
-                switch (role) {
-                    case "employee":
-                        BTbooking.setVisible(true);
-                        BThistory.setVisible(true);
-                        BTroomAdmin.setVisible(false);
-                        BTadmin.setVisible(false);
-                        BTsearch.setVisible(false);
-                        BTlog.setVisible(false);
-                        break;
-                    case "administrator":
-                        BTbooking.setVisible(true);
-                        BThistory.setVisible(true);
-                        BTroomAdmin.setVisible(true);
-                        BTadmin.setVisible(true);
-                        BTsearch.setVisible(true);
-                        BTlog.setVisible(true);
-                        break;
-                    case "manager":
-                        BTbooking.setVisible(true);
-                        BThistory.setVisible(true);
-                        BTroomAdmin.setVisible(true);
-                        BTadmin.setVisible(false);
-                        BTsearch.setVisible(true);
-                        BTlog.setVisible(false);
-                }
-        } catch (Exception e) {
-
-        }
-    }
-
 
     @FXML
     private void login(ActionEvent event) throws IOException {

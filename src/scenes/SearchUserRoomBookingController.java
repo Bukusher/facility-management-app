@@ -19,7 +19,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class SearchUserRoomBookingController extends ChangeScene {
     @FXML
-    TextField TFname;
+    TextField TFnamesearch;
     @FXML
     TextField TFroom;
     @FXML
@@ -28,11 +28,13 @@ public class SearchUserRoomBookingController extends ChangeScene {
     TextField TFdeletebookingentry;
     private DB_Connector Connector = new DB_Connector();
     private ResultSet rs;
+    private SceneChanger sceneChanger = new SceneChanger();
+    private boolean lastpressed;
 
     @FXML
     private void searchName (ActionEvent event)
     {
-        if(TFroom.getText().equals(""))
+        if(TFnamesearch.getText().equals(""))
         {
             Alert a = new Alert(Alert.AlertType.ERROR);
             a.setTitle("ERROR");
@@ -41,7 +43,8 @@ public class SearchUserRoomBookingController extends ChangeScene {
             a.showAndWait();
         }
         else {
-            rs = Connector.select("SELECT * FROM `pc2fma2`.`booking` WHERE `account_email` = '" + TFname.getText() + "'");
+            rs = Connector.select("SELECT * FROM `pc2fma2`.`booking` WHERE `account_email` = '" + TFnamesearch.getText() + "' ORDER BY `end_time` DESC");
+            lastpressed=true;
             writeresultset();
         }
     }
@@ -59,6 +62,7 @@ public class SearchUserRoomBookingController extends ChangeScene {
         }
         else {
             rs = Connector.select("SELECT * FROM `pc2fma2`.`booking` WHERE `room_room_id` = '" + TFroom.getText() + "'");
+            lastpressed=false;
             writeresultset();
         }
     }
@@ -96,7 +100,10 @@ public class SearchUserRoomBookingController extends ChangeScene {
         {
             String sqldeletebooking="DELETE FROM `pc2fma2`.`booking` WHERE `booking_id` = '" + rs.getString(1) + "'";
             Connector.executeSQL(sqldeletebooking);
-            initialize();
+            if(lastpressed)
+                searchName(new ActionEvent());
+            else
+                searchRoom(new ActionEvent());
         }
         else
         {
