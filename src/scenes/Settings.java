@@ -5,9 +5,11 @@ import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.stage.*;
+import sample.CryptoUtil;
 import sample.DB_Connector;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
@@ -16,6 +18,7 @@ public class Settings extends ChangeScene{
 
     private SceneChanger sceneChange = new SceneChanger();
     DB_Connector connector = new DB_Connector();
+    private CryptoUtil cryptoUtil = new CryptoUtil();
     private boolean darkTheme = false;
 
 
@@ -66,6 +69,9 @@ public class Settings extends ChangeScene{
 
     @FXML
     private ToggleSwitch TSSettingsDarkTheme;
+
+    public Settings() throws NoSuchAlgorithmException {
+    }
 
 
     @FXML
@@ -152,7 +158,8 @@ public class Settings extends ChangeScene{
                     result.ifPresent(confirmationPassword::set);
 
                     if (newPassword.equals(confirmationPassword.get())) {
-                        connector.update("account", "email", newPassword, "email", mail);
+                        String encryptNewPassword = cryptoUtil.encrypt(newPassword);
+                        connector.update("account", "email", encryptNewPassword, "email", mail);
                     } else {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("Error");
