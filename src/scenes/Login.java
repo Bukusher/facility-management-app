@@ -6,11 +6,19 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
+import sample.CryptoUtil;
 import sample.DB_Connector;
 import sample.SendEmail;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import java.io.*;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -47,6 +55,10 @@ public class Login extends ChangeScene {
     private SecureRandom rand = new SecureRandom();
     private DB_Connector connector = new DB_Connector();
     private SceneChanger sceneChanger = new SceneChanger();
+    private CryptoUtil cryptoUtil = new CryptoUtil();
+
+    public Login() throws NoSuchAlgorithmException {
+    }
 
 
     @FXML
@@ -63,12 +75,14 @@ public class Login extends ChangeScene {
                     resultSet.next();
                     password = resultSet.getString(1);
                 } while (resultSet.next());
-                if (inputPassword.equals(password)) {
+                String decryptPassword = cryptoUtil.decrypt(password);
+                if (inputPassword.equals(decryptPassword)) {
 
                     //Store username in file for use in other scenes
                     PrintWriter pw = new PrintWriter(new FileWriter("user.credit"));
                     pw.print(TFemail.getText());
                     pw.close();
+
 
                     //Darkmode
                     try {
@@ -92,11 +106,11 @@ public class Login extends ChangeScene {
                     alert.showAndWait();
                 }
             }
-        } catch (SQLException ex) {
+        } catch (SQLException | NoSuchAlgorithmException | InvalidKeySpecException | NoSuchPaddingException | InvalidKeyException | InvalidAlgorithmParameterException | IllegalBlockSizeException | BadPaddingException ex) {
             System.err.println(new java.util.Date() + " : " + ex.getMessage());
             alert.setTitle("Error");
             alert.setHeaderText("Wrong email or password");
-            alert.setContentText("Please try again");
+            alert.setContentText("Please try again or contact the Admin if error keeps happening");
             alert.showAndWait();
         }
     }
@@ -119,7 +133,8 @@ public class Login extends ChangeScene {
             if (pinForgot.equals(pinString)) {
                 //checks password
                 if (passwordForgot.equals(passwordForgotRepeat)) {
-                    String resetPasswordQuery = "UPDATE account SET `password` = '" + passwordForgot + "' WHERE `email` = '" + emailForgot + "'";
+                    String encryptPasswordForget = cryptoUtil.encrypt(passwordForgot);
+                    String resetPasswordQuery = "UPDATE account SET `password` = '" + encryptPasswordForget + "' WHERE `email` = '" + emailForgot + "'";
                     connector.executeSQL(resetPasswordQuery);
                     sceneChanger.SceneChange(event, "Scene1Login.fxml");
                 } else {
@@ -213,9 +228,10 @@ public class Login extends ChangeScene {
             String pinString = String.format("%06d", pin);
             if (pinString.equals(pinConfirm)) {
                 if (password1.equals(password2)) {
+                    String encryptPassword = cryptoUtil.encrypt(password1);
                     String createAccountQuery = "INSERT INTO pc2fma2.account " +
                             "(`email`, `name`, `surname`, `password`, `account_type`, `darktheme`) " +
-                            "VALUES ('" + mail + "','" + name + "','" + surname + "','" + password1 + "','employee', '0');";
+                            "VALUES ('" + mail + "','" + name + "','" + surname + "','" + encryptPassword + "','employee', '0');";
                     connector.executeSQL(createAccountQuery);
                     sceneChanger.SceneChange(event, "Scene1Login.fxml");
                 } else {
