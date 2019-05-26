@@ -99,6 +99,8 @@ public class SearchUserRoomBookingController extends ChangeScene {
         if (now.compareTo(bookingtime)<0)
         {
             String sqldeletebooking="DELETE FROM `pc2fma2`.`booking` WHERE `booking_id` = '" + rs.getString(1) + "'";
+
+            //reload, wouldn't work if the corresponding textfield was changed/edited since the last search
             Connector.executeSQL(sqldeletebooking);
             if(lastpressed)
                 searchName(new ActionEvent());
