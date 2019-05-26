@@ -5,9 +5,17 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import sample.CryptoUtil;
 import sample.DB_Connector;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import java.io.IOException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
@@ -32,6 +40,10 @@ public class UserAdmin {
     private SceneChanger sceneChange = new SceneChanger();
     private DB_Connector connector = new DB_Connector();
     private Alert alert = new Alert(Alert.AlertType.ERROR);
+    private CryptoUtil cryptoUtil = new CryptoUtil();
+
+    public UserAdmin() throws NoSuchAlgorithmException {
+    }
 
     @FXML
     public void initialize() {
@@ -58,9 +70,9 @@ public class UserAdmin {
             TFfirstName.setText(rsName);
             TFsurname.setText(rsSurname);
             TFnewMail.setText(rsEmail);
-            TFnewPassword.setText(rsPassword);
+            TFnewPassword.setText(cryptoUtil.decrypt(rsPassword));
             roleBox.setValue(rsAccount);
-        } catch (SQLException ex) {
+        } catch (SQLException | NoSuchAlgorithmException | InvalidKeySpecException | NoSuchPaddingException | InvalidKeyException | InvalidAlgorithmParameterException | IllegalBlockSizeException | BadPaddingException ex) {
             System.err.println(new java.util.Date() + " : " + ex);
         }
     }
@@ -95,15 +107,16 @@ public class UserAdmin {
     }
 
     @FXML
-    public void AddNewUser(ActionEvent event) throws IOException {
+    public void AddNewUser(ActionEvent event) throws IOException, NoSuchPaddingException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, InvalidKeySpecException {
         String newMail = TFnewMail.getText();
         String newPassword = TFnewPassword.getText();
         String firstName = TFfirstName.getText();
         String surname = TFsurname.getText();
         String role = String.valueOf(roleBox.getValue());
+        String encryptNewPassword = cryptoUtil.encrypt(newPassword);
         String AddNewUserQuery = "INSERT INTO pc2fma2.account " +
                 "(`email`, `name`, `surname`, `password`, `account_type`, `darktheme`) " +
-                "VALUES ('" + newMail + "','" + firstName + "','" + surname + "','" + newPassword + "','" + role + "', '0');";
+                "VALUES ('" + newMail + "','" + firstName + "','" + surname + "','" + encryptNewPassword + "','" + role + "', '0');";
         try {
             connector.executeSQL(AddNewUserQuery);
             TFfirstName.setText("");
@@ -116,15 +129,16 @@ public class UserAdmin {
         }
     }
 
-    public void EditUser(ActionEvent event) throws IOException {
+    public void EditUser(ActionEvent event) throws IOException, NoSuchPaddingException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, InvalidKeySpecException {
         String searchMail = TFsearchMail.getText();
         String newMail = TFnewMail.getText();
         String newPassword = TFnewPassword.getText();
         String firstName = TFfirstName.getText();
         String surname = TFsurname.getText();
         String role = String.valueOf(roleBox.getValue());
+        String encryptNewPassword = cryptoUtil.encrypt(newPassword);
         String editUserQuery = "UPDATE account SET `email` = '" + newMail + "', `name` = '" + firstName + "', `surname` = '" + surname +
-                "', `password` = '" + newPassword + "', `account_type` = '" + role + "', `darktheme` = '0' WHERE `email` = '" + searchMail + "'";
+                "', `password` = '" + encryptNewPassword + "', `account_type` = '" + role + "', `darktheme` = '0' WHERE `email` = '" + searchMail + "'";
         try {
             connector.executeSQL(editUserQuery);
             TFsearchMail.setText("");

@@ -14,5 +14,8 @@
 .text-area .content{
     -fx-background-color: #303030;
 }
+.label{
+    -fx-text-fill: white;
+}
 
 
