@@ -82,7 +82,7 @@ public class Scene7Controller extends ParentController {
         }
     }
     @FXML
-    private void help(ActionEvent e)
+    private void help(javafx.event.ActionEvent e)
     {
         helpAlert("Here you can see all your bookings, sorted by their ending date. The one that ends last is the first result. If you want to delete a booking, you can type the number that is the entry number in the field on the buttom right and press 'delete'. You can only delete entries that aren't over yet.");
     }
