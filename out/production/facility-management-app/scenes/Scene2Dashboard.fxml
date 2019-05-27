@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.ChangeScene">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.Dashboard">
    <children>
       <Button id="BThelp" fx:id="BThelp" layoutX="24.0" layoutY="14.0" mnemonicParsing="false" text="Help" />
       <Button id="BTsettings" fx:id="BTsettings" layoutX="73.0" layoutY="14.0" mnemonicParsing="false" onAction="#Setting" text="Settings" />
@@ -14,5 +15,6 @@
       <Button id="BTadmin" fx:id="BTadmin" layoutX="54.0" layoutY="226.0" mnemonicParsing="false" onAction="#UserAdmin" text="User Administration" />
       <Button id="BTsearch" fx:id="BTsearch" layoutX="240.0" layoutY="209.0" mnemonicParsing="false" onAction="#AdminSearch" text="Search&#10;User / Room&#10;Booking" />
       <Button id="BTlog" fx:id="BTlog" layoutX="434.0" layoutY="226.0" mnemonicParsing="false" onAction="#Logs" text="Server logs" />
+      <ImageView fx:id="IVlogo" fitHeight="86.0" fitWidth="54.0" layoutX="509.0" layoutY="303.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </Pane>

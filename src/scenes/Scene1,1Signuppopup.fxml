@@ -8,7 +8,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.Login">
    <children>
-      <Button id="BThelp" layoutX="24.0" layoutY="14.0" mnemonicParsing="false" text="Help" />
+      <Button id="BThelp" layoutX="24.0" layoutY="14.0" mnemonicParsing="false" onAction="#sighUpHelp" text="Help" />
       <Button id="BTback" layoutX="74.0" layoutY="14.0" mnemonicParsing="false" onAction="#back" text="Back" />
       <Label layoutX="204.0" layoutY="27.0" text="First Name" />
       <TextField id="TFname" fx:id="TFname" layoutX="204.0" layoutY="44.0" prefHeight="25.0" prefWidth="218.0" />

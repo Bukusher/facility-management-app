@@ -158,8 +158,16 @@ public class Settings extends ChangeScene{
                     result.ifPresent(confirmationPassword::set);
 
                     if (newPassword.equals(confirmationPassword.get())) {
-                        String encryptNewPassword = cryptoUtil.encrypt(newPassword);
-                        connector.update("account", "email", encryptNewPassword, "email", mail);
+                        if (newPassword.length() > 6) {
+                            String encryptNewPassword = cryptoUtil.encrypt(newPassword);
+                            connector.update("account", "email", encryptNewPassword, "email", mail);
+                        } else {
+                            Alert alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setTitle("Error");
+                            alert.setHeaderText("Password is shorter than 6 figures");
+                            alert.setContentText("Please retype your password.");
+                            alert.showAndWait();
+                        }
                     } else {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("Error");
