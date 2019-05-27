@@ -11,6 +11,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Scene2Controller extends ParentController {
     @FXML
@@ -42,15 +43,10 @@ public class Scene2Controller extends ParentController {
             System.err.println(e);
         }
         //Logo over
-        String RoleQuery = "SELECT `account_type` FROM `pc2fma2`.`account` where email = '" + currentusermail() + "'";
+
+        //set buttons to visible/invisible for different user types
         try {
-            ResultSet resultSet = connector.select(RoleQuery);
-            String role = "employee";
-            if (resultSet != null) {
-                while (resultSet.next()) {
-                    role = resultSet.getString(1);
-                }
-            }
+            String role = currentuseraccounttype();
             if (role != null)
                 switch (role) {
                     case "employee":
@@ -77,8 +73,8 @@ public class Scene2Controller extends ParentController {
                         BTsearch.setVisible(true);
                         BTlog.setVisible(false);
                 }
-        } catch (Exception e) {
-            System.err.println(e);
+        } catch (SQLException e) {
+            System.err.println(e);;
         }
     }
 
@@ -111,5 +107,22 @@ public class Scene2Controller extends ParentController {
     @FXML
     private void AdminSearch(ActionEvent event) throws IOException {
         sceneChanger.SceneChange(event, "Scene8AdminSearch.fxml");
+    }
+
+    @FXML
+    private void help (ActionEvent e) throws SQLException {
+        String role = currentuseraccounttype();
+        if (role != null)
+            switch (role) {
+                case "employee":
+                    helpAlert("Here you can select what you want to do. Your options are\n-\tBook a room\n-\tSee your bookings and delete one if you don't need it anymore\n-\tChange your settings, like your password, mail or change between Darkmode and Lightmode");
+                    break;
+                case "administrator":
+                    helpAlert("Here you can select what you want to do. Your options are\n-\tBook a room\n-\tSee your bookings and delete one if you don't need it anymore\n-\tAdd or edit rooms\n-\tAdd, edit or delete a user\n-\tsearch and delete room bookings from any one user or for any one room\n-\tView the Server logs\n-\tChange your settings, like your password, mail or change between Darkmode and Lightmode");
+                    break;
+                case "manager":
+                    helpAlert("Here you can select what you want to do. Your options are\n-\tBook a room\n-\tSee your bookings and delete one if you don't need it anymore\n-\tAdd or edit rooms\n-\tChange your settings, like your password, mail or change between Darkmode and Lightmode");
+
+            }
     }
 }

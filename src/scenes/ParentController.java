@@ -6,6 +6,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert;
 import sample.DB_Connector;
 import java.io.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Optional;
 
 public class ParentController {
@@ -50,6 +52,11 @@ public class ParentController {
             e.printStackTrace();
         }
         return s;
+    }
+    public String currentuseraccounttype() throws SQLException {
+        ResultSet rs = connector.select( "SELECT `account_type` FROM `pc2fma2`.`account` where email = '" + currentusermail() + "'");
+        rs.next();
+        return rs.getString(1);
     }
 
     public void setDarkthemeFileWrite(String s) throws IOException {

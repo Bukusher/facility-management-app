@@ -6,6 +6,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import sample.DB_Connector;
 
+import java.awt.event.ActionEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -78,7 +79,11 @@ public class Scene7Controller extends ParentController {
                 a.setContentText("Please delete only future bookings");
                 a.showAndWait();
             }
-
         }
+    }
+    @FXML
+    private void help(ActionEvent e)
+    {
+        helpAlert("Here you can see all your bookings, sorted by their ending date. The one that ends last is the first result. If you want to delete a booking, you can type the number that is the entry number in the field on the buttom right and press 'delete'. You can only delete entries that aren't over yet.");
     }
 }

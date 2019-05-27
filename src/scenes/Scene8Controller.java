@@ -117,4 +117,8 @@ public class Scene8Controller extends ParentController {
         }
         TFdeletebookingentry.setText("");
     }
+    private void help (ActionEvent e)
+    {
+        helpAlert("Here you can search all bookings for any given User or room. You can delete a chosen entry by typing the number in the button field and pressing 'delete'. Be sure that only admins like you can do that.");
+    }
 }

@@ -16,7 +16,6 @@ import java.util.ArrayList;
 
 
 public class Scene6Controller extends ParentController {
-    private DB_Connector Connector = new DB_Connector();
     private ResultSet rs;
     private StringBuilder fromsb;
     private StringBuilder tosb;
@@ -161,7 +160,7 @@ public class Scene6Controller extends ParentController {
         //check with past bookings for intersections.
         //This could potentially done by a better Single SQL select that excludes romms that have bookings in the given timeframe, however multiple JOINs and EXCLUDEs are needed and I didn't get it to work
         String sqlorders = "SELECT * FROM `pc2fma2`.`booking`";
-        ResultSet rsbookings =Connector.select(sqlorders);
+        ResultSet rsbookings =connector.select(sqlorders);
 
         ArrayList<String> bookedroomsarraylist = new ArrayList();
         while (rsbookings.next())
@@ -195,7 +194,7 @@ public class Scene6Controller extends ParentController {
         //if (true)
         {
             //Execute SQL
-            rs = Connector.select(sqlroom);
+            rs = connector.select(sqlroom);
 
             Integer entry = 1;
             String outputresults = "";
@@ -262,7 +261,7 @@ public class Scene6Controller extends ParentController {
 
     private boolean checkRoomForBooking (String room) throws SQLException {
         String sqlorders = "SELECT * FROM `pc2fma2`.`booking`";
-        ResultSet rsbookings =Connector.select(sqlorders);
+        ResultSet rsbookings =connector.select(sqlorders);
 
         ChronoLocalDateTime searchtimefrom = ChronoLocalDateTime.from(DPsearchfrom.getDateTimeValue());
         ChronoLocalDateTime searchtimeto = ChronoLocalDateTime.from(DPsearchto.getDateTimeValue());
@@ -319,7 +318,7 @@ public class Scene6Controller extends ParentController {
             } else {
                 String sqlbook = "INSERT INTO `pc2fma2`.`booking` (`account_email`, `start_time`, `end_time`, `room_room_id`) VALUES ('" + currentusermail() + "', '" + String.valueOf(fromsb) + "', '" + String.valueOf(tosb) + "', '" + rs.getString(1) + "')";
                 System.out.println(sqlbook);
-                Connector.executeSQL(sqlbook);
+                connector.executeSQL(sqlbook);
                 TFroombookentry.setText("");
                 fromsb.delete(16, 29);
                 tosb.delete(16, 29);
@@ -333,5 +332,10 @@ public class Scene6Controller extends ParentController {
                 a.showAndWait();
             }
         }
+    }
+    @FXML
+    private void help(ActionEvent e)
+    {
+        helpAlert("Here you can book rooms. You can choose your minimal requirements and when pressing 'Search', all matching rooms that aren't already booked during the chosen time slot will be displayed on the right side. You can then select which of the suggested rooms will be booked by writing only the number of given entry. If you want to select the first entry, you can just press 'book' without writing an entry number. During your search you can also choose how the results will be sorted. If you are having issues, be sure that you can only book in the future and that the start time has to be before the endtime. If something goes wrong, popups will tell you what that was.");
     }
 }

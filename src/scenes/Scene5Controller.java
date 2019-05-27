@@ -152,4 +152,9 @@ public class Scene5Controller extends ParentController{
             System.err.println(new java.util.Date() + " : " + e);
         }
     }
+    @FXML
+    private void help(ActionEvent e)
+    {
+        helpAlert("If you want to edit a user, please type in the users mail adress in the searchfield and press 'fetch info'. This will load the users info in the other fields. You can now edit it or delete the user. If you want to create a new user, please leave the searchfield empty and fill out the users information in the other fields. Press 'Create New Account' to send the information to the server.");
+    }
 }

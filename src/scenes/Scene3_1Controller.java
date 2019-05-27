@@ -173,6 +173,11 @@ public class Scene3_1Controller extends Scene3Controller{
             CBroomavailable.setSelected(false);
         }
     }
+    @FXML
+    private void help(ActionEvent e)
+    {
+        helpAlert("By writing a room name in the searchfield and pressing the search button, the information about the room will be loaded into the appropriate fields. You can then change those attributes and press 'Apply changes' to upload them to the server. Alternatively, you can delete the room permanently (A very long time).");
+    }
 }
 
 
