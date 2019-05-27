@@ -141,9 +141,22 @@ public class Scene4Controller extends ParentController {
                     result.ifPresent(confirmationPassword::set);
 
                     if (newPassword.equals(confirmationPassword.get())) {
+<<<<<<< HEAD:src/scenes/Scene4Controller.java
                         cryptoUtil = new CryptoUtil();
                         String encryptNewPassword = cryptoUtil.encrypt(newPassword);
                         connector.update("account", "email", encryptNewPassword, "email", mail);
+=======
+                        if (newPassword.length() > 6) {
+                            String encryptNewPassword = cryptoUtil.encrypt(newPassword);
+                            connector.update("account", "email", encryptNewPassword, "email", mail);
+                        } else {
+                            Alert alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setTitle("Error");
+                            alert.setHeaderText("Password is shorter than 6 figures");
+                            alert.setContentText("Please retype your password.");
+                            alert.showAndWait();
+                        }
+>>>>>>> origin/master:src/scenes/Settings.java
                     } else {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("Error");

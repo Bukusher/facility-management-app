@@ -15,6 +15,6 @@
       <Button id="BTsignup" layoutX="261.0" layoutY="208.0" mnemonicParsing="false" onAction="#sighUp" text="Sign Up" />
       <Label layoutX="100.0" layoutY="106.0" text="Mail Adress" />
       <Label layoutX="100.0" layoutY="158.0" text="Password" />
-      <Button id="BThelp" layoutX="24.0" layoutY="14.0" mnemonicParsing="false" text="Help" />
+      <Button id="BThelp" layoutX="24.0" layoutY="14.0" mnemonicParsing="false" onAction="#loginHelp" text="Help" />
    </children>
 </Pane>
