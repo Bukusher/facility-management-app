@@ -20,7 +20,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
-public class UserAdmin {
+public class Scene5Controller extends ParentController{
 
     @FXML
     private TextField TFsearchMail;
@@ -42,8 +42,9 @@ public class UserAdmin {
     private Alert alert = new Alert(Alert.AlertType.ERROR);
     private CryptoUtil cryptoUtil = new CryptoUtil();
 
-    public UserAdmin() throws NoSuchAlgorithmException {
+    public Scene5Controller() throws NoSuchAlgorithmException {
     }
+
 
     @FXML
     public void initialize() {
@@ -149,24 +150,6 @@ public class UserAdmin {
             roleBox.setValue(null);
         } catch (Exception e) {
             System.err.println(new java.util.Date() + " : " + e);
-        }
-    }
-
-    @FXML
-    public void returnDashboard(ActionEvent event) throws IOException {
-        sceneChange.SceneChange(event, "Scene2Dashboard.fxml");
-    }
-
-    @FXML
-    private void logout(ActionEvent event) throws IOException {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation Logout");
-        alert.setHeaderText("This will log you out.");
-        alert.setContentText("Are you ok with this?");
-
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
-            sceneChange.SceneChange(event, "Scene1Login.fxml");
         }
     }
 }

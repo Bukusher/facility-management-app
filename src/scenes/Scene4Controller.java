@@ -2,11 +2,8 @@ package scenes;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.*;
-import javafx.scene.*;
 import javafx.scene.control.*;
-import javafx.stage.*;
 import sample.CryptoUtil;
-import sample.DB_Connector;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
@@ -14,11 +11,8 @@ import java.sql.*;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class Settings extends ChangeScene{
-
-    private SceneChanger sceneChange = new SceneChanger();
-    DB_Connector connector = new DB_Connector();
-    private CryptoUtil cryptoUtil = new CryptoUtil();
+public class Scene4Controller extends ParentController {
+    private CryptoUtil cryptoUtil;
     private boolean darkTheme = false;
 
 
@@ -70,18 +64,7 @@ public class Settings extends ChangeScene{
     @FXML
     private ToggleSwitch TSSettingsDarkTheme;
 
-    public Settings() throws NoSuchAlgorithmException {
-    }
 
-
-    @FXML
-    private void settingsBackToDashboard(ActionEvent event) throws IOException {
-        sceneChange.SceneChange(event, "Scene2Dashboard.fxml");
-    }
-
-    public void settingsLogout(ActionEvent event) throws IOException {
-        sceneChange.SceneChange(event, "Scene1Login.fxml");
-    }
 
     @FXML
     private void ConfirmChangeMail(ActionEvent event) throws IOException {
@@ -158,6 +141,7 @@ public class Settings extends ChangeScene{
                     result.ifPresent(confirmationPassword::set);
 
                     if (newPassword.equals(confirmationPassword.get())) {
+                        cryptoUtil = new CryptoUtil();
                         String encryptNewPassword = cryptoUtil.encrypt(newPassword);
                         connector.update("account", "email", encryptNewPassword, "email", mail);
                     } else {
@@ -186,12 +170,12 @@ public class Settings extends ChangeScene{
 
     @FXML
     private void deleteAccountPopUp(ActionEvent event) throws IOException {
-        sceneChange.SceneChange(event, "Scene4,3deleteaccountpopup.fxml");
+        sceneChanger.SceneChange(event, "Scene4,3deleteaccountpopup.fxml");
     }
 
     @FXML
     private void deleteAccountBack(ActionEvent event) throws IOException {
-        sceneChange.SceneChange(event, "Scene4settings.fxml");
+        sceneChanger.SceneChange(event, "Scene4settings.fxml");
     }
 
     @FXML
@@ -210,7 +194,7 @@ public class Settings extends ChangeScene{
                         DBPassword.next();
                         if (DBPassword.getString(1).equals(password)) {
                             connector.executeSQL("DELETE FROM `account` WHERE `email` = '" + email + "'");
-                            sceneChange.SceneChange(event, "Scene1Login.fxml");
+                            sceneChanger.SceneChange(event, "Scene1Login.fxml");
                         } else {
                             Alert alert = new Alert(Alert.AlertType.ERROR);
                             alert.setTitle("Error");
@@ -252,7 +236,7 @@ public class Settings extends ChangeScene{
         }
         sqlupdate+="' WHERE `email` = '" + currentusermail() + "'";
         connector.executeSQL(sqlupdate);
-        sceneChange.SceneChange(event, "Scene4settings.fxml");
+        sceneChanger.SceneChange(event, "Scene4settings.fxml");
 
     }
 

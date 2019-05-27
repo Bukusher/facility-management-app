@@ -17,7 +17,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Created by jonat on 22.05.2019.
  */
-public class SearchUserRoomBookingController extends ChangeScene {
+public class Scene8Controller extends ParentController {
     @FXML
     TextField TFnamesearch;
     @FXML

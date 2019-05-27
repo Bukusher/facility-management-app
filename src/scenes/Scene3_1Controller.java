@@ -13,10 +13,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
-public class EditRoom {
+public class Scene3_1Controller extends ParentController{
 
-    private SceneChanger sceneChange = new SceneChanger();
-    private DB_Connector Connector = new DB_Connector();
     @FXML
     TextField TFsearchRoomEdit;
     @FXML
@@ -42,10 +40,6 @@ public class EditRoom {
     @FXML
     CheckBox CBroomavailable;
 
-    @FXML
-    private void DashboardRoom(ActionEvent event) throws IOException {
-        sceneChange.SceneChange(event, "Scene3roomdashboard.fxml");
-    }
 
     @FXML
     private void Search(ActionEvent event) throws IOException {
@@ -63,7 +57,7 @@ public class EditRoom {
         byte rsavailable =0;
 
         try {
-            ResultSet resultSet = Connector.select(searchRoom);
+            ResultSet resultSet = connector.select(searchRoom);
             if (resultSet.next()) {
                 rsRoomName = resultSet.getString(1);
                 rsChairsAmount = resultSet.getString(4);
@@ -140,7 +134,7 @@ public class EditRoom {
                 "', `sink` = '" + outSink + "', `microphones` = '" + outMicrophone + "', `stereo` = '" + outStero + "', `overhead_projector` = '" + outOverheadProjector +
                 "' WHERE `room_id` = '" + searchRoom + "'";
 
-        Connector.executeSQL(editRoomQuery);
+        connector.executeSQL(editRoomQuery);
         TFnewNameEdit.setText("");
         TFnewSizeEdit.setText("");
         TFnewChairEdit.setText("");
@@ -164,8 +158,8 @@ public class EditRoom {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
-            Connector.executeSQL("DELETE FROM booking WHERE `room_room_id` = '" + roomName + "'");
-            Connector.executeSQL("DELETE FROM room WHERE `room_id` = '" + roomName + "'");
+            connector.executeSQL("DELETE FROM booking WHERE `room_room_id` = '" + roomName + "'");
+            connector.executeSQL("DELETE FROM room WHERE `room_id` = '" + roomName + "'");
             TFnewNameEdit.setText("");
             TFnewSizeEdit.setText("");
             TFnewChairEdit.setText("");
@@ -178,21 +172,7 @@ public class EditRoom {
             CBwhiteboard.setSelected(false);
             CBroomavailable.setSelected(false);
         }
-
     }
-    @FXML
-    private void logout(ActionEvent event) throws IOException {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation Logout");
-        alert.setHeaderText("This will log you out.");
-        alert.setContentText("Are you ok with this?");
-
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
-            sceneChange.SceneChange(event, "Scene1Login.fxml");
-        }
-    }
-
 }
 
 

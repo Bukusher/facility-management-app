@@ -6,18 +6,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import sample.DB_Connector;
-import java.io.IOException;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.time.chrono.ChronoLocalDate;
 import java.time.chrono.ChronoLocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Optional;
 
 
-public class BookRoom extends ChangeScene{
+public class Scene6Controller extends ParentController {
     private DB_Connector Connector = new DB_Connector();
     private ResultSet rs;
     private StringBuilder fromsb;

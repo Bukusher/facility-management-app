@@ -1,7 +1,6 @@
 package scenes;
 
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -12,9 +11,7 @@ import sample.DB_Connector;
 import java.io.IOException;
 import java.util.Optional;
 
-public class AddRoom {
-    SceneChanger sceneChange = new SceneChanger();
-    private DB_Connector connector= new DB_Connector();
+public class Scene3_2Controller extends ParentController {
 
     @FXML
     TextField TFnewNameAdd;
@@ -40,10 +37,6 @@ public class AddRoom {
     CheckBox CBroomavailable;
 
 
-    @FXML
-    private void DashboardRoom(ActionEvent event) throws IOException {
-        sceneChange.SceneChange(event, "Scene3roomdashboard.fxml");
-    }
 
 
     //sets up new rooms to be available as standard, still changable by user though
@@ -91,17 +84,9 @@ public class AddRoom {
         CBwhiteboard.setSelected(false);
     }
     @FXML
-    private void logout(ActionEvent event) throws IOException {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation Logout");
-        alert.setHeaderText("This will log you out");
-        alert.setContentText("Are you ok with this?");
-
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
-            sceneChange.SceneChange(event, "Scene1Login.fxml");
-        }
+    private void help()
+    {
+        helpAlert("Here you can add new rooms.\nPlease fill out all information. If you want the room to be unusable for now (maintanance etc.), please uncheck the corresponding checkbox.");
     }
-
 
 }

@@ -4,15 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import sample.Account;
 import sample.DB_Connector;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.sql.PreparedStatement;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -23,12 +16,11 @@ import java.util.Optional;
 /**
  * Created by jonat on 21.05.2019.
  */
-public class BookingHistoryController extends ChangeScene{
+public class Scene7Controller extends ParentController {
     @FXML
     TextArea TAbookinghistory;
     @FXML
     TextField TFdeletebookingentry;
-    private DB_Connector Connector = new DB_Connector();
     public ResultSet resultSetBookingHistory;
 
 
@@ -36,7 +28,7 @@ public class BookingHistoryController extends ChangeScene{
     @FXML
     public void initialize()
     {
-        resultSetBookingHistory =Connector.select("SELECT * FROM `pc2fma2`.`booking` WHERE `account_email` = '" + currentusermail() + "' ORDER BY `end_time` DESC");
+        resultSetBookingHistory =connector.select("SELECT * FROM `pc2fma2`.`booking` WHERE `account_email` = '" + currentusermail() + "' ORDER BY `end_time` DESC");
         String bookinghistoryresults ="";
         try {
             int entry = 1;
@@ -77,7 +69,7 @@ public class BookingHistoryController extends ChangeScene{
             ChronoLocalDateTime bookingtime = LocalDateTime.parse(sbbookingtime + ".000");
             if (now.compareTo(bookingtime) < 0) {
                 String sqldeletebooking = "DELETE FROM `pc2fma2`.`booking` WHERE `booking_id` = '" + resultSetBookingHistory.getString(1) + "'";
-                Connector.executeSQL(sqldeletebooking);
+                connector.executeSQL(sqldeletebooking);
                 initialize();
             } else {
                 Alert a = new Alert(Alert.AlertType.ERROR);

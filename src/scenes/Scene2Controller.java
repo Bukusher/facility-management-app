@@ -1,19 +1,34 @@
 package scenes;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import sample.DB_Connector;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.ResultSet;
 
-public class Dashboard extends ChangeScene{
+public class Scene2Controller extends ParentController {
     private SceneChanger sceneChange = new SceneChanger();
     private DB_Connector connector = new DB_Connector();
     @FXML
     ImageView IVlogo;
+    @FXML
+    Button BTbooking;
+    @FXML
+    Button BThistory;
+    @FXML
+    Button BTroomAdmin;
+    @FXML
+    Button BTadmin;
+    @FXML
+    Button BTsearch;
+    @FXML
+    Button BTlog;
 
     @FXML
     public void initialize() {
@@ -67,5 +82,36 @@ public class Dashboard extends ChangeScene{
         } catch (Exception e) {
             System.err.println(e);
         }
+    }
+
+
+    @FXML
+    private void Setting(ActionEvent event) throws IOException {
+        sceneChanger.SceneChange(event, "Scene4settings.fxml");
+    }
+
+    @FXML
+    private void BookingHistory(ActionEvent event) throws IOException {
+        sceneChanger.SceneChange(event, "Scene7BookingHistory.fxml");
+    }
+
+    @FXML
+    private void BookingRoom(ActionEvent event) throws IOException {
+        sceneChanger.SceneChange(event, "Scene6BookRoom.fxml");
+    }
+
+    @FXML
+    private void UserAdmin(ActionEvent event) throws IOException {
+        sceneChanger.SceneChange(event, "Scene5UserAdmin.fxml");
+    }
+
+    @FXML
+    private void Logs(ActionEvent event) throws IOException {
+        sceneChanger.SceneChange(event, "Scene9Logs.fxml");
+    }
+
+    @FXML
+    private void AdminSearch(ActionEvent event) throws IOException {
+        sceneChanger.SceneChange(event, "Scene8AdminSearch.fxml");
     }
 }

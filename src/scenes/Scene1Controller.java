@@ -23,7 +23,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-public class Login extends ChangeScene {
+public class Scene1Controller extends ParentController {
     @FXML
     TextField TFemail;
     @FXML
@@ -53,11 +53,9 @@ public class Login extends ChangeScene {
 
     private Alert alert = new Alert(Alert.AlertType.ERROR);
     private SecureRandom rand = new SecureRandom();
-    private DB_Connector connector = new DB_Connector();
-    private SceneChanger sceneChanger = new SceneChanger();
     private CryptoUtil cryptoUtil = new CryptoUtil();
 
-    public Login() throws NoSuchAlgorithmException {
+    public Scene1Controller() throws NoSuchAlgorithmException {
     }
 
 
