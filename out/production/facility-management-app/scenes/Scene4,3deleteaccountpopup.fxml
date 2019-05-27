@@ -6,7 +6,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="253.0" prefWidth="343.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.Settings">
+<Pane focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="253.0" prefWidth="343.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.Scene4Controller">
    <children>
       <Button id="BTDeleteAccountBack" fx:id="BTDeleteAccountBack" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteAccountBack" prefHeight="32.0" prefWidth="55.0" text="Back" />
       <Label layoutX="22.0" layoutY="59.0" text="Please retype your email and password to confirm" textAlignment="CENTER" />

@@ -6,10 +6,10 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.BookingHistoryController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.Scene7Controller">
    <children>
       <Button id="BThelp" fx:id="BThelp" layoutX="24.0" layoutY="14.0" mnemonicParsing="false" text="Help" />
-      <Button id="BTback" fx:id="BTback" layoutX="73.0" layoutY="14.0" mnemonicParsing="false" onAction="#login" text="Back to Dashboard" />
+      <Button id="BTback" fx:id="BTback" layoutX="73.0" layoutY="14.0" mnemonicParsing="false" onAction="#BackToDashboard" text="Back to Dashboard" />
       <Button id="BTlogout" fx:id="BTlogout" layoutX="509.0" layoutY="6.0" mnemonicParsing="false" onAction="#logout" prefHeight="42.0" prefWidth="54.0" text="Logout" />
       <TextArea id="TAbookinghistory" fx:id="TAbookinghistory" layoutX="24.0" layoutY="48.0" prefHeight="337.0" prefWidth="474.0" />
       <TextField id="TFdeletebookingentry" fx:id="TFdeletebookingentry" layoutX="526.0" layoutY="325.0" prefHeight="25.0" prefWidth="41.0" />
