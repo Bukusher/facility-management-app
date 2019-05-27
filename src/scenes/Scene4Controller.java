@@ -227,6 +227,7 @@ public class Scene4Controller extends ParentController {
         }
     }
 
+    @FXML
     public void DarkTheme(ActionEvent event) throws IOException, SQLException {
         ResultSet rs = connector.select("SELECT * FROM `pc2fma2`.`account` WHERE `email` = '" + currentusermail() + "'");
         rs.next();
@@ -246,8 +247,9 @@ public class Scene4Controller extends ParentController {
         sceneChanger.SceneChange(event, "Scene4settings.fxml");
 
     }
-    private void help(ActionEvent e)
-    {
+
+    @FXML
+    private void settingsHelp(ActionEvent event) {
         helpAlert("In your settings, you can change your mailadress and or password and also switch between the darkmode and lightmode. If you have no need for your account anymore, you can also delete it here.");
     }
 }

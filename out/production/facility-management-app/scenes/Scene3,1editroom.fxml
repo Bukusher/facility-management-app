@@ -6,9 +6,9 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane fx:id="CBMicrophone" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.Scene3_1Controller">
+<Pane fx:id="CBMicrophone" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.Scene3_1Controller">
    <children>
-      <Button id="BThelp" fx:id="BThelp" layoutX="24.0" layoutY="14.0" mnemonicParsing="false" text="Help" />
+      <Button id="BThelp" fx:id="BThelp" layoutX="24.0" layoutY="14.0" mnemonicParsing="false" onAction="#help" text="Help" />
       <Button id="BTback" fx:id="BTback" layoutX="73.0" layoutY="14.0" mnemonicParsing="false" onAction="#RoomAdmin" text="Back to Room Dashboard" />
       <Button id="BTlogout" fx:id="BTlogout" layoutX="509.0" layoutY="6.0" mnemonicParsing="false" onAction="#logout" prefHeight="42.0" prefWidth="54.0" text="Logout" />
       <Button id="BTsearchroom" fx:id="BTsearchroom" layoutX="195.0" layoutY="69.0" mnemonicParsing="false" onAction="#Search" prefHeight="32.0" prefWidth="84.0" text="Search" />

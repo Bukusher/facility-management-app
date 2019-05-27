@@ -35,9 +35,9 @@ public class Scene2Controller extends ParentController {
         try {
             String fn;
             if (sceneChanger.isDarkModeOnFileRead())
-                fn="src/logo/LogoDarkBackground.png";
+                fn = "src/logo/LogoDarkBackground.png";
             else
-                fn="src/logo/LogoWhiteBackground.png";
+                fn = "src/logo/LogoWhiteBackground.png";
             IVlogo.setImage(new Image(new FileInputStream(fn)));
         } catch (FileNotFoundException e) {
             System.err.println(e);
@@ -74,7 +74,8 @@ public class Scene2Controller extends ParentController {
                         BTlog.setVisible(false);
                 }
         } catch (SQLException e) {
-            System.err.println(e);;
+            System.err.println(e);
+            ;
         }
     }
 
@@ -110,7 +111,7 @@ public class Scene2Controller extends ParentController {
     }
 
     @FXML
-    private void help (ActionEvent e) throws SQLException {
+    private void help(ActionEvent event) throws SQLException {
         String role = currentuseraccounttype();
         if (role != null)
             switch (role) {
@@ -122,6 +123,10 @@ public class Scene2Controller extends ParentController {
                     break;
                 case "manager":
                     helpAlert("Here you can select what you want to do. Your options are\n-\tBook a room\n-\tSee your bookings and delete one if you don't need it anymore\n-\tAdd or edit rooms\n-\tChange your settings, like your password, mail or change between Darkmode and Lightmode");
+                    break;
+                default:
+                    helpAlert("idk");
+                    break;
 
             }
     }

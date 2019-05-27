@@ -6,7 +6,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.Scene2Controller">
    <children>
-      <Button id="BThelp" fx:id="BThelp" layoutX="24.0" layoutY="14.0" mnemonicParsing="false" text="Help" />
+      <Button id="BThelp" fx:id="BThelp" layoutX="24.0" layoutY="14.0" mnemonicParsing="false" onAction="#help" text="Help" />
       <Button id="BTsettings" fx:id="BTsettings" layoutX="73.0" layoutY="14.0" mnemonicParsing="false" onAction="#Setting" text="Settings" />
       <Button id="BTlogout" fx:id="BTlogout" layoutX="509.0" layoutY="6.0" mnemonicParsing="false" onAction="#logout" prefHeight="42.0" prefWidth="54.0" text="Logout" />
       <Button id="BTbooking" fx:id="BTbooking" layoutX="73.0" layoutY="120.0" mnemonicParsing="false" onAction="#BookingRoom" text="Book a room" />
