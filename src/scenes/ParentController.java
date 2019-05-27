@@ -26,6 +26,9 @@ public class ParentController {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
             sceneChanger.SceneChange(event, "Scene1Login.fxml");
+            PrintWriter pw = new PrintWriter(new FileWriter("user.credit"));
+            pw.print("");
+            pw.close();
         }
     }
 

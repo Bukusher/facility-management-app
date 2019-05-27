@@ -130,6 +130,7 @@ public class Scene5Controller extends ParentController{
         }
     }
 
+    @FXML
     public void EditUser(ActionEvent event) throws IOException, NoSuchPaddingException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, InvalidKeySpecException {
         String searchMail = TFsearchMail.getText();
         String newMail = TFnewMail.getText();
