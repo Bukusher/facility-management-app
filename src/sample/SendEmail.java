@@ -59,28 +59,23 @@ public class SendEmail {
             message.setSubject(sub);
 
 
-            BodyPart messageBodyPart = new MimeBodyPart();
-
             // Now set the actual message
-            messageBodyPart.setText(msg);
+            message.setText(msg);
+            
+            MimeBodyPart messageBodyPart = new MimeBodyPart();
 
-            // Create a multipar message
             Multipart multipart = new MimeMultipart();
 
-            // Set text message part
-            multipart.addBodyPart(messageBodyPart);
-            messageBodyPart = new MimeBodyPart();
-            String filename = "Booking Confirmation.pdf";
-            DataSource source = new FileDataSource(filename);
+            String file = "src/Booking Confirmation.pdf";
+            String fileName = "src/Booking Confirmation.pdf";
+            DataSource source = new FileDataSource(file);
             messageBodyPart.setDataHandler(new DataHandler(source));
-            messageBodyPart.setFileName(filename);
+            messageBodyPart.setFileName(fileName);
             multipart.addBodyPart(messageBodyPart);
 
+            message.setContent(multipart);
 
-
-            //send message
             Transport.send(message);
-            System.out.println("message sent successfully");
         } catch (MessagingException e) {throw new RuntimeException(e);}
     }
 }

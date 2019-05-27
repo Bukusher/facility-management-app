@@ -336,7 +336,7 @@ public class Scene6Controller extends ParentController {
                 Alert a = new Alert(Alert.AlertType.CONFIRMATION);
                 a.setTitle("Bookingconfirmation");
                 a.setHeaderText("The booking was successful!");
-                a.setContentText("You booked room " + rs.getString(1) + " from " + String.valueOf(fromsb) + " to " + String.valueOf(tosb) + ".");
+                a.setContentText("You booked room " + rs.getString(1) + " from " + String.valueOf(fromsb) + " to " + String.valueOf(tosb) + ". You received a mail with the confirmation.");
                 rs = null;
                 TArooms.setText("");
                 a.showAndWait();
@@ -346,7 +346,7 @@ public class Scene6Controller extends ParentController {
 
     public void writebookingpdf(String room, String from, String to) throws Exception {
         int rotate = 0;
-        PDF pdf = new PDF(new BufferedOutputStream(new FileOutputStream("Booking Confirmation.pdf")));
+        PDF pdf = new PDF(new BufferedOutputStream(new FileOutputStream("src/Booking Confirmation.pdf")));
         pdf.setTitle("Booking Confirmation");
         pdf.setSubject("Examples");
         pdf.setAuthor("SAJJ Unincorparated");
