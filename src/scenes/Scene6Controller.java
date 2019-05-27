@@ -5,14 +5,19 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.CheckBox;
 import sample.DB_Connector;
-
+import sample.SendEmail;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.chrono.ChronoLocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import com.pdfjet.*;
 
 
 public class Scene6Controller extends ParentController {
@@ -317,12 +322,17 @@ public class Scene6Controller extends ParentController {
                 a.showAndWait();
             } else {
                 String sqlbook = "INSERT INTO `pc2fma2`.`booking` (`account_email`, `start_time`, `end_time`, `room_room_id`) VALUES ('" + currentusermail() + "', '" + String.valueOf(fromsb) + "', '" + String.valueOf(tosb) + "', '" + rs.getString(1) + "')";
-                System.out.println(sqlbook);
                 connector.executeSQL(sqlbook);
                 TFroombookentry.setText("");
                 fromsb.delete(16, 29);
                 tosb.delete(16, 29);
                 TFroombookentry.setText("");
+                try {
+                    writebookingpdf(rs.getString(1), String.valueOf(fromsb), String.valueOf(tosb));
+                    SendEmail.sendwithAttachment(currentusermail(),"Booking confirmation", "The confirmation for your booking");
+                } catch (Exception e) {
+                    System.err.println(e);
+                }
                 Alert a = new Alert(Alert.AlertType.CONFIRMATION);
                 a.setTitle("Bookingconfirmation");
                 a.setHeaderText("The booking was successful!");
@@ -333,6 +343,58 @@ public class Scene6Controller extends ParentController {
             }
         }
     }
+
+    public void writebookingpdf(String room, String from, String to) throws Exception {
+        int rotate = 0;
+        PDF pdf = new PDF(new BufferedOutputStream(new FileOutputStream("Booking Confirmation.pdf")));
+        pdf.setTitle("Booking Confirmation");
+        pdf.setSubject("Examples");
+        pdf.setAuthor("SAJJ Unincorparated");
+
+        Font ftext = new Font(pdf, CoreFont.HELVETICA);
+        ftext.setSize(10f);
+
+        Font fheader = new Font(pdf, CoreFont.HELVETICA_BOLD);
+        fheader.setSize(14f);
+
+
+        Page page = new Page(pdf, Letter.PORTRAIT);
+
+        TextColumn column = new TextColumn(rotate);
+        column.setSpaceBetweenLines(5.0f);
+        column.setSpaceBetweenParagraphs(10.0f);
+
+        Paragraph p1 = new Paragraph();
+        p1.add(new TextLine(fheader, "Bookingconfirmation"));
+
+        Paragraph p2 = new Paragraph();
+        p2.add(new TextLine(ftext, "You booked room " + room + " from " + from + " to " + to + "."));
+
+
+        column.addParagraph(p1);
+        column.addParagraph(p2);
+
+        if (rotate == 0) {
+            column.setLocation(90f, 300f);
+        }
+        else if (rotate == 90) {
+            column.setLocation(90f, 780f);
+        }
+        else if (rotate == 270) {
+            column.setLocation(550f, 310f);
+        }
+
+        float columnWidth = 470f;
+        column.setSize(columnWidth, 100f);
+        Point point = column.drawOn(page);
+
+        if (rotate == 0) {
+            Line line = new Line(point.getX(), point.getY(), point.getX() + columnWidth, point.getY());
+            line.drawOn(page);
+        }
+        pdf.close();
+    }
+
     @FXML
     private void help(ActionEvent e)
     {
