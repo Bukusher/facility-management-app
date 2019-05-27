@@ -13,8 +13,6 @@ import java.io.IOException;
 import java.sql.ResultSet;
 
 public class Scene2Controller extends ParentController {
-    private SceneChanger sceneChange = new SceneChanger();
-    private DB_Connector connector = new DB_Connector();
     @FXML
     ImageView IVlogo;
     @FXML
@@ -35,7 +33,7 @@ public class Scene2Controller extends ParentController {
         //Logo
         try {
             String fn;
-            if (sceneChange.isDarkModeOnFileRead())
+            if (sceneChanger.isDarkModeOnFileRead())
                 fn="src/logo/LogoDarkBackground.png";
             else
                 fn="src/logo/LogoWhiteBackground.png";

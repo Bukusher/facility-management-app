@@ -13,7 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
-public class Scene3_1Controller extends ParentController{
+public class Scene3_1Controller extends Scene3Controller{
 
     @FXML
     TextField TFsearchRoomEdit;

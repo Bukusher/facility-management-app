@@ -11,7 +11,7 @@ import sample.DB_Connector;
 import java.io.IOException;
 import java.util.Optional;
 
-public class Scene3_2Controller extends ParentController {
+public class Scene3_2Controller extends Scene3Controller {
 
     @FXML
     TextField TFnewNameAdd;
