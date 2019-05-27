@@ -120,6 +120,7 @@ public class Login extends ChangeScene {
         sceneChanger.SceneChange(event, "Scene1,2forgotPassword.fxml");
     }
 
+
     @FXML
     private void resetPassword(ActionEvent event) {
         try {
