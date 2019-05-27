@@ -25,29 +25,29 @@ import java.sql.SQLException;
 
 public class Login extends ChangeScene {
     @FXML
-    TextField TFemail;
+    private TextField TFemail;
     @FXML
-    PasswordField TFpassword;
+    private PasswordField TFpassword;
     @FXML
-    TextField TFname;
+    private TextField TFname;
     @FXML
-    TextField TFsurname;
+    private TextField TFsurname;
     @FXML
-    TextField TFmailSighUp;
+    private TextField TFmailSighUp;
     @FXML
-    PasswordField TFpasswordSignUp;
+    private PasswordField TFpasswordSignUp;
     @FXML
-    PasswordField TFpasswordconfirm;
+    private PasswordField TFpasswordconfirm;
     @FXML
-    TextField TFpin;
+    private TextField TFpin;
     @FXML
-    TextField TFpasswordFogot;
+    private TextField TFpasswordFogot;
     @FXML
-    TextField TFpasswordFogotRepeat;
+    private TextField TFpasswordFogotRepeat;
     @FXML
-    TextField TFpinForgot;
+    private TextField TFpinForgot;
     @FXML
-    TextField TFemailForgot;
+    private TextField TFemailForgot;
 
     private int pin;
 
@@ -120,8 +120,9 @@ public class Login extends ChangeScene {
         sceneChanger.SceneChange(event, "Scene1,2forgotPassword.fxml");
     }
 
+
     @FXML
-    private void resetPassword(ActionEvent event) throws IOException {
+    private void resetPassword(ActionEvent event) {
         try {
             String pinForgot = TFpinForgot.getText();
             String emailForgot = TFemailForgot.getText();
@@ -133,10 +134,17 @@ public class Login extends ChangeScene {
             if (pinForgot.equals(pinString)) {
                 //checks password
                 if (passwordForgot.equals(passwordForgotRepeat)) {
-                    String encryptPasswordForget = cryptoUtil.encrypt(passwordForgot);
-                    String resetPasswordQuery = "UPDATE account SET `password` = '" + encryptPasswordForget + "' WHERE `email` = '" + emailForgot + "'";
-                    connector.executeSQL(resetPasswordQuery);
-                    sceneChanger.SceneChange(event, "Scene1Login.fxml");
+                    if (passwordForgot.length() > 6) {
+                        String encryptPasswordForget = cryptoUtil.encrypt(passwordForgot);
+                        String resetPasswordQuery = "UPDATE account SET `password` = '" + encryptPasswordForget + "' WHERE `email` = '" + emailForgot + "'";
+                        connector.executeSQL(resetPasswordQuery);
+                        sceneChanger.SceneChange(event, "Scene1Login.fxml");
+                    } else {
+                        alert.setTitle("Error");
+                        alert.setHeaderText("Password is shorter than 6 figures");
+                        alert.setContentText("Please retype your password.");
+                        alert.showAndWait();
+                    }
                 } else {
                     alert.setTitle("Error");
                     alert.setHeaderText("Passwords does not match!");
@@ -217,7 +225,7 @@ public class Login extends ChangeScene {
     }
 
     @FXML
-    public void createAccount(ActionEvent event) throws IOException {
+    public void createAccount(ActionEvent event) {
         try {
             String name = TFname.getText();
             String surname = TFsurname.getText();
@@ -228,15 +236,22 @@ public class Login extends ChangeScene {
             String pinString = String.format("%06d", pin);
             if (pinString.equals(pinConfirm)) {
                 if (password1.equals(password2)) {
-                    String encryptPassword = cryptoUtil.encrypt(password1);
-                    String createAccountQuery = "INSERT INTO pc2fma2.account " +
-                            "(`email`, `name`, `surname`, `password`, `account_type`, `darktheme`) " +
-                            "VALUES ('" + mail + "','" + name + "','" + surname + "','" + encryptPassword + "','employee', '0');";
-                    connector.executeSQL(createAccountQuery);
-                    sceneChanger.SceneChange(event, "Scene1Login.fxml");
+                    if (password1.length() > 6) {
+                        String encryptPassword = cryptoUtil.encrypt(password1);
+                        String createAccountQuery = "INSERT INTO pc2fma2.account " +
+                                "(`email`, `name`, `surname`, `password`, `account_type`, `darktheme`) " +
+                                "VALUES ('" + mail + "','" + name + "','" + surname + "','" + encryptPassword + "','employee', '0');";
+                        connector.executeSQL(createAccountQuery);
+                        sceneChanger.SceneChange(event, "Scene1Login.fxml");
+                    } else {
+                        alert.setTitle("Error");
+                        alert.setHeaderText("Password is shorter than 6 figures");
+                        alert.setContentText("Please retype your password.");
+                        alert.showAndWait();
+                    }
                 } else {
                     alert.setTitle("Error");
-                    alert.setHeaderText("Passwords does not match!");
+                    alert.setHeaderText("Passwords do not match!");
                     alert.setContentText("Please retype your password.");
                     alert.showAndWait();
                 }
@@ -249,5 +264,41 @@ public class Login extends ChangeScene {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    public void loginHelp(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText("Login Help Screen");
+        alert.setContentText("Please enter your username and email into the fields bellow. \n " +
+                "If you have not registered you can do that via the Sign Up button. \n " +
+                "If you have forgotten you password please reset your password using the forgot password button. \n " +
+                "If still unable to login please contact an Admin for the application.");
+        alert.showAndWait();
+    }
+
+    @FXML
+    public void sighUpHelp(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText("Login Help Screen");
+        alert.setContentText("Please enter all the fields to create an account. \n" +
+                "After you have enter your email, press send pin to receive an activation pin the your email. \n" +
+                "If you do not get this email within 5 minutes please reenter your email and press send pin. \n" +
+                "Password must be longer than 6 figures. ");
+        alert.showAndWait();
+    }
+
+    @FXML
+    public void forgotPasswordHelp(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText("Login Help Screen");
+        alert.setContentText("Please enter all the fields to create an account. \n" +
+                "After you have enter your email, press send pin to receive an activation pin the your email. \n" +
+                "If you do not get this email within 5 minutes please reenter your email and press send pin. \n" +
+                "Password must be longer than 6 figures. ");
+        alert.showAndWait();
     }
 }
