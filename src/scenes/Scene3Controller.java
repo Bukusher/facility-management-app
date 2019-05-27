@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import java.io.IOException;
 
 public class Scene3Controller extends ParentController {
-SceneChanger sceneChanger=new SceneChanger();
 
     @FXML
     private void EditRoom(ActionEvent event) throws IOException {

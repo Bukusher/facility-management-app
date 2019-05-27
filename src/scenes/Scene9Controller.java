@@ -1,4 +1,4 @@
 package scenes;
 
-public class Scene9Controller {
+public class Scene9Controller extends ParentController {
 }
