@@ -7,7 +7,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="activation" level="project" />
     <orderEntry type="library" name="itext7-sign-7.0.0" level="project" />
+    <orderEntry type="library" name="activation" level="project" />
   </component>
 </module>

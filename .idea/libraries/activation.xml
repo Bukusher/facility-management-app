@@ -8,6 +8,7 @@
       <root url="jar://$PROJECT_DIR$/lib/mail.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/mailapi.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/mysql-connector-java-8.0.16.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/PDFjet.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/pop3.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/smtp.jar!/" />
     </CLASSES>
