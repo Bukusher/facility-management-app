@@ -20,19 +20,15 @@ public class SceneChanger {
 
     public void SceneChange(ActionEvent event, String file) throws IOException {
         try {
-
             Parent homePageParent = FXMLLoader.load(getClass().getResource(file));
             Scene homePageScene = new Scene(homePageParent);
             Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
             //Darkmode
             if (isDarkModeOnFileRead())
                 homePageScene.getStylesheets().add("/scenes/DarkTheme.css");
             else
                 homePageScene.getStylesheets().add("com/sun/javafx/scene/control/skin/modena/modena.css");
             //Darkmode over
-
-
             appStage.setScene(homePageScene);
             appStage.show();
         } catch (Exception e) {

@@ -12,7 +12,7 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class Scene4Controller extends ParentController {
-    private CryptoUtil cryptoUtil;
+
     private boolean darkTheme = false;
 
 
@@ -64,6 +64,10 @@ public class Scene4Controller extends ParentController {
     @FXML
     private ToggleSwitch TSSettingsDarkTheme;
 
+    private CryptoUtil cryptoUtil = new CryptoUtil();
+
+    public Scene4Controller() throws NoSuchAlgorithmException {
+    }
 
 
     @FXML
@@ -89,7 +93,7 @@ public class Scene4Controller extends ParentController {
 
                     ResultSet DBPassword = connector.simpleSelect("password", "account", "email", oldMail);
                     DBPassword.next();
-                    if (DBPassword.getString(1).equals(password.get())) {
+                    if (cryptoUtil.decrypt(DBPassword.getString(1)).equals(password.get())) {
                         connector.update("account", "email", newMail, "email", oldMail);
                     } else {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -130,7 +134,7 @@ public class Scene4Controller extends ParentController {
                 ResultSet DBPassword = connector.simpleSelect("password", "account", "email", mail);
                 DBPassword.next();
 
-                if (DBMail.getString(1).equals(mail) && DBPassword.getString(1).equals(oldPassword)) {
+                if (DBMail.getString(1).equals(mail) && cryptoUtil.decrypt(DBPassword.getString(1)).equals(oldPassword)) {
                     TextInputDialog dialog = new TextInputDialog();
                     dialog.setTitle("Confirmation");
                     dialog.setHeaderText("Re-enter your new password to confirm");
@@ -144,6 +148,9 @@ public class Scene4Controller extends ParentController {
                         if (newPassword.length() > 6) {
                             String encryptNewPassword = cryptoUtil.encrypt(newPassword);
                             connector.update("account", "email", encryptNewPassword, "email", mail);
+                            TFSettingsMail.setText("");
+                            TFSettingsOldPassword.setText("");
+                            TFSettingsNewPassword.setText("");
                         } else {
                             Alert alert = new Alert(Alert.AlertType.ERROR);
                             alert.setTitle("Error");
