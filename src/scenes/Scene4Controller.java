@@ -5,7 +5,9 @@ import javafx.fxml.*;
 import javafx.scene.control.*;
 import sample.CryptoUtil;
 
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.Optional;
@@ -24,9 +26,6 @@ public class Scene4Controller extends ParentController {
 
     @FXML
     private Button BTSettingsLogout;
-
-    @FXML
-    private TextField TFSettingsOldMail;
 
     @FXML
     private TextField TFSettingsNewMail;
@@ -53,9 +52,6 @@ public class Scene4Controller extends ParentController {
     private Button BTDeleteAccountBack;
 
     @FXML
-    private TextField TFDeleteAccountEmail;
-
-    @FXML
     private TextField TFDeleteAccountPassword;
 
     @FXML
@@ -74,7 +70,7 @@ public class Scene4Controller extends ParentController {
     private void ConfirmChangeMail(ActionEvent event) throws IOException {
 
         try {
-            String oldMail = TFSettingsOldMail.getText();
+            String oldMail = currentusermail();
             String newMail = TFSettingsNewMail.getText();
 
             if (!oldMail.isEmpty() && !newMail.isEmpty()) {
@@ -95,6 +91,9 @@ public class Scene4Controller extends ParentController {
                     DBPassword.next();
                     if (cryptoUtil.decrypt(DBPassword.getString(1)).equals(password.get())) {
                         connector.update("account", "email", newMail, "email", oldMail);
+                        PrintWriter pw = new PrintWriter(new FileWriter("user.credit"));
+                        pw.print(newMail);
+                        pw.close();
                     } else {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("Error");
@@ -124,7 +123,7 @@ public class Scene4Controller extends ParentController {
     @FXML
     private void ConfirmNewPassword(ActionEvent event) throws IOException {
         try {
-            String mail = TFSettingsMail.getText();
+            String mail = currentusermail();
             String oldPassword = TFSettingsOldPassword.getText();
             String newPassword = TFSettingsNewPassword.getText();
 
@@ -195,7 +194,7 @@ public class Scene4Controller extends ParentController {
     @FXML
     private void ConfirmDeleteAccount(ActionEvent event) throws IOException {
         try {
-            String email = TFDeleteAccountEmail.getText();
+            String email = currentusermail();
             String password = TFDeleteAccountPassword.getText();
 
             if (!email.isEmpty() && !password.isEmpty()) {
@@ -230,7 +229,7 @@ public class Scene4Controller extends ParentController {
                 alert.showAndWait();
             }
         } catch (Exception ex) {
-            System.err.println(ex);
+            ex.printStackTrace();
         }
     }
 
