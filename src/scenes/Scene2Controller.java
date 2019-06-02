@@ -101,8 +101,8 @@ public class Scene2Controller extends ParentController {
     }
 
     @FXML
-    private void Logs(ActionEvent event) throws IOException {
-        sceneChanger.SceneChange(event, "Scene9Logs.fxml");
+    private void seeall(ActionEvent event) throws IOException {
+        sceneChanger.SceneChange(event, "Scene9seeall.fxml");
     }
 
     @FXML
@@ -119,7 +119,7 @@ public class Scene2Controller extends ParentController {
                     helpAlert("Here you can select what you want to do. Your options are\n-\tBook a room\n-\tSee your bookings and delete one if you don't need it anymore\n-\tChange your settings, like your password, mail or change between Darkmode and Lightmode");
                     break;
                 case "administrator":
-                    helpAlert("Here you can select what you want to do. Your options are\n-\tBook a room\n-\tSee your bookings and delete one if you don't need it anymore\n-\tAdd or edit rooms\n-\tAdd, edit or delete a user\n-\tsearch and delete room bookings from any one user or for any one room\n-\tView the Server logs\n-\tChange your settings, like your password, mail or change between Darkmode and Lightmode");
+                    helpAlert("Here you can select what you want to do. Your options are\n-\tBook a room\n-\tSee your bookings and delete one if you don't need it anymore\n-\tAdd or edit rooms\n-\tAdd, edit or delete a user\n-\tsearch and delete room bookings from any one user or for any one room\n-\tView all users, bookings or rooms\n-\tChange your settings, like your password, mail or change between Darkmode and Lightmode");
                     break;
                 case "manager":
                     helpAlert("Here you can select what you want to do. Your options are\n-\tBook a room\n-\tSee your bookings and delete one if you don't need it anymore\n-\tAdd or edit rooms\n-\tChange your settings, like your password, mail or change between Darkmode and Lightmode");
