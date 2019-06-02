@@ -6,9 +6,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.CheckBox;
-import sample.DB_Connector;
+import javafx.scene.control.cell.PropertyValueFactory;
 import sample.SendEmail;
-import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.sql.ResultSet;
@@ -17,6 +16,7 @@ import java.time.LocalDateTime;
 import java.time.chrono.ChronoLocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+
 import com.pdfjet.*;
 
 
@@ -25,8 +25,6 @@ public class Scene6Controller extends ParentController {
     private StringBuilder fromsb;
     private StringBuilder tosb;
     public ArrayList<Integer> entryindex=new ArrayList();
-    private ObservableList<String> sortList = FXCollections.observableArrayList("Roomname", "Chairs", "Size");
-    private ObservableList<String> ascdescList = FXCollections.observableArrayList("Ascending", "Descending");
     @FXML
     TextField TFsearchroomname;
     @FXML
@@ -52,26 +50,15 @@ public class Scene6Controller extends ParentController {
     @FXML
     DateTimePicker DPsearchto;
     @FXML
-    TextArea TArooms;
-    @FXML
-    TextField TFroombookentry;
-    @FXML
-    private ChoiceBox DDsortby;
-    @FXML
-    private ChoiceBox DDascdesc;
-
-    @FXML
-    public void initialize()
-    {
-        //Sets the Multiple Choice DropDown Menus
-        DDsortby.setItems(sortList);
-        DDascdesc.setItems(ascdescList);
-        DDsortby.setValue("Roomname");
-        DDascdesc.setValue("Ascending");
-    }
+    TableView TVrooms;
 
     @FXML
     private void searchRooms(ActionEvent event) throws SQLException {
+        //Clear out previous searches
+        TVrooms.getColumns().clear();
+        entryindex.clear();
+
+        //read information
         String room = TFsearchroomname.getText();
         Integer chairs;
         if(TFsearchchairamount.getText().isEmpty())
@@ -98,60 +85,28 @@ public class Scene6Controller extends ParentController {
         tosb.delete(19,29);
 
 
-        //Make SQL queurie
+        //Make SQL queurie to select all rooms fitting the search
         String sqlroom="SELECT * FROM `pc2fma2`.`room` WHERE `room_availability` = '1'";
         if (!room.isEmpty())
-        {
             sqlroom += " AND `room_id` = '" + room + "'";
-        }
         if (chairs>=0)
-        {
             sqlroom += " AND `chairs` BETWEEN '" + chairs + "' AND '2147483647'";
-        }
         if (size>=0)
-        {
             sqlroom += " AND `size` BETWEEN '" + size + "' AND '2147483647'";
-        }
         if (tv)
-        {
             sqlroom += " `tv` = '1'";
-        }
         if (projector)
-        {
-            sqlroom += " AND `prejector` = '1'";        //really called prEjector on Server
-        }
-        if (whiteboard)
-        {
+            sqlroom += " AND `prejector` = '1'";        //really called prEjector on Serverif (whiteboard)
+        if(whiteboard)
             sqlroom += " AND `whiteboard` = '1'";
-        }
         if (sink)
-        {
             sqlroom += " AND `sink` = '1'";
-        }
         if (microphone)
-        {
             sqlroom += " AND `microphones` = '1'";
-        }
         if (speaker)
-        {
             sqlroom += " AND `stereo` = '1'";
-        }
         if (overhead)
-        {
             sqlroom += " AND `overhead_projector` = '1'";
-        }
-        //Sorting the results
-        sqlroom+= " ORDER BY ";
-        if(DDsortby.getValue().equals("Roomname"))
-            sqlroom+="`room_id` ";
-        else if (DDsortby.getValue().equals("Chairs"))
-            sqlroom+="`chairs` ";
-        else if (DDsortby.getValue().equals("Size"))
-            sqlroom+="`size` ";
-        if(DDascdesc.getValue().equals("Ascending"))
-            sqlroom+= "ASC";
-        else if (DDascdesc.getValue().equals("Descending"))
-            sqlroom+="DESC";
 
 
         //Check if booking is in future
@@ -192,52 +147,81 @@ public class Scene6Controller extends ParentController {
             }
         }
 
-
-
-        //Switch between being able and not being able to book in the past
+        //Limits to only future bookings
         if(now.compareTo(searchtimefrom)<0 && now.compareTo(searchtimeto)<0 && searchtimefrom.compareTo(searchtimeto)<0)
-        //if (true)
         {
             //Execute SQL
             rs = connector.select(sqlroom);
-
+            ObservableList<Room> roomObservableList = FXCollections.observableArrayList();
             Integer entry = 1;
-            String outputresults = "";
             boolean flag;
-            for (int i=0;rs.next();i++) {
-                flag=false;
-                for (int j=0;j<bookedroomsarraylist.size();j++)
-                {
-                    if(rs.getString(1).equals(bookedroomsarraylist.get(j))) {
+            for (int i = 0; rs.next(); i++) {
+                flag = false;
+                for (int j = 0; j < bookedroomsarraylist.size(); j++) {
+                    if (rs.getString(1).equals(bookedroomsarraylist.get(j))) {
                         flag = true;
                         break;
                     }
                 }
+                //Adds all new room objects into observable list to display in tableview
                 if (!flag) {
-                    outputresults +=  "Entry: " + entry + " Room: " + rs.getString(1) + " Chairs: " + rs.getString(4) + " Size: " + rs.getString(5) + "sqm Equipment: ";
-                    //Equipment
-                    if(rs.getString(6).equals("1"))
-                        outputresults += "TV ";
-                    if(rs.getString(7).equals("1"))
-                        outputresults += "Projector ";
-                    if(rs.getString(8).equals("1"))
-                        outputresults += "Whiteboard ";
-                    if(rs.getString(9).equals("1"))
-                        outputresults += "Sink ";
-                    if(rs.getString(10).equals("1"))
-                        outputresults += "Microphone(s) ";
-                    if(rs.getString(11).equals("1"))
-                        outputresults += "Stereo/Speakers ";
-                    if(rs.getString(12).equals("1"))
-                        outputresults += "Overhead Projector ";
-                    outputresults+="\n";
+                    String equipmentOutput = "";
+                    if (rs.getString(6).equals("1"))
+                        equipmentOutput += "TV ";
+                    if (rs.getString(7).equals("1"))
+                        equipmentOutput += "Projector ";
+                    if (rs.getString(8).equals("1"))
+                        equipmentOutput += "Whiteboard ";
+                    if (rs.getString(9).equals("1"))
+                        equipmentOutput += "Sink ";
+                    if (rs.getString(10).equals("1"))
+                        equipmentOutput += "Microphone(s) ";
+                    if (rs.getString(11).equals("1"))
+                        equipmentOutput += "Stereo/Speakers ";
+                    if (rs.getString(12).equals("1"))
+                        equipmentOutput += "Overhead Projector ";
+                    roomObservableList.add(new Room(entry, rs.getString(1), rs.getInt(4), rs.getInt(5), equipmentOutput));
                     entry++;
-                    entryindex.add(i+1);
+                    entryindex.add(i + 1);
                 }
             }
-            TArooms.setText(outputresults);
 
+            //building the tableview
+            TVrooms.setEditable(true);
+
+            TableColumn entrycol = new TableColumn("Entry");
+            entrycol.setVisible(false);
+            entrycol.setCellValueFactory(new PropertyValueFactory<Room, Integer>("Entry"));
+
+            TableColumn roomcol = new TableColumn("Roomname");
+            roomcol.setCellValueFactory(new PropertyValueFactory<Room, String>("roomname"));
+
+            TableColumn chairscol = new TableColumn("Chairs");
+            chairscol.setCellValueFactory(new PropertyValueFactory<Room, Integer>("chairs"));
+
+            TableColumn sizecol = new TableColumn("Size (sqm)");
+            sizecol.setCellValueFactory(new PropertyValueFactory<Room, Integer>("size"));
+
+            TableColumn equipmentcol = new TableColumn("Equipment");
+            equipmentcol.setCellValueFactory(new PropertyValueFactory<Room, String>("equipment"));
+
+            TVrooms.setItems(roomObservableList);
+            TVrooms.getColumns().addAll(entrycol, roomcol, chairscol, sizecol, equipmentcol);
+
+
+            //Listen for doubleclicks in table
+            TVrooms.setOnMouseClicked( eventclick -> {
+                if( eventclick.getClickCount() == 2 ) {
+                    Room currentclicked = (Room) TVrooms.getSelectionModel().getSelectedItem();
+                    try {
+                        bookroom(currentclicked.getEntry());
+                    } catch (SQLException e) {
+                        System.err.println(e);
+                    }
+                }});
         }
+
+        //Errors
         else if (searchtimeto.compareTo(searchtimefrom)<0)
         {
             Alert a = new Alert(Alert.AlertType.ERROR);
@@ -296,8 +280,8 @@ public class Scene6Controller extends ParentController {
         return flag;
     }
 
-    @FXML
-    private void bookroom(ActionEvent event) throws SQLException {
+
+    private void bookroom(Integer entry) throws SQLException {
         if (rs == null) {
             Alert a = new Alert(Alert.AlertType.ERROR);
             a.setTitle("ERROR");
@@ -305,9 +289,7 @@ public class Scene6Controller extends ParentController {
             a.setContentText("There might have been an error, or you tried to book without making a new search.");
             a.showAndWait();
         } else {
-            Integer chosenentry = entryindex.get(0);
-            if (!TFroombookentry.getText().isEmpty())
-                chosenentry = entryindex.get(Integer.parseInt(TFroombookentry.getText()) - 1);
+            Integer chosenentry = entryindex.get(entry-1);
             while (!rs.isFirst())
                 rs.previous();
             for (int i = 1; i < chosenentry; i++)
@@ -323,23 +305,23 @@ public class Scene6Controller extends ParentController {
             } else {
                 String sqlbook = "INSERT INTO `pc2fma2`.`booking` (`account_email`, `start_time`, `end_time`, `room_room_id`) VALUES ('" + currentusermail() + "', '" + String.valueOf(fromsb) + "', '" + String.valueOf(tosb) + "', '" + rs.getString(1) + "')";
                 connector.executeSQL(sqlbook);
-                TFroombookentry.setText("");
                 fromsb.delete(16, 29);
                 tosb.delete(16, 29);
-                TFroombookentry.setText("");
                 try {
                     writebookingpdf(rs.getString(1), String.valueOf(fromsb), String.valueOf(tosb));
                     SendEmail.sendwithAttachment(currentusermail(),"Booking confirmation", "The confirmation for your booking");
                 } catch (Exception e) {
                     System.err.println(e);
                 }
+                //Confirmation Alert
                 Alert a = new Alert(Alert.AlertType.CONFIRMATION);
                 a.setTitle("Bookingconfirmation");
                 a.setHeaderText("The booking was successful!");
                 a.setContentText("You booked room " + rs.getString(1) + " from " + String.valueOf(fromsb) + " to " + String.valueOf(tosb) + ". You received a mail with the confirmation.");
                 rs = null;
-                TArooms.setText("");
                 a.showAndWait();
+                //resets search
+                searchRooms(new ActionEvent());
             }
         }
     }
@@ -398,6 +380,6 @@ public class Scene6Controller extends ParentController {
     @FXML
     private void help(ActionEvent e)
     {
-        helpAlert("Here you can book rooms. You can choose your minimal requirements and when pressing 'Search', all matching rooms that aren't already booked during the chosen time slot will be displayed on the right side. You can then select which of the suggested rooms will be booked by writing only the number of given entry. If you want to select the first entry, you can just press 'book' without writing an entry number. During your search you can also choose how the results will be sorted. If you are having issues, be sure that you can only book in the future and that the start time has to be before the endtime. If something goes wrong, popups will tell you what that was.");
+        helpAlert("Here you can book rooms. You can choose your minimal requirements and when pressing 'Search', all matching rooms that aren't already booked during the chosen time slot will be displayed on the right side. You can then select which of the suggested rooms will be booked by doubleclicking on it. Please be patient there. If you want to select the first entry, you can just press 'book' without writing an entry number. After searching, you can sort the entries by clicking on the column name. If you are having issues, be sure that you can only book in the future and that the start time has to be before the endtime. If something goes wrong, popups will tell you what that was.");
     }
 }
