@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
-public abstract class ParentController {
+public abstract class ParentController implements UselessInterface{
 
     SceneChanger sceneChanger = new SceneChanger();
     public DB_Connector connector = new DB_Connector();
@@ -68,11 +68,11 @@ public abstract class ParentController {
         pw.close();
     }
 
-    public void helpAlert(String a)
-    {
+    @Override
+    public void helpAlert(String s) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Help");
-        alert.setContentText(a);
+        alert.setContentText(s);
         alert.showAndWait();
     }
 }

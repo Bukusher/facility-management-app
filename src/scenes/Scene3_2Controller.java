@@ -84,7 +84,7 @@ public class Scene3_2Controller extends Scene3Controller {
         CBwhiteboard.setSelected(false);
     }
     @FXML
-    private void help()
+    private void helpaddroom()
     {
         helpAlert("Here you can add new rooms.\nPlease fill out all information. If you want the room to be unusable for now (maintanance etc.), please uncheck the corresponding checkbox.");
     }
