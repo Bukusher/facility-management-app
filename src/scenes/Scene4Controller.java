@@ -15,8 +15,6 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class Scene4Controller extends ParentController {
 
-    private boolean darkTheme = false;
-
 
     @FXML
     private Button BTSettingsHelp;
@@ -31,7 +29,7 @@ public class Scene4Controller extends ParentController {
     private TextField TFSettingsNewMail;
 
     @FXML
-    private TextField TFSettingsMail;
+    private TextField TFSettingsConfirmationMail;
 
     @FXML
     private TextField TFSettingsOldPassword;
@@ -58,7 +56,7 @@ public class Scene4Controller extends ParentController {
     private Button BTDeleteAccount;
 
     @FXML
-    private ToggleSwitch TSSettingsDarkTheme;
+    private Button BTDarkmode;
 
     private CryptoUtil cryptoUtil = new CryptoUtil();
 
@@ -72,11 +70,12 @@ public class Scene4Controller extends ParentController {
         try {
             String oldMail = currentusermail();
             String newMail = TFSettingsNewMail.getText();
+            String newMailConfirmation = TFSettingsConfirmationMail.getText();
 
-            if (!oldMail.isEmpty() && !newMail.isEmpty()) {
+            if (!newMail.isEmpty() && !newMailConfirmation.isEmpty()) {
                 ResultSet DBMail = connector.simpleSelect("email", "account", "email", oldMail);
                 DBMail.next();
-                if (DBMail.getString(1).equals(oldMail)) {
+                if (newMail.equals(newMailConfirmation)) {
 
                     TextInputDialog dialog = new TextInputDialog();
                     dialog.setTitle("Confirmation");
@@ -94,6 +93,8 @@ public class Scene4Controller extends ParentController {
                         PrintWriter pw = new PrintWriter(new FileWriter("user.credit"));
                         pw.print(newMail);
                         pw.close();
+                        TFSettingsNewMail.setText("");
+                        TFSettingsConfirmationMail.setText("");
                     } else {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("Error");
@@ -105,7 +106,7 @@ public class Scene4Controller extends ParentController {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error");
                     alert.setHeaderText("Email information");
-                    alert.setContentText("Emails not registered in the database!");
+                    alert.setContentText("Emails do not match!");
                     alert.showAndWait();
                 }
             } else {
@@ -116,7 +117,7 @@ public class Scene4Controller extends ParentController {
                 alert.showAndWait();
             }
         } catch (Exception ex) {
-            System.err.println(ex);
+            ex.printStackTrace();
         }
     }
 
@@ -147,7 +148,6 @@ public class Scene4Controller extends ParentController {
                         if (newPassword.length() > 6) {
                             String encryptNewPassword = cryptoUtil.encrypt(newPassword);
                             connector.update("account", "email", encryptNewPassword, "email", mail);
-                            TFSettingsMail.setText("");
                             TFSettingsOldPassword.setText("");
                             TFSettingsNewPassword.setText("");
                         } else {
@@ -238,17 +238,14 @@ public class Scene4Controller extends ParentController {
         ResultSet rs = connector.select("SELECT * FROM `pc2fma2`.`account` WHERE `email` = '" + currentusermail() + "'");
         rs.next();
         String sqlupdate = "UPDATE`pc2fma2`.`account` SET `darktheme` = '";
-        if(!rs.getString(6).equals("1"))
-        {
-            sqlupdate+="1";
+        if (!rs.getString(6).equals("1")) {
+            sqlupdate += "1";
             setDarkthemeFileWrite("ON");
-        }
-
-        else {
+        } else {
             sqlupdate += "0";
             setDarkthemeFileWrite("OFF");
         }
-        sqlupdate+="' WHERE `email` = '" + currentusermail() + "'";
+        sqlupdate += "' WHERE `email` = '" + currentusermail() + "'";
         connector.executeSQL(sqlupdate);
         sceneChanger.SceneChange(event, "Scene4settings.fxml");
 

@@ -12,13 +12,12 @@
       <Button id="BTSettingsBack" fx:id="BTSettingsBack" layoutX="73.0" layoutY="14.0" mnemonicParsing="false" onAction="#BackToDashboard" text="Back to Dashboard" />
       <Button id="BTSettingsLogout" fx:id="BTSettingsLogout" layoutX="492.0" layoutY="6.0" mnemonicParsing="false" onAction="#logout" prefHeight="42.0" prefWidth="98.0" text="Logout" />
       <Label layoutX="24.0" layoutY="74.0" prefHeight="16.0" prefWidth="186.0" text="Change your mail address" />
-      <TextField id="TFSettingsOldMail" fx:id="TFSettingsOldMail" layoutX="23.0" layoutY="99.0" prefHeight="26.0" prefWidth="251.0" promptText="Old Email" />
-      <TextField id="TFSettingsNewMail" fx:id="TFSettingsNewMail" layoutX="23.0" layoutY="131.0" prefHeight="26.0" prefWidth="251.0" promptText="New Email" />
+      <TextField id="TFSettingsNewMail" fx:id="TFSettingsNewMail" layoutX="23.0" layoutY="99.0" prefHeight="26.0" prefWidth="251.0" promptText="New Email" />
+      <TextField id="TFSettingsConfirmationMail" fx:id="TFSettingsConfirmationMail" layoutX="23.0" layoutY="131.0" prefHeight="26.0" prefWidth="251.0" promptText="Confirmation Email" />
+      <Button id="BTSettingsChangeMail" fx:id="BTSettingsChangeMail" layoutX="22.0" layoutY="167.0" mnemonicParsing="false" onAction="#ConfirmChangeMail" text="Change Mail" />
       <Label layoutX="24.0" layoutY="225.0" text="Change your password" />
-      <TextField id="TFSettingsMail" fx:id="TFSettingsMail" layoutX="24.0" layoutY="258.0" prefHeight="26.0" prefWidth="251.0" promptText="Email" />
       <PasswordField id="TFSettingsOldPassword" fx:id="TFSettingsOldPassword" layoutX="23.0" layoutY="293.0" prefHeight="26.0" prefWidth="251.0" promptText="Old Password" />
       <PasswordField id="TFSettingsNewPassword" fx:id="TFSettingsNewPassword" layoutX="23.0" layoutY="325.0" prefHeight="26.0" prefWidth="251.0" promptText="New Password" />
-      <Button id="BTSettingsChangeMail" fx:id="BTSettingsChangeMail" layoutX="22.0" layoutY="167.0" mnemonicParsing="false" onAction="#ConfirmChangeMail" text="Change Mail" />
       <Button id="BTSettingsChangePassword" fx:id="BTSettingsChangePassword" layoutX="23.0" layoutY="361.0" mnemonicParsing="false" onAction="#ConfirmNewPassword" text="Change password" />
       <Button id="BTSettingsDeleteAccount" fx:id="BTSettingsDeleteAccount" layoutX="480.0" layoutY="361.0" mnemonicParsing="false" onAction="#deleteAccountPopUp" text="Delete Account" />
       <Label layoutX="411.0" layoutY="149.0" text="Dark Mode" />
