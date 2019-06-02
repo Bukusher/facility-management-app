@@ -5,15 +5,15 @@ import javafx.fxml.*;
 import javafx.scene.control.*;
 import sample.CryptoUtil;
 
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class Scene4Controller extends ParentController {
-
-    private boolean darkTheme = false;
 
 
     @FXML
@@ -26,13 +26,10 @@ public class Scene4Controller extends ParentController {
     private Button BTSettingsLogout;
 
     @FXML
-    private TextField TFSettingsOldMail;
-
-    @FXML
     private TextField TFSettingsNewMail;
 
     @FXML
-    private TextField TFSettingsMail;
+    private TextField TFSettingsConfirmationMail;
 
     @FXML
     private TextField TFSettingsOldPassword;
@@ -53,16 +50,13 @@ public class Scene4Controller extends ParentController {
     private Button BTDeleteAccountBack;
 
     @FXML
-    private TextField TFDeleteAccountEmail;
-
-    @FXML
     private TextField TFDeleteAccountPassword;
 
     @FXML
     private Button BTDeleteAccount;
 
     @FXML
-    private ToggleSwitch TSSettingsDarkTheme;
+    private Button BTDarkmode;
 
     private CryptoUtil cryptoUtil = new CryptoUtil();
 
@@ -74,13 +68,14 @@ public class Scene4Controller extends ParentController {
     private void ConfirmChangeMail(ActionEvent event) throws IOException {
 
         try {
-            String oldMail = TFSettingsOldMail.getText();
+            String oldMail = currentusermail();
             String newMail = TFSettingsNewMail.getText();
+            String newMailConfirmation = TFSettingsConfirmationMail.getText();
 
-            if (!oldMail.isEmpty() && !newMail.isEmpty()) {
+            if (!newMail.isEmpty() && !newMailConfirmation.isEmpty()) {
                 ResultSet DBMail = connector.simpleSelect("email", "account", "email", oldMail);
                 DBMail.next();
-                if (DBMail.getString(1).equals(oldMail)) {
+                if (newMail.equals(newMailConfirmation)) {
 
                     TextInputDialog dialog = new TextInputDialog();
                     dialog.setTitle("Confirmation");
@@ -95,6 +90,11 @@ public class Scene4Controller extends ParentController {
                     DBPassword.next();
                     if (cryptoUtil.decrypt(DBPassword.getString(1)).equals(password.get())) {
                         connector.update("account", "email", newMail, "email", oldMail);
+                        PrintWriter pw = new PrintWriter(new FileWriter("user.credit"));
+                        pw.print(newMail);
+                        pw.close();
+                        TFSettingsNewMail.setText("");
+                        TFSettingsConfirmationMail.setText("");
                     } else {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("Error");
@@ -106,7 +106,7 @@ public class Scene4Controller extends ParentController {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error");
                     alert.setHeaderText("Email information");
-                    alert.setContentText("Emails not registered in the database!");
+                    alert.setContentText("Emails do not match!");
                     alert.showAndWait();
                 }
             } else {
@@ -117,14 +117,14 @@ public class Scene4Controller extends ParentController {
                 alert.showAndWait();
             }
         } catch (Exception ex) {
-            System.err.println(ex);
+            ex.printStackTrace();
         }
     }
 
     @FXML
     private void ConfirmNewPassword(ActionEvent event) throws IOException {
         try {
-            String mail = TFSettingsMail.getText();
+            String mail = currentusermail();
             String oldPassword = TFSettingsOldPassword.getText();
             String newPassword = TFSettingsNewPassword.getText();
 
@@ -148,7 +148,6 @@ public class Scene4Controller extends ParentController {
                         if (newPassword.length() > 6) {
                             String encryptNewPassword = cryptoUtil.encrypt(newPassword);
                             connector.update("account", "email", encryptNewPassword, "email", mail);
-                            TFSettingsMail.setText("");
                             TFSettingsOldPassword.setText("");
                             TFSettingsNewPassword.setText("");
                         } else {
@@ -195,7 +194,7 @@ public class Scene4Controller extends ParentController {
     @FXML
     private void ConfirmDeleteAccount(ActionEvent event) throws IOException {
         try {
-            String email = TFDeleteAccountEmail.getText();
+            String email = currentusermail();
             String password = TFDeleteAccountPassword.getText();
 
             if (!email.isEmpty() && !password.isEmpty()) {
@@ -230,7 +229,7 @@ public class Scene4Controller extends ParentController {
                 alert.showAndWait();
             }
         } catch (Exception ex) {
-            System.err.println(ex);
+            ex.printStackTrace();
         }
     }
 
@@ -239,17 +238,14 @@ public class Scene4Controller extends ParentController {
         ResultSet rs = connector.select("SELECT * FROM `pc2fma2`.`account` WHERE `email` = '" + currentusermail() + "'");
         rs.next();
         String sqlupdate = "UPDATE`pc2fma2`.`account` SET `darktheme` = '";
-        if(!rs.getString(6).equals("1"))
-        {
-            sqlupdate+="1";
+        if (!rs.getString(6).equals("1")) {
+            sqlupdate += "1";
             setDarkthemeFileWrite("ON");
-        }
-
-        else {
+        } else {
             sqlupdate += "0";
             setDarkthemeFileWrite("OFF");
         }
-        sqlupdate+="' WHERE `email` = '" + currentusermail() + "'";
+        sqlupdate += "' WHERE `email` = '" + currentusermail() + "'";
         connector.executeSQL(sqlupdate);
         sceneChanger.SceneChange(event, "Scene4settings.fxml");
 

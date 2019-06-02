@@ -10,9 +10,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
-public class ParentController {
+public abstract class ParentController {
 
-    public SceneChanger sceneChanger = new SceneChanger();
+    SceneChanger sceneChanger = new SceneChanger();
     public DB_Connector connector = new DB_Connector();
 
 
