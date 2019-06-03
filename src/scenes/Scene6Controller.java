@@ -216,7 +216,7 @@ public class Scene6Controller extends ParentController {
                     try {
                         bookroom(currentclicked.getEntry());
                     } catch (SQLException e) {
-                        System.err.println(e);
+                        errorAlert(e);
                     }
                 }});
         }

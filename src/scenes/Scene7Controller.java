@@ -1,10 +1,14 @@
 package scenes;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -17,44 +21,69 @@ import java.util.Optional;
  */
 public class Scene7Controller extends ParentController {
     @FXML
-    TextArea TAbookinghistory;
-    @FXML
-    TextField TFdeletebookingentry;
-    public ResultSet resultSetBookingHistory;
-
-
+    TableView TVbookinghistory;
 
     @FXML
     public void initialize()
     {
-        resultSetBookingHistory =connector.select("SELECT * FROM `pc2fma2`.`booking` WHERE `account_email` = '" + currentusermail() + "' ORDER BY `end_time` DESC");
+        //Clear out previous searches
+        TVbookinghistory.getColumns().clear();
+        TVbookinghistory.setEditable(true);
+        ObservableList<Booking> bookingObservableList = FXCollections.observableArrayList();
+
+        ResultSet rs = connector.select("SELECT * FROM `pc2fma2`.`booking` WHERE `account_email` = '" + currentusermail() + "' ORDER BY `end_time` DESC");
         String bookinghistoryresults ="";
+
+        //Making Observable itemlist
         try {
-            int entry = 1;
-            while (resultSetBookingHistory.next())
-            {
-                bookinghistoryresults+= "Entry " + entry + " - " + /*" ID " + resultSetBookingHistory.getString(1) + */" Starttime " + resultSetBookingHistory.getString(3) + " Endtime " + resultSetBookingHistory.getString(4) + " Room " + resultSetBookingHistory.getString(5) + "\n";
-                //Booking ID disabled, as uninteresting for consumer
-                entry++;
+            while (rs.next()) {
+                bookingObservableList.add(new Booking(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)));
             }
-        } catch (Exception e) {
-            System.err.println(e);
         }
-        TAbookinghistory.setText(bookinghistoryresults);
+            catch (SQLException e) {
+            errorAlert(e);
+        }
+
+        //Making columns
+        TableColumn idcol = new TableColumn("ID");
+        idcol.setVisible(false);
+        idcol.setCellValueFactory(new PropertyValueFactory<Room, Integer>("bookingID"));
+
+        TableColumn usercol = new TableColumn("User");
+        usercol.setVisible(false);
+        usercol.setCellValueFactory(new PropertyValueFactory<Room, String>("mail"));
+
+        TableColumn roomcol = new TableColumn("Room");
+        roomcol.setCellValueFactory(new PropertyValueFactory<Room, Integer>("room"));
+
+        TableColumn startcol = new TableColumn("Starttime");
+        startcol.setCellValueFactory(new PropertyValueFactory<Room, Integer>("starttime"));
+
+        TableColumn endcol = new TableColumn("Endtime");
+        endcol.setCellValueFactory(new PropertyValueFactory<Room, String>("endtime"));
+        TVbookinghistory.setItems(bookingObservableList);
+        TVbookinghistory.getColumns().addAll(idcol, roomcol, usercol, startcol, endcol);
+
+
+        //Listen for doubleclicks in table
+        TVbookinghistory.setOnMouseClicked( eventclick -> {
+            if( eventclick.getClickCount() == 2 ) {
+                Booking currentclicked = (Booking) TVbookinghistory.getSelectionModel().getSelectedItem();
+                try {
+                    deletebooking(currentclicked.getBookingID(),currentclicked.getRoom(), currentclicked.getStarttime(), currentclicked.getEndtime());
+                } catch (Exception e) {
+                    errorAlert(e);
+                }
+            }});
     }
 
+    public void deletebooking (Integer id, String room, String start, String end){
 
-    public void deletebooking (ActionEvent event) throws SQLException {
-        int chosenentry = Integer.parseInt(TFdeletebookingentry.getText());
-        while (!resultSetBookingHistory.isFirst())
-            resultSetBookingHistory.previous();
-        for (int i = 1; i < chosenentry; i++)
-            resultSetBookingHistory.next();
 
         //Confirmation alert for delete booking
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation Booking Deletion");
-        alert.setHeaderText("This will delete booking: "+ chosenentry );
+        alert.setHeaderText("This will delete booking.\nRoom: " + room + "\nStarttime: " + start + "\nEndtime: " + end);
         alert.setContentText("Are you ok with this?");
 
         Optional<ButtonType> result = alert.showAndWait();
@@ -63,11 +92,11 @@ public class Scene7Controller extends ParentController {
             //Compare to current time to avoid deleting past bookings
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
             LocalDateTime now = LocalDateTime.now();
-            StringBuilder sbbookingtime = new StringBuilder(resultSetBookingHistory.getString(4));
+            StringBuilder sbbookingtime = new StringBuilder(end);
             sbbookingtime.setCharAt(10, 'T');
             ChronoLocalDateTime bookingtime = LocalDateTime.parse(sbbookingtime + ".000");
             if (now.compareTo(bookingtime) < 0) {
-                String sqldeletebooking = "DELETE FROM `pc2fma2`.`booking` WHERE `booking_id` = '" + resultSetBookingHistory.getString(1) + "'";
+                String sqldeletebooking = "DELETE FROM `pc2fma2`.`booking` WHERE `booking_id` = '" + id + "'";
                 connector.executeSQL(sqldeletebooking);
                 initialize();
             } else {
@@ -82,6 +111,6 @@ public class Scene7Controller extends ParentController {
     @FXML
     private void help(ActionEvent e)
     {
-        helpAlert("Here you can see all your bookings, sorted by their ending date. The one that ends last is the first result. If you want to delete a booking, you can type the number that is the entry number in the field on the buttom right and press 'delete'. You can only delete entries that aren't over yet.");
+        helpAlert("Here you can see all your bookings, sorted by their ending date. You can change the sorting by pressing on the column names. If you want to delete a booking, double click on it. You can only delete entries that aren't over yet.");
     }
 }

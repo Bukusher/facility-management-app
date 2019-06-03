@@ -75,4 +75,11 @@ public abstract class ParentController implements UselessInterface{
         alert.setContentText(s);
         alert.showAndWait();
     }
+    public void errorAlert (Exception e)
+    {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setContentText(String.valueOf(e));
+        alert.showAndWait();
+    }
 }

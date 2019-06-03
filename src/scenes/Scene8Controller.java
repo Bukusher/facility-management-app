@@ -1,17 +1,20 @@
 package scenes;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import sample.DB_Connector;
+import sample.SendEmail;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.chrono.ChronoLocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 
 /**
@@ -23,17 +26,15 @@ public class Scene8Controller extends ParentController {
     @FXML
     TextField TFroom;
     @FXML
-    TextArea TAbookinghistory;
-    @FXML
-    TextField TFdeletebookingentry;
+    TableView TVadminresults;
     private DB_Connector Connector = new DB_Connector();
-    private ResultSet rs;
     private SceneChanger sceneChanger = new SceneChanger();
     private boolean lastpressed;
 
     @FXML
     private void searchName (ActionEvent event)
     {
+        cleartv();
         if(TFnamesearch.getText().equals(""))
         {
             Alert a = new Alert(Alert.AlertType.ERROR);
@@ -43,15 +44,22 @@ public class Scene8Controller extends ParentController {
             a.showAndWait();
         }
         else {
-            rs = Connector.select("SELECT * FROM `pc2fma2`.`booking` WHERE `account_email` = '" + TFnamesearch.getText() + "' ORDER BY `end_time` DESC");
+            ResultSet rs = Connector.select("SELECT * FROM `pc2fma2`.`booking` WHERE `account_email` = '" + TFnamesearch.getText() + "' ORDER BY `end_time` DESC");
             lastpressed=true;
-            writeresultset();
+            writeresultset(rs);
         }
     }
 
+    private void cleartv()
+    {
+        //Clear out previous searches
+        TVadminresults.getColumns().clear();
+        TVadminresults.setEditable(true);
+    }
     @FXML
     private void searchRoom (ActionEvent event)
     {
+        cleartv();
         if(TFroom.getText().equals(""))
         {
             Alert a = new Alert(Alert.AlertType.ERROR);
@@ -61,51 +69,82 @@ public class Scene8Controller extends ParentController {
             a.showAndWait();
         }
         else {
-            rs = Connector.select("SELECT * FROM `pc2fma2`.`booking` WHERE `room_room_id` = '" + TFroom.getText() + "'");
+            ResultSet rs = Connector.select("SELECT * FROM `pc2fma2`.`booking` WHERE `room_room_id` = '" + TFroom.getText() + "'");
             lastpressed=false;
-            writeresultset();
+            writeresultset(rs);
         }
     }
 
-    private void writeresultset()
+    private void writeresultset(ResultSet rs)
     {
-        String bookinghistoryresults ="";
+        //Making Observable itemlist
+        ObservableList<Booking> bookingObservableList = FXCollections.observableArrayList();
         try {
-            int entry = 1;
-            while (rs.next())
-            {
-                bookinghistoryresults+= "Entry " + entry + " - " + " ID " + rs.getString(1) + " User " + rs.getString(2) + " Starttime " + rs.getString(3) + " Endtime " + rs.getString(4) + " Room " + rs.getString(5) + "\n";
-                entry++;
+            while (rs.next()) {
+                bookingObservableList.add(new Booking(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)));
             }
-        } catch (Exception e) {
-            System.err.println(e);
         }
-        TAbookinghistory.setText(bookinghistoryresults);
+        catch (SQLException e) {
+            errorAlert(e);
+        }
+
+        //Making columns
+        TableColumn idcol = new TableColumn("ID");
+        idcol.setVisible(false);
+        idcol.setCellValueFactory(new PropertyValueFactory<Room, Integer>("bookingID"));
+
+        TableColumn usercol = new TableColumn("User");
+        usercol.setCellValueFactory(new PropertyValueFactory<Room, String>("mail"));
+
+        TableColumn roomcol = new TableColumn("Room");
+        roomcol.setCellValueFactory(new PropertyValueFactory<Room, Integer>("room"));
+
+        TableColumn startcol = new TableColumn("Starttime");
+        startcol.setCellValueFactory(new PropertyValueFactory<Room, Integer>("starttime"));
+
+        TableColumn endcol = new TableColumn("Endtime");
+        endcol.setCellValueFactory(new PropertyValueFactory<Room, String>("endtime"));
+        TVadminresults.setItems(bookingObservableList);
+        TVadminresults.getColumns().addAll(idcol, roomcol, usercol, startcol, endcol);
+        //Listen for doubleclicks in table
+        TVadminresults.setOnMouseClicked( eventclick -> {
+            if( eventclick.getClickCount() == 2 ) {
+                Booking currentclicked = (Booking) TVadminresults.getSelectionModel().getSelectedItem();
+                try {
+                    deletebooking(currentclicked.getBookingID(),currentclicked.getRoom(), currentclicked.getStarttime(), currentclicked.getEndtime(), currentclicked.getMail());
+                } catch (Exception e) {
+                    errorAlert(e);
+                }
+            }});
     }
 
-    @FXML
-    private void deletebooking (ActionEvent event) throws SQLException {
-        int chosenentry = Integer.parseInt(TFdeletebookingentry.getText());
-        while (!rs.isFirst())
-            rs.previous();
-        for (int i=1; i<chosenentry;i++)
-            rs.next();
+    private void deletebooking (Integer id, String room, String start, String end, String user) throws SQLException {
         //Compare to current time to avoid deleting past bookings
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
-        StringBuilder sbbookingtime =new StringBuilder(rs.getString(4));
+        StringBuilder sbbookingtime =new StringBuilder(end);
         sbbookingtime.setCharAt(10, 'T');
         ChronoLocalDateTime bookingtime = LocalDateTime.parse(sbbookingtime + ".000");
         if (now.compareTo(bookingtime)<0)
         {
-            String sqldeletebooking="DELETE FROM `pc2fma2`.`booking` WHERE `booking_id` = '" + rs.getString(1) + "'";
+            //Confirmation alert for delete booking
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation Booking Deletion");
+            alert.setHeaderText("This will delete booking.\nRoom: " + room + "\nStarttime: " + start + "\nEndtime: " + end);
+            alert.setContentText("Are you ok with this?\nA mail will be sent to the owner of the booking to notify him or her that you delteted the booking");
 
-            //reload, wouldn't work if the corresponding textfield was changed/edited since the last search
-            Connector.executeSQL(sqldeletebooking);
-            if(lastpressed)
-                searchName(new ActionEvent());
-            else
-                searchRoom(new ActionEvent());
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                String sqldeletebooking = "DELETE FROM `pc2fma2`.`booking` WHERE `booking_id` = '" + id + "'";
+                //send mail
+                SendEmail.send(user, "Your booking was deleted", "The Administrator " + currentusermail() + " deleted your booking with the ID " + id + "\nRoom: " + room + "\nFrom: " + start + "\nTo: " + end);
+                //reload, wouldn't work if the corresponding textfield was changed/edited since the last search
+                Connector.executeSQL(sqldeletebooking);
+                if (lastpressed)
+                    searchName(new ActionEvent());
+                else
+                    searchRoom(new ActionEvent());
+            }
         }
         else
         {
@@ -115,10 +154,10 @@ public class Scene8Controller extends ParentController {
             a.setContentText("Please delete only future bookings");
             a.showAndWait();
         }
-        TFdeletebookingentry.setText("");
     }
+    @FXML
     private void help (ActionEvent e)
     {
-        helpAlert("Here you can search all bookings for any given User or room. You can delete a chosen entry by typing the number in the button field and pressing 'delete'. Be sure that only admins like you can do that.");
+        helpAlert("Here you can search all bookings for any given User or room. You can delete a chosen entry by double clicking it. Be sure that only admins like you can do that.");
     }
 }
