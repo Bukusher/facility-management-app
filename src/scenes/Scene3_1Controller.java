@@ -128,26 +128,34 @@ public class Scene3_1Controller extends Scene3Controller{
         String chairedit = TFnewChairEdit.getText();
         String size = TFnewSizeEdit.getText();
         String searchRoom = TFsearchRoomEdit.getText();
-
+        int chairEditInt = Integer.parseInt(chairedit);
+        int sizeInt = Integer.parseInt(size);
         String editRoomQuery = "UPDATE room SET `room_id` = '" + nameedit + "', `room_availability` = '" + outavailable + "', `chairs` = '" + chairedit + "', `tv` = '" + outTv +
                 "', `size` = '" + size + "', `prejector` = '" + outProjector + "', `whiteboard` = '" + outWhiteboard +
                 "', `sink` = '" + outSink + "', `microphones` = '" + outMicrophone + "', `stereo` = '" + outStero + "', `overhead_projector` = '" + outOverheadProjector +
                 "' WHERE `room_id` = '" + searchRoom + "'";
+        if (chairEditInt > 0 && sizeInt > 0) {
+            connector.executeSQL(editRoomQuery);
+            TFnewNameEdit.setText("");
+            TFnewSizeEdit.setText("");
+            TFnewChairEdit.setText("");
+            CBtv.setSelected(false);
+            CBoverheadProjector.setSelected(false);
+            CBspeakers.setSelected(false);
+            CBmicrophone.setSelected(false);
+            CBprojector.setSelected(false);
+            CBsink.setSelected(false);
+            CBwhiteboard.setSelected(false);
+            CBroomavailable.setSelected(false);
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Chair or size amount is negative");
+            alert.setHeaderText(null);
+            alert.setContentText("Chair or room size amount is negative please enter positive number ");
 
-        connector.executeSQL(editRoomQuery);
-        TFnewNameEdit.setText("");
-        TFnewSizeEdit.setText("");
-        TFnewChairEdit.setText("");
-        CBtv.setSelected(false);
-        CBoverheadProjector.setSelected(false);
-        CBspeakers.setSelected(false);
-        CBmicrophone.setSelected(false);
-        CBprojector.setSelected(false);
-        CBsink.setSelected(false);
-        CBwhiteboard.setSelected(false);
-        CBroomavailable.setSelected(false);
+            alert.showAndWait();
+        }
     }
-
     @FXML
     private void deleteRoom(ActionEvent event) throws IOException {
         String roomName = TFsearchRoomEdit.getText();
