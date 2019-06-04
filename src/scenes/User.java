@@ -1,10 +1,11 @@
 package scenes;
 
 public class User {
-    String mail;
-    String name;
-    String surname;
-    String account;
+
+    private String mail;
+    private String name;
+    private String surname;
+    private String account;
 
     public User(String mail, String name, String surname, String account) {
         this.mail = mail;
