@@ -8,7 +8,7 @@
 
 <Pane focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.Scene3_2Controller">
    <children>
-      <Button id="BThelp" fx:id="BThelpAddRoom" layoutX="24.0" layoutY="14.0" mnemonicParsing="false" onAction="#help" text="Help" />
+      <Button id="BThelp" fx:id="BThelpAddRoom" layoutX="24.0" layoutY="14.0" mnemonicParsing="false" onAction="#helpaddroom" text="Help" />
       <Button id="BTback" fx:id="BTback" layoutX="73.0" layoutY="14.0" mnemonicParsing="false" onAction="#RoomAdmin" text="Back to Room Dashboard" />
       <Button id="BTlogout" fx:id="BTlogout" layoutX="509.0" layoutY="6.0" mnemonicParsing="false" onAction="#logout" prefHeight="42.0" prefWidth="54.0" text="Logout" />
       <Button id="BTcancel" fx:id="BTcancel" layoutX="274.0" layoutY="337.0" mnemonicParsing="false" text="Cancel" />

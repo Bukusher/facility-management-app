@@ -11,7 +11,6 @@
       <root url="jar://$PROJECT_DIR$/lib/PDFjet.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/pop3.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/smtp.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/PDFjet.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

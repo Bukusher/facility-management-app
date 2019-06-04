@@ -2,7 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
@@ -17,9 +17,6 @@
       <Label layoutX="319.0" layoutY="64.0" text="Search by room:" />
       <TextField fx:id="TFroom" layoutX="413.0" layoutY="60.0" prefHeight="25.0" prefWidth="104.0" />
       <Button fx:id="BTsearchRoom" layoutX="520.0" layoutY="60.0" mnemonicParsing="false" onAction="#searchRoom" text="Search" />
-      <TextArea id="TAbookinghistory" fx:id="TAbookinghistory" layoutX="24.0" layoutY="89.0" prefHeight="265.0" prefWidth="549.0" />
-      <Label layoutX="24.0" layoutY="363.0" text="Delete Booking-entry" textAlignment="CENTER" />
-      <Button id="BTdeletebookingentry" fx:id="BTdeletebookingentry" layoutX="196.0" layoutY="359.0" mnemonicParsing="false" onAction="#deletebooking" text="Delete" />
-      <TextField id="TFdeletebookingentry" fx:id="TFdeletebookingentry" layoutX="148.0" layoutY="359.0" prefHeight="25.0" prefWidth="41.0" />
+      <TableView id="TVadminresults" fx:id="TVadminresults" layoutX="26.0" layoutY="100.0" prefHeight="291.0" prefWidth="548.0" />
    </children>
 </AnchorPane>
