@@ -67,21 +67,32 @@ public class Scene3_2Controller extends Scene3Controller {
         String nameAdd = TFnewNameAdd.getText();
         String chairAdd = TFnewChairAdd.getText();
         String size = TFnewSizeAdd.getText();
+        int charAddint=Integer.parseInt(chairAdd);
+        int sizeint = Integer.parseInt(size);
         //Putting all values in variables
         String AddNewRoomQuery = "INSERT INTO pc2fma2.room " +
                 "(`room_id`, `room_availability`, `chairs`, `tv`, `size`, `prejector`, `whiteboard`, `sink`, `microphones`, `stereo`, `overhead_projector`) " +
                 "VALUES ('" + nameAdd + "','" + outAvailable + "','" + chairAdd + "','" + outTv + "','"+size + "','"+ outProjector+"','"+outWhiteboard+"','"+outSink+"','"+ outMicrophone+"','"+outStero +"','"+outOverheadProjector+"');";
-        connector.executeSQL(AddNewRoomQuery);
-        TFnewNameAdd.setText("");
-        TFnewSizeAdd.setText("");
-        TFnewChairAdd.setText("");
-        CBtv.setSelected(false);
-        CBoverheadprojector.setSelected(false);
-        CBspeakers.setSelected(false);
-        CBmicrophone.setSelected(false);
-        CBprojector.setSelected(false);
-        CBsink.setSelected(false);
-        CBwhiteboard.setSelected(false);
+       if(sizeint>0&&charAddint>0) {
+           connector.executeSQL(AddNewRoomQuery);
+           TFnewNameAdd.setText("");
+           TFnewSizeAdd.setText("");
+           TFnewChairAdd.setText("");
+           CBtv.setSelected(false);
+           CBoverheadprojector.setSelected(false);
+           CBspeakers.setSelected(false);
+           CBmicrophone.setSelected(false);
+           CBprojector.setSelected(false);
+           CBsink.setSelected(false);
+           CBwhiteboard.setSelected(false);
+       }else{ Alert alert = new Alert(Alert.AlertType.INFORMATION);
+           alert.setTitle("Chair or size amount is negative");
+           alert.setHeaderText(null);
+           alert.setContentText("Chair or room size amount is negative please enter positive number ");
+
+           alert.showAndWait();
+
+       }
     }
     @FXML
     private void helpaddroom()
