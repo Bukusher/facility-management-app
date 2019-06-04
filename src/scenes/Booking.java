@@ -17,6 +17,7 @@ public class Booking {
         this.room = room;
     }
 
+
     public Integer getBookingID() {
         return bookingID;
     }
